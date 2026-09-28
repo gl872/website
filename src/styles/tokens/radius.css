@@ -1,0 +1,16 @@
+:root{
+/* Krue rounds generously — the app icon's squircle sets the tone. */
+--radius-xs:6px;
+--radius-sm:10px;
+--radius-md:14px;
+--radius-lg:20px;
+--radius-xl:28px;
+--radius-squircle:24%;  /* app-icon / logo tile proportion */
+--radius-pill:999px;
+--radius-circle:50%;
+
+--border-width-hairline:1px;
+--border-width-default:1.5px;
+--border-width-thick:2px;
+--border-width-emphasis:3px;
+}

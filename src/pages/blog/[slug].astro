@@ -1,0 +1,157 @@
+---
+import { getCollection, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import ShareButtons from "../../components/ShareButtons.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const TAG_BG: Record<string, string> = {
+  "Company news": "var(--dandelion-100)",
+  Articles: "var(--lavender-100)",
+  "Practical guides": "var(--sage-100)",
+};
+
+const dateLabel = post.data.date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+---
+
+<Base title={`${post.data.title} | Krue Blog`} description={post.data.excerpt} path={`/blog/${post.id}`}>
+  <div class="page">
+    <Header showAnnouncement={false} />
+    <main>
+      <article class="post">
+        <a href="/blog" class="post__back">&larr; All posts</a>
+        <div class="post__head">
+          <span class="post__tag" style={`background:${TAG_BG[post.data.type]}`}>{post.data.type}</span>
+          <h1>{post.data.title}</h1>
+        </div>
+        <div class="post__byline">
+          <div class="post__author">
+            <img src="/assets/photos/founder-portrait.webp" alt="Grace, Krue's founder." class="post__author-photo" />
+            <div class="post__author-info">
+              <span class="post__author-name">Grace [Last name]</span>
+              <span class="post__author-role">Founder, Krue &middot; [Credentials]</span>
+              <span class="post__author-date">{dateLabel}</span>
+            </div>
+          </div>
+          <ShareButtons title={post.data.title} />
+        </div>
+        <div class="post__body">
+          <Content />
+        </div>
+        <div class="post__cta">
+          <div class="post__cta-text">
+            <p class="post__cta-title">You don&rsquo;t need to know who to ask.</p>
+            <p class="post__cta-body">Start with what you need. We&rsquo;ll review whether we can help.</p>
+          </div>
+          <a href="/#start" class="btn btn-primary btn-lg">Get started</a>
+        </div>
+      </article>
+    </main>
+    <Footer showBlogLink />
+  </div>
+</Base>
+
+<style>
+  .page { min-height: 100vh; background: var(--white); color: var(--navy-500); font-family: var(--font-body); display: flex; flex-direction: column; }
+  main { flex: 1; }
+
+  .post {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: clamp(40px, 5vw, 72px) 24px clamp(72px, 9vw, 128px);
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+  }
+  .post__back {
+    align-self: flex-start;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 14px 0 8px;
+    margin-left: -8px;
+    border-radius: 999px;
+    color: var(--navy-500);
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+  }
+  .post__back:hover { background: var(--navy-50); }
+
+  .post__head { display: flex; flex-direction: column; gap: 18px; }
+  .post__tag { align-self: flex-start; color: var(--navy-800); border-radius: 999px; padding: 4px 12px; font-weight: 700; font-size: 14px; }
+  .post__head h1 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(34px, 4.6vw, 52px);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    color: var(--navy-500);
+    text-wrap: balance;
+  }
+
+  .post__byline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 18px 0;
+    border-top: 1px solid var(--grey-100);
+    border-bottom: 1px solid var(--grey-100);
+  }
+  .post__author { display: flex; align-items: center; gap: 14px; }
+  .post__author-photo { width: 56px; height: 56px; border-radius: 999px; object-fit: cover; flex: none; background: var(--lavender-100); }
+  .post__author-info { display: flex; flex-direction: column; gap: 2px; }
+  .post__author-name { font-weight: 800; font-size: 16px; color: var(--navy-500); }
+  .post__author-role { font-size: 15px; color: var(--grey-700); }
+  .post__author-date { font-size: 14px; font-weight: 600; color: var(--grey-600); }
+
+  .post__body {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--grey-700);
+  }
+  .post__body :global(h2) {
+    margin: 12px 0 0;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--navy-500);
+  }
+  .post__body :global(p) { margin: 0; }
+  .post__body :global(ul),
+  .post__body :global(ol) { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
+  .post__body :global(figure) { margin: 8px 0; display: flex; flex-direction: column; gap: 10px; }
+  .post__body :global(figure img) { width: 100%; border-radius: 20px; display: block; }
+  .post__body :global(figcaption) { font-size: 15px; color: var(--grey-600); }
+  .post__body :global(a) { color: var(--navy-500); font-weight: 600; }
+
+  .post__cta {
+    background: var(--lavender-100);
+    border-radius: 24px;
+    padding: clamp(22px, 3vw, 32px);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+  .post__cta-text { display: flex; flex-direction: column; gap: 6px; max-width: 44ch; }
+  .post__cta-title { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 22px; color: var(--navy-500); }
+  .post__cta-body { margin: 0; font-size: 16px; line-height: 1.55; color: var(--navy-700); }
+</style>

@@ -1,0 +1,47 @@
+content:
+  - name: blog
+    label: Blog
+    path: src/content/blog
+    format: yaml-frontmatter
+    filename: "{fields.date}-{fields.title}.md"
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: type
+        label: Type
+        type: select
+        required: true
+        options:
+          values:
+            - Company news
+            - Articles
+            - Practical guides
+      - name: excerpt
+        label: Excerpt
+        description: Shown on the blog card. Keep it around 160 characters.
+        type: text
+        required: true
+      - name: date
+        label: Publish date
+        type: date
+        required: true
+      - name: cover
+        label: Cover image
+        type: image
+      - name: coverAlt
+        label: Cover image alt text
+        type: string
+      - name: draft
+        label: Draft
+        description: Turn off and save to publish this post.
+        type: boolean
+        default: true
+      - name: body
+        label: Body
+        type: rich-text
+
+media:
+  input: public/uploads
+  output: /uploads

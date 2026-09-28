@@ -1,0 +1,460 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import IntakeFlow from "../components/IntakeFlow.astro";
+
+const NOT_SURE = "I’m not sure where to start";
+
+const tints = ["var(--navy-50)", "var(--lavender-100)", "var(--dandelion-100)", "var(--pink-100)", "var(--sage-100)"];
+
+const needData = [
+  { title: "Managing energy & symptoms", line: "Make daily life more manageable with the capacity you have.", more: "Explore pacing, priorities, and ways of planning your day around your energy and symptoms, including better and worse days.", img: "texting-seated", pills: ["Managing my energy"] },
+  { title: "Everyday tasks & routines", line: "Find easier ways through showering, cooking, chores, and your day.", more: "Explore ways to simplify everyday tasks, change how you do them, and find tools or adaptations that can make them easier.", img: "cooking", pills: ["Taking care of myself", "Keeping up with things at home"] },
+  { title: "Work, school & activities", line: "Adapt responsibilities and stay connected to the things that matter.", more: "Explore changes to your routine, environment, workload, or activities that can make work, school, exercise, hobbies, and social life more manageable.", img: "phone-call", pills: ["Making work or school more manageable", "Getting out and doing more"] },
+  { title: "Building routines that work for me", line: "Create routines that fit your energy, symptoms, responsibilities, and goals.", more: "Explore ways to structure your day, balance what you need and want to do, and build routines that can flex when your capacity changes.", img: "laundry", pills: ["Managing my energy", "Taking care of myself"] },
+  { title: "Adapting my environment", line: "Make your surroundings work better for you.", more: "Explore changes to your home, workspace, or everyday setup, including tools and equipment that can make activities easier, safer, or less tiring.", img: "showering", pills: ["Taking care of myself", "Keeping up with things at home"] },
+  { title: "Brain fog & staying organized", line: "Make it easier to think, plan, remember, and get things done.", more: "Explore strategies and tools for memory, focus, planning, organization, and keeping track of everyday responsibilities when brain fog gets in the way.", img: "dizzy-standing", pills: ["Handling brain fog and staying organized"] },
+  { title: "Adjusting to changes in what I can do", line: "Find new ways to do the things that matter to you.", more: "Explore practical ways to adapt when your symptoms or abilities change, work around new limitations, and stay involved in the parts of life that matter to you.", img: "walking-dog", pills: ["Getting out and doing more"] },
+  { title: NOT_SURE, line: "You don’t need to have it figured out.", more: "Tell us what’s been difficult lately, and we’ll help you identify where an expert might be able to make daily life easier.", img: "independence", pills: [NOT_SURE] }
+];
+
+const faqData = [
+  ["What can I ask about?", ["Ask about daily life with chronic illness—from managing energy and adapting work or household tasks to equipment, routines, and practical support. You don’t need to know what kind of help you need. Describe what’s going on, and we’ll let you know whether our clinicians can help."]],
+  ["Is Krue right for my condition?", ["We’re initially focused on POTS and dysautonomia, Long COVID, ME/CFS, EDS and hypermobility, and fibromyalgia and chronic pain. If you have another condition—or are still looking for a diagnosis—you can still ask. We consider your needs alongside our clinicians’ expertise."]],
+  ["Who will answer my question?", ["A real, licensed occupational therapist with relevant experience. These clinicians help people manage how health conditions affect everyday activities, routines, and participation. You’ll see who you’d work with and their credentials before paying."]],
+  ["How does a consultation work?", ["Share your question and a little context. If we can help, you’ll see the consultation details and price before paying. Once your consultation begins, you can keep messaging your clinician about that need. Ask follow-up questions, try what you discuss, and work through next steps. If it’s helpful, you can continue with your clinician over time."]],
+  ["Do you accept insurance?", ["Krue is currently just cash/private pay. You’ll see the price and what’s included before you pay."]],
+  ["When will someone respond?", ["Messaging is asynchronous, so you and your clinician don’t need to be online at the same time."]],
+  ["Does Krue replace my doctor or ongoing care?", ["No. Krue focuses on the everyday impact of chronic illness alongside your existing care. We don’t diagnose medical conditions or prescribe medication, and we don’t replace ongoing medical or mental-health care. Krue is not an emergency service."]],
+  ["How is my information protected?", ["We use safeguards such as encryption and restricted access to protect your personal and health information. Access is limited to authorized people and service providers who need it to provide care or operate Krue. Our Privacy Policy explains how we collect, use, and share your information and how to contact us with questions."]]
+];
+
+const questions = [
+  "How can I shower without using all my energy?",
+  "I’m having a hard time adjusting to how much my life has changed.",
+  "My energy changes day to day. How do I plan around that?",
+  "How can I make work more manageable?",
+  "How do I explain what I need to my family?",
+  "How should I prepare for my next appointment?",
+  "Cooking has become really difficult. What could I change?",
+  "What kinds of resources or support might be available to me?",
+  "I was just diagnosed. Where do I start?",
+  "How do I keep doing things I enjoy when my capacity changes day to day?",
+  "Who should I talk to about this?"
+].map((text, i) => ({ text, bg: tints[i % 5], radius: i % 2 ? "22px 22px 22px 6px" : "22px 22px 6px 22px" }));
+
+const teamData = [
+  { name: "Kelsey", credential: "OTD", photo: "team-ot-1", tags: ["Pacing and fatigue", "Stress and well-being"], experience: "EDS, Dysautonomia, Long-COVID, MS" },
+  { name: "Janice", credential: "OTR/L", photo: "team-ot-2", tags: ["Self-care and routines", "Work and productivity"], experience: "POTS, ME/CFS, Fibromyalgia, Chronic Pain" },
+  { name: "Matt", credential: "OTR/L", photo: "team-ot-3", tags: ["Mobility", "Home & daily activities"], experience: "Parkinson’s, MS, Neuropathy, Arthritis" },
+  { name: "Kaitlyn", credential: "OTD", photo: "team-ot-4", tags: ["Brain fog and cognition", "Energy management"], experience: "Long COVID, Migraine, Dysautonomia, Autoimmune conditions" }
+];
+---
+
+<Base
+  title="Krue | Support for daily life with chronic illness"
+  description="Krue connects you with a licensed occupational therapist for practical guidance on energy, routines, work, and everyday life with chronic illness."
+  path="/"
+>
+  <div id="top" class="page">
+    <Header />
+
+    <main>
+      <!-- Hero + intake -->
+      <section class="hero">
+        <div class="hero__intro">
+          <p class="eyebrow">Support for daily life with chronic illness</p>
+          <h1>Chronic illness comes with a lot to figure out.</h1>
+          <p class="hero__lead"><strong>Tell us where you need help.</strong> A licensed clinician can help you work through questions about daily life with practical guidance and next steps.</p>
+        </div>
+        <div id="start" class="hero__start">
+          <IntakeFlow />
+        </div>
+      </section>
+
+      <!-- Lifestyle visual -->
+      <section class="lifestyle">
+        <figure class="lifestyle__figure">
+          <img src="/assets/photos/lifestyle-photo.webp" alt="A woman resting on the couch, texting on her phone." />
+          <div class="lifestyle__chat">
+            <span class="lifestyle__chat-label">You</span>
+            <div class="lifestyle__bubble lifestyle__bubble--you">By the time I get home from work, I don’t have enough energy to cook.</div>
+            <span class="lifestyle__chat-label">Kelsey, OTD &middot; Occupational therapist</span>
+            <div class="lifestyle__bubble lifestyle__bubble--them">That makes sense. We can look at low-effort meals, ways to prep without as much standing, and shortcuts that save your energy for the rest of your evening.</div>
+          </div>
+        </figure>
+        <ul class="lifestyle__points">
+          <li><span class="icon-circle"><img class="icon-inverse" src="/assets/icons/question.svg" alt="" /></span>Start with your question</li>
+          <li><span class="icon-circle"><img class="icon-inverse" src="/assets/icons/people-pair.svg" alt="" /></span>Connect with a licensed clinician</li>
+          <li><span class="icon-circle"><img class="icon-inverse" src="/assets/icons/noun-calendar.svg" alt="" /></span>Follow up as needed</li>
+        </ul>
+      </section>
+
+      <!-- What we help with -->
+      <section id="help" class="needs">
+        <div class="section-intro">
+          <p class="eyebrow">What we help with</p>
+          <h2>What would you like to make easier?</h2>
+          <p class="section-intro__body">Chronic illness can affect nearly every part of your life. Start with what’s getting in the way. These are starting points, and you can always describe something that doesn’t fit.</p>
+        </div>
+        <div class="needs__grid">
+          {needData.map((n, i) => {
+            const isLast = i === needData.length - 1;
+            const helpLabel = isLast ? "Get help →" : "Get help with this →";
+            return (
+              <div class="need-card" style={`background:${tints[i % 5]}`}>
+                <button type="button" class="need-toggle" aria-expanded="false" aria-controls={`need-panel-${i}`}>
+                  <span class="need-toggle__text">
+                    <span class="need-toggle__title">{n.title}</span>
+                    <span class="need-toggle__line">{n.line}</span>
+                    <span class="need-toggle__cue">Learn more</span>
+                  </span>
+                  <span class="need-toggle__img"><img src={`/assets/illustrations/${n.img}.png`} alt="" /></span>
+                </button>
+                <div id={`need-panel-${i}`} class="need-panel" hidden>
+                  <p>{n.more}</p>
+                  <div><button type="button" class="btn btn-primary btn-md" data-needs={JSON.stringify(n.pills)}>{helpLabel}</button></div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div class="needs__else">
+          <button type="button" class="btn-else" data-needs="[]">Something else</button>
+        </div>
+      </section>
+
+      <!-- How it works -->
+      <section id="how" class="how">
+        <div class="section-intro section-intro--left">
+          <p class="eyebrow">How Krue works</p>
+          <h2>A clear next step, with the right person in your corner.</h2>
+        </div>
+        <ol class="how__grid">
+          <li>
+            <div class="how__mock how__mock--chat">
+              <div class="how__msg how__msg--you">“My symptoms vary so much. How can I make my workday more manageable?”</div>
+            </div>
+            <span class="how__num">1</span>
+            <h3>Tell us what’s going on</h3>
+            <p>Start with a question, challenge, or goal. Share enough context for Krue to understand what you’re trying to figure out.</p>
+          </li>
+          <li>
+            <div class="how__mock how__mock--rows">
+              <div class="how__row"><strong>Question</strong> &middot; A more manageable workday</div>
+              <div class="how__row"><strong>Review</strong> &middot; Can a clinician help?</div>
+              <div class="how__row how__row--accent"><strong>Clinician</strong> &middot; Credentials and price</div>
+            </div>
+            <span class="how__num">2</span>
+            <h3>See whether we can help.</h3>
+            <p>We’ll review your question and whether a clinician with relevant expertise is available. You’ll see who you’d work with, their credentials, and the price before you pay.</p>
+          </li>
+          <li>
+            <div class="how__mock how__mock--convo">
+              <div class="how__bubble">What does a good day look like for you right now?</div>
+              <div class="how__next"><strong>Next steps</strong>A starting point to try this week</div>
+            </div>
+            <span class="how__num">3</span>
+            <h3>Work through it together</h3>
+            <p>Once you’re ready, your clinician joins the conversation, reviews your context, asks questions, and helps you find practical next steps within their scope.</p>
+          </li>
+          <li>
+            <div class="how__mock how__mock--timeline">
+              <div class="how__tl how__tl--navy"><strong>Mon</strong>First conversation</div>
+              <div class="how__tl"><strong>Wed</strong>“Quick question…”</div>
+              <div class="how__tl"><strong>Fri</strong>“That part helped.”</div>
+              <div class="how__tl how__tl--dandelion"><strong>Sun</strong>Adjust together</div>
+            </div>
+            <span class="how__num">4</span>
+            <h3>Keep the conversation going</h3>
+            <p>Keep messaging about that same need. Ask follow-up questions. Try something. Tell your clinician what happened. Adjust if needed.</p>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Meet experts (team) -->
+      <section id="experts" class="experts">
+        <div class="section-intro">
+          <p class="eyebrow">Meet Krue experts</p>
+          <h2>Real people. Relevant expertise.</h2>
+          <p class="section-intro__body">Krue&rsquo;s clinicians are licensed occupational therapists who help people manage the impact of chronic conditions on everyday activities, routines, and participation. That can include practical strategies, adaptations, tools, and changes to your surroundings.</p>
+        </div>
+        <div class="team-grid">
+          {teamData.map((t) => (
+            <article class="team-card">
+              <div class="team-card__photo">
+                <img src={`/assets/photos/${t.photo}.webp`} alt={`Portrait of ${t.name}, ${t.credential}`} />
+              </div>
+              <div class="team-card__body">
+                <div>
+                  <h3>{t.name}</h3>
+                  <p class="team-card__credential">{t.credential}</p>
+                </div>
+                <div class="team-card__tags">
+                  {t.tags.map((tag) => <span>{tag}</span>)}
+                </div>
+                <p class="team-card__experience">Experience with {t.experience}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <div class="team-cta">
+          <a href="#start" class="btn btn-secondary btn-lg">Ask a question →</a>
+        </div>
+      </section>
+
+      <!-- Example questions -->
+      <section class="examples">
+        <div class="section-intro">
+          <p class="eyebrow">What could I ask?</p>
+          <h2>Questions that don’t fit neatly into a doctor’s appointment.</h2>
+        </div>
+        <div class="examples__wrap">
+          {questions.map((q) => (
+            <p class="examples__bubble" style={`background:${q.bg};border-radius:${q.radius}`}>&ldquo;{q.text}&rdquo;</p>
+          ))}
+        </div>
+        <div class="examples__cta">
+          <a href="#start" class="btn btn-primary btn-lg">Ask what’s on your mind →</a>
+          <p class="examples__note">Illustrative questions.</p>
+        </div>
+      </section>
+
+      <!-- FAQs -->
+      <section id="cost" class="faqs">
+        <h2>A few things you may be wondering.</h2>
+        <div class="faq-list">
+          {faqData.map(([q, a], i) => (
+            <details class="faq-item" name="faq" open={i === 0}>
+              <summary class="faq-summary">
+                <span>{q}</span>
+                <span class="faq-icon" aria-hidden="true"></span>
+              </summary>
+              <div class="faq-panel">
+                {a.map((p) => <p>{p}</p>)}
+              </div>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <!-- Founder -->
+      <section class="founder">
+        <img class="founder__portrait" src="/assets/photos/founder-portrait.webp" alt="Grace, Krue's founder." />
+        <div class="founder__body">
+          <h2>Built from the everyday side of chronic illness.</h2>
+          <p>Living with POTS showed me how much there is to figure out beyond a diagnosis — how to manage your energy, adapt routines, keep doing the things that matter to you, and even figure out who can help with questions that don’t fit neatly into medical appointments.</p>
+          <p>I built Krue because getting the right support shouldn’t require becoming an expert in the healthcare system yourself.</p>
+          <p class="founder__sig">— Grace, Founder</p>
+        </div>
+      </section>
+
+      <!-- Final CTA -->
+      <section class="final-cta">
+        <div class="final-cta__panel">
+          <div class="final-cta__content">
+            <h2>You don’t need to know who to ask.</h2>
+            <p class="final-cta__strong">Start with what you need. We’ll review whether we can help.</p>
+            <p class="final-cta__body">Tell Krue what’s getting in the way, and we’ll help figure out the next step.</p>
+            <form id="final-cta-form" class="final-cta__form">
+              <label for="final-input">What’s on your mind?</label>
+              <textarea id="final-input" rows="2" class="field" placeholder="Tell us what’s going on..."></textarea>
+              <div><button type="submit" class="btn btn-primary btn-lg">Get started →</button></div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </div>
+</Base>
+
+<style>
+  .page { min-height: 100vh; background: var(--white); color: var(--navy-500); font-family: var(--font-body); }
+
+  main :global(section) { padding: clamp(72px, 9vw, 128px) 24px 0; }
+
+  .section-intro { max-width: 760px; margin: 0 auto 48px; text-align: center; display: flex; flex-direction: column; gap: 16px; align-items: center; }
+  .section-intro--left { text-align: left; align-items: flex-start; max-width: 760px; margin: 0 0 52px; }
+  .section-intro h2, .faqs h2 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(32px, 4.2vw, 52px); line-height: 1.08; letter-spacing: -0.03em; text-wrap: balance; }
+  .section-intro__body { margin: 0; font-size: 19px; line-height: 1.6; color: var(--grey-700); }
+
+  /* Hero */
+  .hero { padding-top: clamp(56px, 8vw, 104px); text-align: center; }
+  .hero__intro { max-width: 980px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 22px; }
+  .hero__intro h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(40px, 6.2vw, 74px); line-height: 1.04; letter-spacing: -0.035em; color: var(--navy-500); text-wrap: balance; margin: 0; }
+  .hero__lead { margin: 0; max-width: 720px; font-size: clamp(19px, 1.8vw, 23px); line-height: 1.5; color: var(--navy-900); }
+  .hero__lead strong { color: var(--navy-500); }
+  .hero__start { scroll-margin-top: 110px; max-width: 860px; margin: 44px auto 0; text-align: left; }
+
+  /* Lifestyle */
+  .lifestyle { max-width: 1220px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
+  .lifestyle__figure { margin: 0; position: relative; border-radius: var(--radius-xl); overflow: hidden; min-height: clamp(420px, 52vw, 620px); background: var(--grey-100); }
+  .lifestyle__figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .lifestyle__chat { position: absolute; right: clamp(14px, 3vw, 36px); bottom: clamp(14px, 3vw, 36px); left: clamp(14px, 3vw, auto); max-width: 400px; background: #FFFFFF; border-radius: 22px; padding: 22px; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; gap: 12px; }
+  .lifestyle__chat-label { font-size: 13px; font-weight: 700; color: var(--grey-600); }
+  .lifestyle__bubble { border-radius: 18px; padding: 12px 16px; font-size: 16px; line-height: 1.45; }
+  .lifestyle__bubble--you { align-self: flex-end; background: var(--navy-500); color: #FFFFFF; border-radius: 18px 18px 4px 18px; }
+  .lifestyle__bubble--them { background: var(--lavender-100); color: var(--navy-500); border-radius: 18px 18px 18px 4px; }
+  .lifestyle__points { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px 28px; }
+  .lifestyle__points li { display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 17px; font-weight: 600; color: var(--navy-800); }
+  .icon-circle { width: 40px; height: 40px; border-radius: 999px; background: var(--navy-500); display: grid; place-items: center; flex: none; }
+  .icon-circle img { width: 20px; height: 20px; }
+
+  /* Needs */
+  .needs { max-width: 1220px; margin: 0 auto; }
+  .needs__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 20px; align-items: start; }
+  .need-card { border-radius: var(--radius-lg); overflow: hidden; transition: box-shadow 220ms ease; }
+  .need-card:hover, .need-card:focus-within { box-shadow: inset 0 0 0 2px var(--sky-300); }
+  .need-toggle { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) clamp(96px, 26%, 128px); gap: 16px; align-items: center; width: 100%; padding: 24px; min-height: 190px; border-radius: var(--radius-lg); }
+  .need-toggle__text { display: flex; flex-direction: column; gap: 8px; }
+  .need-toggle__title { font-family: var(--font-display); font-weight: 800; font-size: 23px; line-height: 1.15; letter-spacing: -0.02em; color: var(--navy-500); }
+  .need-toggle__line { font-size: 17px; line-height: 1.45; color: var(--navy-700); }
+  .need-toggle__cue { margin-top: 6px; font-size: 14px; font-weight: 700; color: var(--navy-500); text-decoration: underline; text-underline-offset: 3px; }
+  .need-toggle__img { width: 100%; height: 140px; display: flex; align-items: center; justify-content: center; }
+  .need-toggle__img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .need-panel { padding: 18px 24px 24px; background: #FFFFFF; margin: 0 10px 10px; border-radius: 16px; display: flex; flex-direction: column; gap: 14px; }
+  .need-panel[hidden] { display: none; }
+  .need-panel p { margin: 0; font-size: 17px; line-height: 1.55; color: var(--navy-700); }
+  .needs__else { margin-top: 32px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+  .btn-else { min-height: 52px; padding: 0 26px; border-radius: 999px; border: 1.5px solid var(--navy-500); background: transparent; color: var(--navy-500); font: 700 17px var(--font-body); cursor: pointer; }
+  .btn-else:hover { background: var(--navy-50); }
+
+  /* How it works */
+  .how { max-width: 1220px; margin: 0 auto; }
+  .how__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  @media (max-width: 900px) { .how__grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .how__grid { grid-template-columns: 1fr; } }
+  .how__grid li { display: flex; flex-direction: column; gap: 14px; }
+  .how__mock { height: 170px; border-radius: var(--radius-lg); background: #FFFFFF; border: 1px solid var(--grey-100); padding: 18px; display: flex; }
+  .how__mock--chat { align-items: flex-end; }
+  .how__msg--you { background: var(--navy-500); color: #FFFFFF; border-radius: 16px 16px 4px 16px; padding: 10px 14px; font-size: 14px; line-height: 1.45; }
+  .how__mock--rows { flex-direction: column; justify-content: center; gap: 8px; font-size: 14px; }
+  .how__row { background: var(--grey-50); border-radius: 10px; padding: 8px 12px; }
+  .how__row--accent { background: var(--lavender-100); }
+  .how__mock--convo { flex-direction: column; justify-content: center; gap: 8px; font-size: 14px; }
+  .how__bubble { background: var(--lavender-100); border-radius: 14px 14px 14px 4px; padding: 8px 12px; max-width: 85%; }
+  .how__next { border-radius: 12px; border: 1.5px solid var(--lavender-200); padding: 10px 12px; }
+  .how__next strong { display: block; margin-bottom: 2px; }
+  .how__mock--timeline { flex-direction: column; justify-content: center; gap: 10px; font-size: 14px; padding: 18px 22px; }
+  .how__tl { display: flex; gap: 12px; align-items: center; }
+  .how__tl::before { content: ""; width: 10px; height: 10px; border-radius: 999px; background: var(--lavender-200); flex: none; }
+  .how__tl--navy::before { background: var(--navy-500); }
+  .how__tl--dandelion::before { background: var(--dandelion-400); }
+  .how__tl strong { width: 48px; }
+  .how__num { width: 36px; height: 36px; border-radius: 999px; background: var(--dandelion-400); color: var(--navy-500); display: grid; place-items: center; font-weight: 800; font-family: var(--font-display); }
+  .how__grid h3 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; }
+  .how__grid p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--grey-700); }
+
+  /* Example questions */
+  .examples { max-width: 1220px; margin: 0 auto; overflow: hidden; }
+  .examples__wrap { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 10px; max-width: 1060px; margin: 0 auto; }
+  .examples__bubble { margin: 0; padding: 16px 22px; font-size: clamp(16px, 1.4vw, 19px); font-weight: 600; line-height: 1.4; color: var(--navy-500); max-width: 460px; }
+  .examples__cta { margin-top: 44px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .examples__note { margin: 0; font-size: 14px; color: var(--grey-600); }
+
+  /* Experts (team) */
+  .experts { max-width: 1220px; margin: 0 auto; }
+  .team-grid { max-width: 1040px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 900px) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 480px) { .team-grid { grid-template-columns: 1fr; } }
+  .team-card { background: #FFFFFF; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); overflow: hidden; display: flex; flex-direction: column; }
+  .team-card__photo { aspect-ratio: 1 / 1; background: var(--navy-50); }
+  .team-card__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .team-card__body { padding: 16px 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+  .team-card__body h3 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 18px; letter-spacing: -0.02em; }
+  .team-card__credential { margin: 2px 0 0; font-size: 14px; font-weight: 700; color: var(--navy-400); }
+  .team-card__tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .team-card__tags span { background: var(--lavender-100); border-radius: 999px; padding: 4px 10px; font-size: 13px; font-weight: 600; }
+  .team-card__experience { margin: 0; font-size: 14px; line-height: 1.45; color: var(--grey-700); }
+  .team-cta { margin-top: 40px; display: flex; justify-content: center; }
+
+  /* FAQs */
+  .faqs { max-width: 860px; margin: 0 auto; }
+  .faqs h2 { margin: 0 0 36px; text-align: left; }
+  .faq-list { border-top: 1px solid var(--grey-200); }
+  .faq-item { border-bottom: 1px solid var(--grey-200); }
+  .faq-summary { list-style: none; margin: 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 4px; font-family: var(--font-display); font-weight: 700; font-size: clamp(18px, 1.6vw, 21px); letter-spacing: -0.01em; color: var(--navy-500); }
+  .faq-summary::-webkit-details-marker { display: none; }
+  .faq-summary:focus-visible { box-shadow: 0 0 0 3px var(--navy-200); border-radius: 8px; }
+  .faq-icon { width: 32px; height: 32px; border-radius: 999px; background: var(--lavender-100); color: var(--navy-500); display: grid; place-items: center; flex: none; font-size: 20px; font-weight: 700; }
+  .faq-icon::before { content: "+"; }
+  .faq-item[open] .faq-icon { background: var(--navy-500); color: #FFFFFF; }
+  .faq-item[open] .faq-icon::before { content: "\2212"; }
+  .faq-panel { padding: 0 56px 24px 4px; display: flex; flex-direction: column; gap: 12px; }
+  .faq-panel p { margin: 0; font-size: 17px; line-height: 1.65; color: var(--grey-700); max-width: 64ch; }
+
+  /* Founder */
+  .founder { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), auto)); gap: clamp(28px, 5vw, 56px); align-items: center; }
+  .founder__portrait { width: 200px; height: 200px; border-radius: 999px; background: var(--lavender-100); object-fit: cover; display: block; }
+  .founder__body { display: flex; flex-direction: column; gap: 16px; max-width: 620px; }
+  .founder__body h2 { font-size: clamp(26px, 3vw, 36px); line-height: 1.12; letter-spacing: -0.025em; text-align: left; margin: 0; }
+  .founder__body p { margin: 0; font-size: 18px; line-height: 1.65; color: var(--grey-700); }
+  .founder__sig { font-weight: 700; font-size: 17px; color: var(--navy-500); }
+
+  /* Final CTA */
+  .final-cta { padding-bottom: clamp(72px, 9vw, 128px); }
+  .final-cta__panel {
+    max-width: 1220px;
+    margin: 0 auto;
+    min-height: 480px;
+    border-radius: var(--radius-xl);
+    padding: clamp(36px, 6vw, 80px) clamp(24px, 5vw, 72px);
+    display: flex;
+    align-items: center;
+    background:
+      linear-gradient(90deg, #F2E9F3 0%, #F2E9F3 38%, rgba(242,233,243,.86) 52%, rgba(242,233,243,.3) 72%, rgba(242,233,243,.12) 100%),
+      url("/assets/photos/final-cta-phone.png") 70% center / cover no-repeat;
+  }
+  .final-cta__content { display: flex; flex-direction: column; gap: 18px; max-width: 520px; }
+  .final-cta__content h2 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(32px, 4.4vw, 54px); line-height: 1.06; letter-spacing: -0.03em; text-wrap: balance; text-align: left; }
+  .final-cta__strong { margin: 0; font-size: 20px; line-height: 1.55; font-weight: 700; }
+  .final-cta__body { margin: 0; font-size: 18px; line-height: 1.6; color: var(--grey-700); }
+  .final-cta__form { margin-top: 8px; background: #FFFFFF; border-radius: var(--radius-lg); padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .final-cta__form label { font-weight: 700; font-size: 17px; }
+
+  @media (max-width: 900px) {
+    .final-cta__panel {
+      background:
+        linear-gradient(180deg, rgba(242,233,243,.92) 0%, rgba(242,233,243,.9) 55%, rgba(242,233,243,.75) 100%),
+        url("/assets/photos/final-cta-phone.png") 72% center / cover no-repeat;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+
+    const toggle = target.closest('.need-toggle') as HTMLElement | null;
+    if (toggle) {
+      const panel = document.getElementById(toggle.getAttribute('aria-controls') || '');
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', String(!expanded));
+      const cue = toggle.querySelector('.need-toggle__cue');
+      if (cue) cue.textContent = expanded ? 'Learn more' : 'Show less';
+      if (panel) panel.hidden = expanded;
+      return;
+    }
+
+    const startBtn = target.closest('[data-needs]') as HTMLElement | null;
+    if (startBtn) {
+      const needs = JSON.parse(startBtn.dataset.needs || '[]');
+      window.dispatchEvent(new CustomEvent('krue:set-needs', { detail: { needs } }));
+    }
+  });
+
+  const finalForm = document.getElementById('final-cta-form') as HTMLFormElement | null;
+  if (finalForm) {
+    finalForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const textarea = document.getElementById('final-input') as HTMLTextAreaElement;
+      const notes = textarea.value.trim();
+      if (!notes) return;
+      window.dispatchEvent(new CustomEvent('krue:jump-notes', { detail: { notes } }));
+      textarea.value = '';
+    });
+  }
+</script>

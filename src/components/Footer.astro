@@ -1,0 +1,98 @@
+---
+interface Props {
+  showBlogLink?: boolean;
+}
+const { showBlogLink = false } = Astro.props;
+---
+
+<footer class="site-footer">
+  <div class="site-footer__grid">
+    <div class="site-footer__brand">
+      <img src="/assets/logos/krue-wordmark-white.png" alt="Krue" height="28" />
+      <p>Support for daily life with chronic illness.</p>
+    </div>
+    <nav aria-label="Support">
+      <p class="site-footer__heading">Support</p>
+      <a href="/#help">What we help with</a>
+      <a href="/#how">How it works</a>
+      <a href="/#experts">Our experts</a>
+    </nav>
+    <nav aria-label="Getting started">
+      <p class="site-footer__heading">Getting started</p>
+      <a href="/#cost">Cost</a>
+      <a href="/#cost">FAQs</a>
+      <a href="mailto:hello@krue.io">Contact</a>
+    </nav>
+    <nav aria-label="Krue and policies">
+      <p class="site-footer__heading">Krue</p>
+      <a href="/">Our story</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/accessibility">Accessibility</a>
+      {showBlogLink && <a href="/blog">Blog</a>}
+    </nav>
+  </div>
+  <p class="site-footer__disclaimer">Krue does not replace primary, specialty, or emergency medical care. If you're experiencing a medical emergency, call 911.</p>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--navy-500);
+    color: #FFFFFF;
+    padding: 64px 24px 40px;
+  }
+  .site-footer__grid {
+    max-width: 1220px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 36px;
+  }
+  .site-footer__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .site-footer__brand img {
+    height: 28px;
+    width: auto;
+    max-width: none;
+  }
+  .site-footer__brand p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--grey-300);
+    max-width: 26ch;
+  }
+  .site-footer nav {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 15px;
+  }
+  .site-footer__heading {
+    margin: 0 0 4px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--lavender-200);
+  }
+  .site-footer a {
+    color: #FFFFFF;
+    text-decoration: none;
+  }
+  .site-footer a:hover {
+    text-decoration: underline;
+  }
+  .site-footer__disclaimer {
+    max-width: 1220px;
+    margin: 48px auto 0;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--grey-300);
+  }
+</style>

@@ -1,0 +1,18 @@
+/* Minimal element defaults so a bare page picks up the brand voice. */
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;font:var(--type-body);color:var(--text-body);background:var(--surface-page);-webkit-font-smoothing:antialiased;text-wrap:pretty}
+h1,h2,h3,h4{margin:0;color:var(--text-heading);letter-spacing:var(--tracking-heading);text-wrap:balance}
+h1{font:var(--type-h1)}
+h2{font:var(--type-h2)}
+h3{font:var(--type-h3)}
+h4{font:var(--type-h4)}
+p{margin:0 0 var(--space-4)}
+a{color:var(--text-link);text-decoration-thickness:1.5px;text-underline-offset:3px;transition:color var(--duration-fast) var(--ease-standard)}
+a:hover{color:var(--text-link-hover)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:none;box-shadow:var(--shadow-focus)}
+small{font:var(--type-caption);color:var(--text-muted)}
+code,kbd{font-family:var(--font-mono);font-size:.92em}
+img{max-width:100%;height:auto}
+hr{border:none;border-top:1px solid var(--border-subtle);margin:var(--space-8) 0}
+::selection{background:var(--sky-200);color:var(--navy-800)}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}

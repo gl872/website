@@ -1,0 +1,8 @@
+/* Krue webfonts.
+   The brand specifies Forma DJR Text (display/headings) + Avenir (body). Both are
+   commercially licensed and no binaries were supplied with the brand folder, so this
+   design system ships the nearest open substitutes:
+     Forma DJR Text -> Archivo      (same neutral-grotesque skeleton, tall x-height)
+     Avenir         -> Nunito Sans  (geometric humanist sans, closest free match)
+   Replace this file with real @font-face rules + binaries when licences are available. */
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,600;6..12,700&display=swap");

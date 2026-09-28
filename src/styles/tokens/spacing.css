@@ -1,0 +1,39 @@
+:root{
+/* 4px base step */
+--space-0:0px;
+--space-1:4px;
+--space-2:8px;
+--space-3:12px;
+--space-4:16px;
+--space-5:20px;
+--space-6:24px;
+--space-8:32px;
+--space-10:40px;
+--space-12:48px;
+--space-16:64px;
+--space-20:80px;
+--space-24:96px;
+--space-32:128px;
+
+/* Layout */
+--container-max:1200px;
+--container-narrow:760px;
+--container-wide:1400px;
+--gutter-mobile:20px;
+--gutter-desktop:40px;
+--section-y-mobile:56px;
+--section-y-desktop:96px;
+
+/* Component sizing */
+--control-height-sm:36px;
+--control-height-md:44px;
+--control-height-lg:52px;
+--tap-target-min:44px;
+--icon-sm:16px;
+--icon-md:20px;
+--icon-lg:24px;
+--icon-xl:32px;
+--avatar-sm:32px;
+--avatar-md:44px;
+--avatar-lg:64px;
+}
