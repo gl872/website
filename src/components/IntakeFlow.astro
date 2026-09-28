@@ -424,7 +424,7 @@
           </div>
           <div class="intake-field-group intake-span-2" data-blur-target="email">
             <label for="intake-email" class="field-label">Email<span aria-hidden="true" class="required-mark">*</span></label>
-            <input id="intake-email" type="email" class="field${emailBad ? ' is-invalid' : ''}" data-bind="email" autocomplete="email" placeholder="you@example.com" required aria-invalid="${emailBad}" aria-describedby="email-error" value="${esc(state.email)}" />
+            <input id="intake-email" type="text" inputmode="email" class="field${emailBad ? ' is-invalid' : ''}" data-bind="email" autocomplete="email" placeholder="you@example.com" required aria-invalid="${emailBad}" aria-describedby="email-error" value="${esc(state.email)}" />
             ${emailBad ? `<span id="email-error" role="alert" class="intake-error">Enter an email in the format name@example.com.</span>` : ''}
           </div>
           <div class="intake-field-group intake-span-2">
@@ -625,17 +625,23 @@
         state[key] = el.value;
       }
       // Re-render only the parts that need it, preserving focus for text inputs.
+      // Some input types (e.g. email, number) don't support the selection API at
+      // all — reading or setting selectionStart silently no-ops or returns null,
+      // so always fall back to placing the caret at the end rather than leaving
+      // it unset (which defaults to the start and reverses typed input).
       const active = document.activeElement;
       const activeId = active && active.id;
-      const selStart = active && 'selectionStart' in active ? active.selectionStart : null;
+      let selStart = null;
+      try {
+        selStart = active && typeof active.selectionStart === 'number' ? active.selectionStart : null;
+      } catch (err) {}
       render();
       if (activeId) {
         const toFocus = document.getElementById(activeId);
         if (toFocus) {
           toFocus.focus();
-          if (selStart !== null && 'setSelectionRange' in toFocus) {
-            try { toFocus.setSelectionRange(selStart, selStart); } catch (err) {}
-          }
+          const pos = selStart !== null ? selStart : (toFocus.value ? toFocus.value.length : 0);
+          try { toFocus.setSelectionRange(pos, pos); } catch (err) {}
         }
       }
     });
