@@ -1,0 +1,23 @@
+# Krue
+
+> Krue connects people living with chronic illness to a licensed occupational therapist for practical, one-on-one support with everyday life.
+
+Krue is currently focused on people with POTS and dysautonomia, Long COVID, ME/CFS, EDS and hypermobility, and fibromyalgia and chronic pain. People with other conditions, or who are still looking for a diagnosis, are welcome to ask too.
+
+Krue's occupational therapists help with:
+
+- Managing energy and pacing through symptoms
+- Everyday tasks and routines (showering, cooking, chores)
+- Work, school, and activities
+- Adapting a home or environment
+- Brain fog and staying organized
+- Adjusting to changes in ability
+
+How it works: someone shares what they need help with, Krue reviews whether a clinician with relevant expertise is available, and the person sees who they'd work with and the price before paying. Support continues as ongoing asynchronous messaging with that clinician about the same need.
+
+Krue is private-pay (no insurance) and does not replace primary, specialty, or emergency medical care. Krue is not an emergency service; in a medical emergency, call 911.
+
+## Pages
+
+- [Homepage](https://krue.io/): what Krue helps with, how it works, meet the team, cost and FAQs
+- [Blog](https://krue.io/blog): company news, articles, and practical guides for everyday life with chronic illness

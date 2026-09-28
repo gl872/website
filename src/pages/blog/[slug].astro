@@ -20,9 +20,34 @@ const TAG_BG: Record<string, string> = {
 };
 
 const dateLabel = post.data.date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+
+const siteUrl = Astro.site ?? new URL("https://krue.io");
+const postUrl = new URL(`/blog/${post.id}`, siteUrl).toString();
+const postImage = post.data.cover
+  ? new URL(post.data.cover, siteUrl).toString()
+  : new URL("/og-image.png", siteUrl).toString();
+
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.excerpt,
+  datePublished: post.data.date.toISOString(),
+  image: postImage,
+  url: postUrl,
+  mainEntityOfPage: postUrl,
+  author: { "@type": "Person", name: "Grace" },
+  publisher: {
+    "@type": "Organization",
+    name: "Krue",
+    logo: { "@type": "ImageObject", url: new URL("/assets/logos/krue-wordmark-navy.png", siteUrl).toString() },
+  },
+};
 ---
 
-<Base title={`${post.data.title} | Krue Blog`} description={post.data.excerpt} path={`/blog/${post.id}`}>
+<Base title={`${post.data.title} | Krue Blog`} description={post.data.excerpt} path={`/blog/${post.id}`} ogType="article">
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
+
   <div class="page">
     <Header showAnnouncement={false} />
     <main>

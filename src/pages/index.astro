@@ -44,6 +44,16 @@ const questions = [
   "Who should I talk to about this?"
 ].map((text, i) => ({ text, bg: tints[i % 5], radius: i % 2 ? "22px 22px 22px 6px" : "22px 22px 6px 22px" }));
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqData.map(([q, a]) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a.join(" ") },
+  })),
+};
+
 const teamData = [
   { name: "Kelsey", credential: "OTD", photo: "team-ot-1", tags: ["Pacing and fatigue", "Stress and well-being"], experience: "EDS, Dysautonomia, Long-COVID, MS" },
   { name: "Janice", credential: "OTR/L", photo: "team-ot-2", tags: ["Self-care and routines", "Work and productivity"], experience: "POTS, ME/CFS, Fibromyalgia, Chronic Pain" },
@@ -57,6 +67,8 @@ const teamData = [
   description="Krue connects you with a licensed occupational therapist for practical guidance on energy, routines, work, and everyday life with chronic illness."
   path="/"
 >
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
+
   <div id="top" class="page">
     <Header />
 
@@ -228,7 +240,7 @@ const teamData = [
           {faqData.map(([q, a], i) => (
             <details class="faq-item" name="faq" open={i === 0}>
               <summary class="faq-summary">
-                <span>{q}</span>
+                <h3>{q}</h3>
                 <span class="faq-icon" aria-hidden="true"></span>
               </summary>
               <div class="faq-panel">
@@ -376,7 +388,8 @@ const teamData = [
   .faqs h2 { margin: 0 0 36px; text-align: left; }
   .faq-list { border-top: 1px solid var(--grey-200); }
   .faq-item { border-bottom: 1px solid var(--grey-200); }
-  .faq-summary { list-style: none; margin: 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 4px; font-family: var(--font-display); font-weight: 700; font-size: clamp(18px, 1.6vw, 21px); letter-spacing: -0.01em; color: var(--navy-500); }
+  .faq-summary { list-style: none; margin: 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 4px; }
+  .faq-summary h3 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: clamp(18px, 1.6vw, 21px); letter-spacing: -0.01em; color: var(--navy-500); }
   .faq-summary::-webkit-details-marker { display: none; }
   .faq-summary:focus-visible { box-shadow: 0 0 0 3px var(--navy-200); border-radius: 8px; }
   .faq-icon { width: 32px; height: 32px; border-radius: 999px; background: var(--lavender-100); color: var(--navy-500); display: grid; place-items: center; flex: none; font-size: 20px; font-weight: 700; }

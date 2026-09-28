@@ -34,6 +34,11 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
   }
+  #intake-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
 
   /* Step header */
   .intake-topbar {
@@ -85,6 +90,17 @@
     flex-direction: column;
     gap: 18px;
   }
+  .intake-section--profile {
+    gap: 22px;
+  }
+  .intake-section--review {
+    gap: 12px;
+  }
+  .conditions-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
   .pill-group {
     display: flex;
     flex-wrap: wrap;
@@ -122,11 +138,15 @@
     grid-template-columns: minmax(120px, 160px) minmax(0, 1fr);
     gap: 10px;
   }
+  .conditions-group__label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
   .cond-desc {
     font-size: 15px;
     line-height: 1.45;
     color: var(--grey-700);
-    margin: -10px 0 0;
   }
   .cond-add-row {
     display: grid;
@@ -358,7 +378,7 @@
       const showCondText = state.conds.includes('Something else');
       const chips = state.custom.map((c) => `<span role="listitem" class="cond-chip">${esc(c)}<button type="button" data-action="remove-cond" data-value="${esc(c)}" aria-label="Remove ${esc(c)}">×</button></span>`).join('');
       return `
-        <div class="intake-section">
+        <div class="intake-section intake-section--profile">
           <div class="intake-field-group">
             <label for="intake-state" class="field-label">State you live in<span aria-hidden="true" class="required-mark">*</span></label>
             <span class="intake-info-box">We use this to connect you with an occupational therapist who can practice where you are since they are licensed state by state.</span>
@@ -366,10 +386,10 @@
               <div class="select-wrap"><select id="intake-state" data-bind="st" class="field">${stateOptions}</select></div>
             </div>
           </div>
-          <div class="intake-field-group">
-            <div>
+          <div class="conditions-group">
+            <div class="conditions-group__label">
               <span id="conds-label" class="field-label">Conditions you live with</span>
-              <p class="cond-desc">This helps us make sure we match you with the right expert.</p>
+              <span class="cond-desc">This helps us make sure we match you with the right expert.</span>
             </div>
             <div role="group" aria-labelledby="conds-label" class="pill-group">${condPills}</div>
             ${showCondText ? `
@@ -434,7 +454,7 @@
         </div>`).join('');
       const errorHtml = state.submitError ? `<p class="intake-error" role="alert" style="margin:0">Something went wrong. Please try again.</p>` : '';
       return `
-        <div class="intake-section">
+        <div class="intake-section intake-section--review">
           ${cardsHtml}
           <p class="consent-line">By submitting, you agree to our <a href="/privacy">Privacy Policy</a>.</p>
           ${errorHtml}
