@@ -1,0 +1,150 @@
+---
+// Google Tag Manager + a minimal cookie-consent banner, entirely inert unless
+// PUBLIC_GTM_ID is set (same fallback-safe pattern as PUBLIC_APP_URL in
+// src/lib/appLink.ts). GTM's own install instructions require two separate
+// snippets — one in <head>, one right after <body> opens — so this component
+// takes a `placement` prop and is included twice from Base.astro.
+//
+// Analytics/ad cookies default to denied (Google Consent Mode v2) until the
+// visitor accepts the banner. GA4's "Outbound clicks" Enhanced Measurement
+// setting must be turned off in the GA4 dashboard — see the plan doc — since
+// the hero topic picker's Continue button links to the app with the chosen
+// topic in the URL (?topic=...), and that setting would otherwise report
+// which health topic someone picked back to Google by default.
+interface Props {
+  placement: "head" | "body";
+}
+const { placement } = Astro.props;
+const gtmId = import.meta.env.PUBLIC_GTM_ID as string | undefined;
+---
+
+{placement === "head" && gtmId && (
+  <>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { window.dataLayer.push(arguments); }
+      gtag('consent', 'default', {
+        analytics_storage: 'denied',
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+      });
+    </script>
+    <script is:inline define:vars={{ gtmId }}>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', gtmId);
+    </script>
+  </>
+)}
+
+{placement === "body" && gtmId && (
+  <>
+    <noscript>
+      <iframe src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`} height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+
+    <div id="cookie-consent" class="cookie-consent" hidden>
+      <p>We use cookies to understand site traffic and improve Krue. <a href="/privacy">Learn more</a></p>
+      <div class="cookie-consent__actions">
+        <button type="button" id="cookie-decline" class="btn btn-ghost btn-md">Decline</button>
+        <button type="button" id="cookie-accept" class="btn btn-primary btn-md">Accept</button>
+      </div>
+    </div>
+
+    <script is:inline>
+      (function () {
+        var KEY = 'krue-cookie-consent';
+        var banner = document.getElementById('cookie-consent');
+        var accept = document.getElementById('cookie-accept');
+        var decline = document.getElementById('cookie-decline');
+        if (!banner || !accept || !decline) return;
+
+        function update(granted) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { window.dataLayer.push(arguments); }
+          var state = granted ? 'granted' : 'denied';
+          gtag('consent', 'update', {
+            analytics_storage: state,
+            ad_storage: state,
+            ad_user_data: state,
+            ad_personalization: state,
+          });
+        }
+
+        var stored = null;
+        try { stored = localStorage.getItem(KEY); } catch (e) {}
+
+        if (stored === 'granted') {
+          update(true);
+        } else if (stored === 'denied') {
+          update(false);
+        } else {
+          banner.hidden = false;
+          requestAnimationFrame(function () { banner.classList.add('is-visible'); });
+        }
+
+        accept.addEventListener('click', function () {
+          try { localStorage.setItem(KEY, 'granted'); } catch (e) {}
+          update(true);
+          banner.classList.remove('is-visible');
+        });
+        decline.addEventListener('click', function () {
+          try { localStorage.setItem(KEY, 'denied'); } catch (e) {}
+          update(false);
+          banner.classList.remove('is-visible');
+        });
+      })();
+    </script>
+  </>
+)}
+
+<style>
+  .cookie-consent {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    z-index: 100;
+    max-width: 640px;
+    margin: 0 auto;
+    background: #FFFFFF;
+    border: 1px solid var(--grey-200);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 18px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 220ms ease, transform 280ms ease-out;
+  }
+  .cookie-consent.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .cookie-consent p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--navy-800);
+    flex: 1 1 260px;
+  }
+  .cookie-consent__actions {
+    display: flex;
+    gap: 10px;
+    flex: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cookie-consent { transition: none; }
+  }
+</style>
