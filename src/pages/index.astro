@@ -2,7 +2,6 @@
 import Base from "../layouts/Base.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { appLink } from "../lib/appLink";
 import TopicPicker from "../components/TopicPicker.astro";
 // The old 4-step IntakeFlow (conditions, contact info, review, submit-to-
 // Sheet) is switched off in favor of the separate intake app. Its code is
@@ -215,7 +214,7 @@ const teamData = [
           ))}
         </div>
         <div class="team-cta">
-          <a href={appLink()} class="btn btn-secondary btn-lg">Ask a question →</a>
+          <a href="#topic-picker" class="btn btn-secondary btn-lg">Ask a question →</a>
         </div>
       </section>
 
@@ -231,7 +230,7 @@ const teamData = [
           ))}
         </div>
         <div class="examples__cta">
-          <a href={appLink()} class="btn btn-primary btn-lg">Ask what’s on your mind →</a>
+          <a href="#topic-picker" class="btn btn-primary btn-lg">Ask what’s on your mind →</a>
           <p class="examples__note">Illustrative questions.</p>
         </div>
       </section>
@@ -272,7 +271,7 @@ const teamData = [
             <h2>You don’t need to know who to ask.</h2>
             <p class="final-cta__strong">Start with what you need. We’ll review whether we can help.</p>
             <p class="final-cta__body">Tell Krue what’s getting in the way, and we’ll help figure out the next step.</p>
-            <div><a href={appLink()} class="btn btn-primary btn-lg">Get started →</a></div>
+            <div><a href="#topic-picker" class="btn btn-primary btn-lg">Get started →</a></div>
           </div>
         </div>
       </section>
