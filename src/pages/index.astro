@@ -3,12 +3,15 @@ import Base from "../layouts/Base.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { appLink } from "../lib/appLink";
-// IntakeFlow is currently switched off in favor of the separate intake app —
-// see the "Get started" buttons below. To switch back: re-add
-// `import IntakeFlow from "../components/IntakeFlow.astro";` and restore the
-// `<div id="start" class="hero__start"><IntakeFlow /></div>` block in the
-// hero section (removed below), then point the header/need-card/CTA buttons
-// back to "#start" / dispatch krue:set-needs and krue:jump-notes as before.
+import TopicPicker from "../components/TopicPicker.astro";
+// The old 4-step IntakeFlow (conditions, contact info, review, submit-to-
+// Sheet) is switched off in favor of the separate intake app. Its code is
+// untouched in src/components/IntakeFlow.astro. The hero now shows
+// TopicPicker instead — just the category pills from the old flow's Step 1,
+// which hand off to the app via PUBLIC_APP_URL. To fully switch back to the
+// old embedded flow: swap TopicPicker for IntakeFlow in the hero below, and
+// point the header/need-card/CTA buttons back to "#start" / dispatch
+// krue:set-needs and krue:jump-notes as before.
 
 const NOT_SURE = "I’m not sure where to start";
 
@@ -85,7 +88,9 @@ const teamData = [
           <p class="eyebrow">Support for daily life with chronic illness</p>
           <h1>Chronic illness comes with a lot to figure out.</h1>
           <p class="hero__lead"><strong>Tell us where you need help.</strong> A licensed clinician can help work through your questions about daily life with practical guidance.</p>
-          <a href={appLink()} class="btn btn-primary btn-lg">Get started →</a>
+        </div>
+        <div class="hero__start">
+          <TopicPicker />
         </div>
       </section>
 
@@ -299,6 +304,7 @@ const teamData = [
   .hero__intro h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(40px, 6.2vw, 74px); line-height: 1.04; letter-spacing: -0.035em; color: var(--navy-500); text-wrap: balance; margin: 0; }
   .hero__lead { margin: 0; max-width: 720px; font-size: clamp(19px, 1.8vw, 23px); line-height: 1.5; color: var(--navy-900); }
   .hero__lead strong { color: var(--navy-500); }
+  .hero__start { max-width: 860px; margin: 44px auto 0; text-align: left; }
 
   /* Lifestyle */
   .lifestyle { max-width: 1220px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }

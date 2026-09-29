@@ -1,0 +1,77 @@
+---
+// Lightweight "what do you need help with?" picker for the homepage hero —
+// this is Step 1 of the original (now-shelved) intake flow, on its own.
+// It only collects the fixed category pills (safe, non-identifying) and
+// hands off to the separate intake app via PUBLIC_APP_URL. Deliberately no
+// free-text field here — anything that could contain real health details
+// is asked inside the app, after sign-in, not on the marketing site.
+import { appLink } from "../lib/appLink";
+
+const NOT_SURE = "I’m not sure where to start";
+const NEEDS = [
+  "Managing my energy",
+  "Taking care of myself",
+  "Keeping up with things at home",
+  "Making work or school more manageable",
+  "Moving in a way that works for me",
+  "Getting out and doing more",
+  "Handling brain fog and staying organized",
+];
+---
+
+<div id="topic-picker" class="intake-card">
+  <div class="intake-heading">
+    <h2>What do you need help with?</h2>
+  </div>
+  <div role="group" aria-label="What do you need help with?" class="pill-group">
+    {NEEDS.map((n) => (
+      <button type="button" class="pill" data-value={n} aria-pressed="false">{n}</button>
+    ))}
+    <button type="button" class="pill pill-accent" data-value={NOT_SURE} data-not-sure aria-pressed="false">{NOT_SURE}</button>
+  </div>
+  <div class="intake-footer">
+    <button type="button" id="topic-continue" class="btn btn-primary btn-lg" disabled>Continue →</button>
+  </div>
+</div>
+
+<script>
+  import { appLink } from "../lib/appLink";
+
+  const NOT_SURE = "I’m not sure where to start";
+  const root = document.getElementById("topic-picker");
+  const continueBtn = document.getElementById("topic-continue") as HTMLButtonElement | null;
+
+  if (root && continueBtn) {
+    const pills = Array.from(root.querySelectorAll<HTMLButtonElement>(".pill"));
+    let selected: string[] = [];
+
+    function render() {
+      pills.forEach((p) => {
+        p.setAttribute("aria-pressed", String(selected.includes(p.dataset.value || "")));
+      });
+      continueBtn!.disabled = selected.length === 0;
+    }
+
+    pills.forEach((pill) => {
+      pill.addEventListener("click", () => {
+        const value = pill.dataset.value || "";
+        if (pill.hasAttribute("data-not-sure")) {
+          selected = selected.includes(value) ? [] : [value];
+        } else {
+          const already = selected.includes(value);
+          selected = already
+            ? selected.filter((v) => v !== value)
+            : selected.filter((v) => v !== NOT_SURE).concat(value);
+        }
+        render();
+      });
+    });
+
+    continueBtn.addEventListener("click", () => {
+      if (selected.length === 0) return;
+      window.location.href = appLink(selected.join(", "));
+    });
+
+    render();
+  }
+</script>

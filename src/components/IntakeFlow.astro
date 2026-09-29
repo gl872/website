@@ -11,21 +11,11 @@
 <style is:global>
   /* IntakeFlow's body is rendered client-side via innerHTML, so these rules must
      stay unscoped — Astro's per-element scoping attribute never reaches nodes
-     inserted after the initial render. */
-  .intake-card {
-    box-sizing: border-box;
-    width: 100%;
-    background: #FFFFFF;
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-xs), 0 18px 48px rgba(12, 30, 51, 0.08);
-    padding: clamp(20px, 4vw, 36px);
-    font-family: var(--font-body);
-    color: var(--navy-500);
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
+     inserted after the initial render.
+     Note: .intake-card, .intake-heading, .pill-group, and .intake-footer live in
+     global.css instead of here, since TopicPicker (a real, statically-rendered
+     component) shares them too and needs them even when this component isn't
+     rendered on the page at all. */
   .visually-hidden {
     position: absolute;
     width: 1px;
@@ -68,23 +58,6 @@
     color: var(--grey-600);
   }
 
-  .intake-heading h2 {
-    margin: 0;
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(24px, 3vw, 30px);
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    color: var(--navy-500);
-    text-wrap: balance;
-  }
-  .intake-heading p {
-    margin: 8px 0 0;
-    font-size: 17px;
-    line-height: 1.55;
-    color: var(--grey-700);
-  }
-
   .intake-section {
     display: flex;
     flex-direction: column;
@@ -100,11 +73,6 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-  }
-  .pill-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
   }
   .intake-field-group {
     display: flex;
@@ -248,15 +216,6 @@
     font-size: 14px;
     line-height: 1.5;
     color: var(--grey-600);
-  }
-
-  .intake-footer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 12px;
-    flex-wrap: wrap;
-    padding-top: 4px;
   }
 
   .done-wrap {
