@@ -72,6 +72,19 @@ const NEEDS = [
       window.location.href = appLink(selected.join(", "));
     });
 
+    // "Get help with this" (need cards) and "Something else" pre-select pills
+    // here and scroll up, instead of jumping straight to the app — same as
+    // the original intake flow's behavior.
+    window.addEventListener("krue:pick-topic", ((e: CustomEvent<{ topics?: string[] }>) => {
+      selected = (e.detail && e.detail.topics) || [];
+      render();
+
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const rect = root!.getBoundingClientRect();
+      window.scrollTo({ top: rect.top + window.scrollY - 110, behavior: reduce ? "auto" : "smooth" });
+      setTimeout(() => continueBtn!.focus({ preventScroll: true }), reduce ? 0 : 500);
+    }) as EventListener);
+
     render();
   }
 </script>

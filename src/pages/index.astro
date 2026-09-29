@@ -135,14 +135,14 @@ const teamData = [
                 </button>
                 <div id={`need-panel-${i}`} class="need-panel" hidden>
                   <p>{n.more}</p>
-                  <div><a class="btn btn-primary btn-md" href={appLink(n.pills.join(", "))}>{helpLabel}</a></div>
+                  <div><button type="button" class="btn btn-primary btn-md" data-topics={JSON.stringify(n.pills)}>{helpLabel}</button></div>
                 </div>
               </div>
             );
           })}
         </div>
         <div class="needs__else">
-          <a class="btn-else" href={appLink()}>Something else</a>
+          <button type="button" class="btn-else" data-topics="[]">Something else</button>
         </div>
       </section>
 
@@ -453,6 +453,12 @@ const teamData = [
       if (cue) cue.textContent = expanded ? 'Learn more' : 'Show less';
       if (panel) panel.hidden = expanded;
       return;
+    }
+
+    const topicBtn = target.closest('[data-topics]') as HTMLElement | null;
+    if (topicBtn) {
+      const topics = JSON.parse(topicBtn.dataset.topics || '[]');
+      window.dispatchEvent(new CustomEvent('krue:pick-topic', { detail: { topics } }));
     }
   });
 </script>
