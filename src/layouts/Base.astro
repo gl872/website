@@ -21,7 +21,7 @@ const siteJsonLd = {
       "@id": `${siteUrl}#organization`,
       name: "Krue",
       url: siteUrl.toString(),
-      logo: new URL("/assets/logos/krue-wordmark-navy.png", siteUrl).toString(),
+      logo: new URL("/assets/logos/krue-icon.png", siteUrl).toString(),
     },
     {
       "@type": "WebSite",
@@ -42,8 +42,10 @@ const siteJsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="Krue" />
