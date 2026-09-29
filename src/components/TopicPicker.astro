@@ -87,7 +87,8 @@ const NEEDS = [
       render();
 
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      const rect = root!.getBoundingClientRect();
+      const scrollTarget = document.getElementById("hero-lead") || root!;
+      const rect = scrollTarget.getBoundingClientRect();
       window.scrollTo({ top: rect.top + window.scrollY - 110, behavior: reduce ? "auto" : "smooth" });
     }) as EventListener);
 
