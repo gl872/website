@@ -155,8 +155,8 @@ const teamData = [
           <li>
             <div class="how__mock how__mock--rows">
               <div class="how__row"><strong>Question</strong> &middot; A more manageable workday</div>
-              <div class="how__row"><strong>Review</strong> &middot; Can a health professional help?</div>
-              <div class="how__row how__row--accent"><strong>Health professional</strong> &middot; Credentials and price</div>
+              <div class="how__row"><strong>Review</strong> &middot; Can we help?</div>
+              <div class="how__row how__row--accent"><strong>Health professional</strong> &middot; Price</div>
             </div>
             <span class="how__num">2</span>
             <h3>See how we can help</h3>
@@ -497,5 +497,26 @@ const teamData = [
     });
 
     setActive(0);
+  }
+
+  // Keep the 4 "How Krue works" preview boxes the same height as each
+  // other, whatever their content needs — recalculated on resize/breakpoint
+  // change and after fonts load, instead of a hard-coded pixel guess.
+  const howMocks = Array.from(document.querySelectorAll<HTMLElement>('.how__mock'));
+  if (howMocks.length) {
+    const equalizeHowMocks = () => {
+      howMocks.forEach((el) => { el.style.height = 'auto'; });
+      const max = Math.max(...howMocks.map((el) => el.getBoundingClientRect().height));
+      howMocks.forEach((el) => { el.style.height = `${max}px`; });
+    };
+
+    equalizeHowMocks();
+    if ('fonts' in document) (document as any).fonts.ready.then(equalizeHowMocks);
+
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(equalizeHowMocks, 150);
+    });
   }
 </script>
