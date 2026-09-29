@@ -4,6 +4,7 @@ import Base from "../../layouts/Base.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import ShareButtons from "../../components/ShareButtons.astro";
+import author from "../../data/author.json";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
@@ -36,7 +37,7 @@ const articleJsonLd = {
   image: postImage,
   url: postUrl,
   mainEntityOfPage: postUrl,
-  author: { "@type": "Person", name: "Grace Landry" },
+  author: { "@type": "Person", name: author.name },
   publisher: {
     "@type": "Organization",
     name: "Krue",
@@ -59,10 +60,10 @@ const articleJsonLd = {
         </div>
         <div class="post__byline">
           <div class="post__author">
-            <img src="/assets/photos/founder-portrait.webp" alt="Grace, Krue's founder." class="post__author-photo" />
+            <img src={author.photo} alt={author.name} class="post__author-photo" />
             <div class="post__author-info">
-              <span class="post__author-name">Grace Landry</span>
-              <span class="post__author-role">Founder, Krue</span>
+              <span class="post__author-name">{author.name}</span>
+              <span class="post__author-role">{author.role}</span>
               <span class="post__author-date">{dateLabel}</span>
             </div>
           </div>

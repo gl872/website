@@ -46,6 +46,26 @@ content:
         label: Body
         type: rich-text
 
+  - name: author
+    label: Blog author
+    type: file
+    path: src/data/author.json
+    format: json
+    fields:
+      - name: name
+        label: Name
+        type: string
+        required: true
+      - name: role
+        label: Title
+        description: Shown under the name on each post, e.g. "Founder, Krue".
+        type: string
+        required: true
+      - name: photo
+        label: Photo
+        type: image
+        required: true
+
 media:
   input: public/uploads
   output: /uploads
