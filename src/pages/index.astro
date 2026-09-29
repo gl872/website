@@ -2,7 +2,13 @@
 import Base from "../layouts/Base.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import IntakeFlow from "../components/IntakeFlow.astro";
+import { appLink } from "../lib/appLink";
+// IntakeFlow is currently switched off in favor of the separate intake app —
+// see the "Get started" buttons below. To switch back: re-add
+// `import IntakeFlow from "../components/IntakeFlow.astro";` and restore the
+// `<div id="start" class="hero__start"><IntakeFlow /></div>` block in the
+// hero section (removed below), then point the header/need-card/CTA buttons
+// back to "#start" / dispatch krue:set-needs and krue:jump-notes as before.
 
 const NOT_SURE = "I’m not sure where to start";
 
@@ -79,9 +85,7 @@ const teamData = [
           <p class="eyebrow">Support for daily life with chronic illness</p>
           <h1>Chronic illness comes with a lot to figure out.</h1>
           <p class="hero__lead"><strong>Tell us where you need help.</strong> A licensed clinician can help you work through questions about daily life with practical guidance and next steps.</p>
-        </div>
-        <div id="start" class="hero__start">
-          <IntakeFlow />
+          <a href={appLink()} class="btn btn-primary btn-lg">Get started →</a>
         </div>
       </section>
 
@@ -126,14 +130,14 @@ const teamData = [
                 </button>
                 <div id={`need-panel-${i}`} class="need-panel" hidden>
                   <p>{n.more}</p>
-                  <div><button type="button" class="btn btn-primary btn-md" data-needs={JSON.stringify(n.pills)}>{helpLabel}</button></div>
+                  <div><a class="btn btn-primary btn-md" href={appLink(n.pills.join(", "))}>{helpLabel}</a></div>
                 </div>
               </div>
             );
           })}
         </div>
         <div class="needs__else">
-          <button type="button" class="btn-else" data-needs="[]">Something else</button>
+          <a class="btn-else" href={appLink()}>Something else</a>
         </div>
       </section>
 
@@ -212,7 +216,7 @@ const teamData = [
           ))}
         </div>
         <div class="team-cta">
-          <a href="#start" class="btn btn-secondary btn-lg">Ask a question →</a>
+          <a href={appLink()} class="btn btn-secondary btn-lg">Ask a question →</a>
         </div>
       </section>
 
@@ -228,7 +232,7 @@ const teamData = [
           ))}
         </div>
         <div class="examples__cta">
-          <a href="#start" class="btn btn-primary btn-lg">Ask what’s on your mind →</a>
+          <a href={appLink()} class="btn btn-primary btn-lg">Ask what’s on your mind →</a>
           <p class="examples__note">Illustrative questions.</p>
         </div>
       </section>
@@ -269,11 +273,7 @@ const teamData = [
             <h2>You don’t need to know who to ask.</h2>
             <p class="final-cta__strong">Start with what you need. We’ll review whether we can help.</p>
             <p class="final-cta__body">Tell Krue what’s getting in the way, and we’ll help figure out the next step.</p>
-            <form id="final-cta-form" class="final-cta__form">
-              <label for="final-input">What’s on your mind?</label>
-              <textarea id="final-input" rows="2" class="field" placeholder="Tell us what’s going on..."></textarea>
-              <div><button type="submit" class="btn btn-primary btn-lg">Get started →</button></div>
-            </form>
+            <div><a href={appLink()} class="btn btn-primary btn-lg">Get started →</a></div>
           </div>
         </div>
       </section>
@@ -299,7 +299,6 @@ const teamData = [
   .hero__intro h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(40px, 6.2vw, 74px); line-height: 1.04; letter-spacing: -0.035em; color: var(--navy-500); text-wrap: balance; margin: 0; }
   .hero__lead { margin: 0; max-width: 720px; font-size: clamp(19px, 1.8vw, 23px); line-height: 1.5; color: var(--navy-900); }
   .hero__lead strong { color: var(--navy-500); }
-  .hero__start { scroll-margin-top: 110px; max-width: 860px; margin: 44px auto 0; text-align: left; }
 
   /* Lifestyle */
   .lifestyle { max-width: 1220px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
@@ -331,7 +330,7 @@ const teamData = [
   .need-panel[hidden] { display: none; }
   .need-panel p { margin: 0; font-size: 17px; line-height: 1.55; color: var(--navy-700); }
   .needs__else { margin-top: 32px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
-  .btn-else { min-height: 52px; padding: 0 26px; border-radius: 999px; border: 1.5px solid var(--navy-500); background: transparent; color: var(--navy-500); font: 700 17px var(--font-body); cursor: pointer; }
+  .btn-else { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 26px; border-radius: 999px; border: 1.5px solid var(--navy-500); background: transparent; color: var(--navy-500); font: 700 17px var(--font-body); text-decoration: none; cursor: pointer; }
   .btn-else:hover { background: var(--navy-50); }
 
   /* How it works */
@@ -425,8 +424,6 @@ const teamData = [
   .final-cta__content h2 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(32px, 4.4vw, 54px); line-height: 1.06; letter-spacing: -0.03em; text-wrap: balance; text-align: left; }
   .final-cta__strong { margin: 0; font-size: 20px; line-height: 1.55; font-weight: 700; }
   .final-cta__body { margin: 0; font-size: 18px; line-height: 1.6; color: var(--grey-700); }
-  .final-cta__form { margin-top: 8px; background: #FFFFFF; border-radius: var(--radius-lg); padding: 18px; display: flex; flex-direction: column; gap: 12px; }
-  .final-cta__form label { font-weight: 700; font-size: 17px; }
 
   @media (max-width: 900px) {
     .final-cta__panel {
@@ -451,23 +448,5 @@ const teamData = [
       if (panel) panel.hidden = expanded;
       return;
     }
-
-    const startBtn = target.closest('[data-needs]') as HTMLElement | null;
-    if (startBtn) {
-      const needs = JSON.parse(startBtn.dataset.needs || '[]');
-      window.dispatchEvent(new CustomEvent('krue:set-needs', { detail: { needs } }));
-    }
   });
-
-  const finalForm = document.getElementById('final-cta-form') as HTMLFormElement | null;
-  if (finalForm) {
-    finalForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const textarea = document.getElementById('final-input') as HTMLTextAreaElement;
-      const notes = textarea.value.trim();
-      if (!notes) return;
-      window.dispatchEvent(new CustomEvent('krue:jump-notes', { detail: { notes } }));
-      textarea.value = '';
-    });
-  }
 </script>

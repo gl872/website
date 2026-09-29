@@ -5,6 +5,7 @@ import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 import ShareButtons from "../../components/ShareButtons.astro";
 import author from "../../data/author.json";
+import { appLink } from "../../lib/appLink";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
@@ -77,7 +78,7 @@ const articleJsonLd = {
             <p class="post__cta-title">You don&rsquo;t need to know who to ask.</p>
             <p class="post__cta-body">Start with what you need. We&rsquo;ll review whether we can help.</p>
           </div>
-          <a href="/#start" class="btn btn-primary btn-lg">Get started</a>
+          <a href={appLink()} class="btn btn-primary btn-lg">Get started</a>
         </div>
       </article>
     </main>
