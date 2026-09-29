@@ -13,28 +13,24 @@ import TopicPicker from "../components/TopicPicker.astro";
 // point the header/need-card/CTA buttons back to "#start" / dispatch
 // krue:set-needs and krue:jump-notes as before.
 
-const NOT_SURE = "I’m not sure where to start";
-
 const tints = ["var(--navy-50)", "var(--lavender-100)", "var(--dandelion-100)", "var(--pink-100)", "var(--sage-100)"];
 
 const needData = [
-  { title: "Managing energy & symptoms", line: "Make daily life more manageable with the capacity you have.", more: "Explore pacing, priorities, and ways of planning your day around your energy and symptoms, including better and worse days.", img: "texting-seated", pills: ["Managing my energy"] },
-  { title: "Everyday tasks & routines", line: "Find easier ways through showering, cooking, chores, and your day.", more: "Explore ways to simplify everyday tasks, change how you do them, and find tools or adaptations that can make them easier.", img: "cooking", pills: ["Taking care of myself", "Keeping up with things at home"] },
-  { title: "Work, school & activities", line: "Adapt responsibilities and stay connected to the things that matter.", more: "Explore changes to your routine, environment, workload, or activities that can make work, school, exercise, hobbies, and social life more manageable.", img: "phone-call", pills: ["Making work or school more manageable", "Getting out and doing more"] },
-  { title: "Building routines that work for me", line: "Create routines that fit your energy, symptoms, responsibilities, and goals.", more: "Explore ways to structure your day, balance what you need and want to do, and build routines that can flex when your capacity changes.", img: "laundry", pills: ["Managing my energy", "Taking care of myself"] },
-  { title: "Adapting my environment", line: "Make your surroundings work better for you.", more: "Explore changes to your home, workspace, or everyday setup, including tools and equipment that can make activities easier, safer, or less tiring.", img: "showering", pills: ["Taking care of myself", "Keeping up with things at home"] },
-  { title: "Brain fog & staying organized", line: "Make it easier to think, plan, remember, and get things done.", more: "Explore strategies and tools for memory, focus, planning, organization, and keeping track of everyday responsibilities when brain fog gets in the way.", img: "dizzy-standing", pills: ["Handling brain fog and staying organized"] },
-  { title: "Adjusting to changes in what I can do", line: "Find new ways to do the things that matter to you.", more: "Explore practical ways to adapt when your symptoms or abilities change, work around new limitations, and stay involved in the parts of life that matter to you.", img: "walking-dog", pills: ["Getting out and doing more"] },
-  { title: NOT_SURE, line: "You don’t need to have it figured out.", more: "Tell us what’s been difficult lately, and we’ll help you identify where an expert might be able to make daily life easier.", img: "independence", pills: [NOT_SURE] }
+  { title: "Managing energy & symptoms", line: "Explore pacing strategies and practical ways to plan around your energy and symptoms.", more: "Our experts can help you identify demanding activities, work through priorities, and explore adjustments for better and worse days.", img: "texting-seated", pills: ["Managing my energy & symptoms"] },
+  { title: "Showering, dressing & personal care", line: "Explore easier approaches, everyday aids, and changes to your setup.", more: "Our experts can help you break down what’s difficult, consider tools or bathroom equipment, and identify when a more detailed assessment is needed.", img: "showering", pills: ["Taking care of myself"] },
+  { title: "Household tasks & errands", line: "Find ways to simplify cooking, cleaning, shopping, and everyday responsibilities.", more: "Our experts can help you explore task adaptations, useful equipment, and ways to organize chores or errands around your capacity.", img: "cooking", pills: ["Managing tasks & errands"] },
+  { title: "Rest, sleep & daily routines", line: "Explore routines, reminders, and changes to your surroundings that make room for rest.", more: "Our experts can help you work through daily demands, consider bedtime routines, and find planning tools or apps that fit your needs.", img: "bed-bound", pills: ["Building routines & making room for rest"] },
+  { title: "Work & school", line: "Explore changes to tasks, schedules, and your workspace that could make responsibilities more manageable.", more: "Our experts can help you consider possible accommodations, equipment, and strategies for brain fog, focus, or keeping track of tasks.", img: "phone-call", pills: ["Making work or school manageable"] },
+  { title: "Relationships, hobbies & activities", line: "Find ways to adapt activities, communicate your needs, and stay involved in what matters.", more: "Our experts can help you explore different ways to participate, tools that support a hobby, and practical support from the people around you.", img: "walking-dog", pills: ["Doing things that matter to me"] }
 ];
 
 const faqData = [
-  ["What can I ask about?", ["Ask about daily life with chronic illness—from managing energy and adapting work or household tasks to equipment, routines, and practical support. You don’t need to know what kind of help you need. Describe what’s going on, and we’ll let you know whether our clinicians can help."]],
-  ["Is Krue right for my condition?", ["We’re initially focused on POTS and dysautonomia, Long COVID, ME/CFS, EDS and hypermobility, and fibromyalgia and chronic pain. If you have another condition—or are still looking for a diagnosis—you can still ask. We consider your needs alongside our clinicians’ expertise."]],
-  ["Who will answer my question?", ["A real, licensed occupational therapist with relevant experience. These clinicians help people manage how health conditions affect everyday activities, routines, and participation. You’ll see who you’d work with and their credentials before paying."]],
-  ["How does a consultation work?", ["Share your question and a little context. If we can help, you’ll see the consultation details and price before paying. Once your consultation begins, you can keep messaging your clinician about that need. Ask follow-up questions, try what you discuss, and work through next steps. If it’s helpful, you can continue with your clinician over time."]],
+  ["What can I ask about?", ["Ask about daily life with chronic illness—from managing energy and adapting work or household tasks to equipment, routines, and practical support. You don’t need to know what kind of help you need. Describe what’s going on, and we’ll let you know whether our health professionals can help."]],
+  ["Is Krue right for my condition?", ["We’re initially focused on POTS and dysautonomia, Long COVID, ME/CFS, EDS and hypermobility, and fibromyalgia and chronic pain. If you have another condition—or are still looking for a diagnosis—you can still ask. We consider your needs alongside our health professionals’ expertise."]],
+  ["Who will answer my question?", ["A real, licensed occupational therapist with relevant experience. These health professionals help people manage how health conditions affect everyday activities, routines, and participation. You’ll see who you’d work with and their credentials before paying."]],
+  ["How does a consultation work?", ["Share your question and a little context. If we can help, you’ll see the consultation details and price before paying. Once your consultation begins, you can keep messaging your health professional about that need. Ask follow-up questions, try what you discuss, and work through next steps. If it’s helpful, you can continue with your health professional over time."]],
   ["Do you accept insurance?", ["Krue is currently just cash/private pay. You’ll see the price and what’s included before you pay."]],
-  ["When will someone respond?", ["Messaging is asynchronous, so you and your clinician don’t need to be online at the same time. You’ll typically hear back within 24 hours."]],
+  ["When will someone respond?", ["Messaging is asynchronous, so you and your health professional don’t need to be online at the same time. You’ll typically hear back within 24 hours."]],
   ["Does Krue replace my doctor or ongoing care?", ["No. Krue focuses on the everyday impact of chronic illness alongside your existing care. We don’t diagnose medical conditions or prescribe medication, and we don’t replace ongoing medical or mental-health care. Krue is not an emergency service."]],
   ["How is my information protected?", ["We use safeguards such as encryption and restricted access to protect your personal and health information. Access is limited to authorized people and service providers who need it to provide care or operate Krue. Our Privacy Policy explains how we collect, use, and share your information and how to contact us with questions."]]
 ];
@@ -87,7 +83,7 @@ const teamData = [
         <div class="hero__intro">
           <p class="eyebrow">Support for daily life with chronic illness</p>
           <h1>Chronic illness comes with a lot to figure out.</h1>
-          <p class="hero__lead"><strong>Tell us where you need help.</strong> A licensed clinician can help work through your questions about daily life with practical guidance.</p>
+          <p class="hero__lead"><strong>Tell us where you need help.</strong> We’ll connect you with a licensed health professional who can help you work through it with practical guidance, strategies, and clear next steps.</p>
         </div>
         <div class="hero__start">
           <TopicPicker />
@@ -107,7 +103,7 @@ const teamData = [
         </figure>
         <ul class="lifestyle__points">
           <li><span class="icon-circle"><img class="icon-inverse" src="/assets/icons/question.svg" alt="" /></span>Start with your question</li>
-          <li><span class="icon-circle"><img class="icon-inverse" src="/assets/icons/people-pair.svg" alt="" /></span>Connect with a licensed clinician</li>
+          <li><span class="icon-circle"><img class="icon-inverse" src="/assets/icons/people-pair.svg" alt="" /></span>Connect to a licensed health professional</li>
           <li><span class="icon-circle"><img class="icon-inverse" src="/assets/icons/noun-calendar.svg" alt="" /></span>Follow up as needed</li>
         </ul>
       </section>
@@ -117,29 +113,25 @@ const teamData = [
         <div class="section-intro">
           <p class="eyebrow">What we help with</p>
           <h2>What would you like to make easier?</h2>
-          <p class="section-intro__body">Chronic illness can affect nearly every part of your life. Start with what’s getting in the way. These are starting points, and you can always describe something that doesn’t fit.</p>
+          <p class="section-intro__body">Chronic illness can affect nearly every part of your life. Explore how our experts could help, or tell us about something else.</p>
         </div>
         <div class="needs__grid">
-          {needData.map((n, i) => {
-            const isLast = i === needData.length - 1;
-            const helpLabel = isLast ? "Get help →" : "Get help with this →";
-            return (
-              <div class="need-card" style={`background:${tints[i % 5]}`}>
-                <button type="button" class="need-toggle" aria-expanded="false" aria-controls={`need-panel-${i}`}>
-                  <span class="need-toggle__text">
-                    <span class="need-toggle__title">{n.title}</span>
-                    <span class="need-toggle__line">{n.line}</span>
-                    <span class="need-toggle__cue">Learn more</span>
-                  </span>
-                  <span class="need-toggle__img"><img src={`/assets/illustrations/${n.img}.png`} alt="" /></span>
-                </button>
-                <div id={`need-panel-${i}`} class="need-panel" hidden>
-                  <p>{n.more}</p>
-                  <div><button type="button" class="btn btn-primary btn-md" data-topics={JSON.stringify(n.pills)}>{helpLabel}</button></div>
-                </div>
+          {needData.map((n, i) => (
+            <div class="need-card" style={`background:${tints[i % 5]}`}>
+              <button type="button" class="need-toggle" aria-expanded="false" aria-controls={`need-panel-${i}`}>
+                <span class="need-toggle__text">
+                  <span class="need-toggle__title">{n.title}</span>
+                  <span class="need-toggle__line">{n.line}</span>
+                  <span class="need-toggle__cue">Learn more</span>
+                </span>
+                <span class="need-toggle__img"><img src={`/assets/illustrations/${n.img}.png`} alt="" /></span>
+              </button>
+              <div id={`need-panel-${i}`} class="need-panel" hidden>
+                <p>{n.more}</p>
+                <div><button type="button" class="btn btn-primary btn-md" data-topics={JSON.stringify(n.pills)}>Get help with this →</button></div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
         <div class="needs__else">
           <button type="button" class="btn-else" data-topics="[]">Something else</button>
@@ -164,12 +156,12 @@ const teamData = [
           <li>
             <div class="how__mock how__mock--rows">
               <div class="how__row"><strong>Question</strong> &middot; A more manageable workday</div>
-              <div class="how__row"><strong>Review</strong> &middot; Can a clinician help?</div>
-              <div class="how__row how__row--accent"><strong>Clinician</strong> &middot; Credentials and price</div>
+              <div class="how__row"><strong>Review</strong> &middot; Can a health professional help?</div>
+              <div class="how__row how__row--accent"><strong>Health professional</strong> &middot; Credentials and price</div>
             </div>
             <span class="how__num">2</span>
-            <h3>See whether we can help.</h3>
-            <p>We’ll review your question and whether a clinician with relevant expertise is available. You’ll see who you’d work with, their credentials, and the price before you pay.</p>
+            <h3>See how we can help</h3>
+            <p>We’ll review your question and whether a health professional with relevant expertise is available. You’ll see who you’d work with, their credentials, and the price before you pay.</p>
           </li>
           <li>
             <div class="how__mock how__mock--convo">
@@ -178,7 +170,7 @@ const teamData = [
             </div>
             <span class="how__num">3</span>
             <h3>Work through it together</h3>
-            <p>Once you’re ready, your clinician joins the conversation, reviews your context, asks questions, and helps you find practical next steps within their scope.</p>
+            <p>Once you’re ready, your health professional joins the conversation, reviews your context, asks questions, and helps you find practical next steps within their scope.</p>
           </li>
           <li>
             <div class="how__mock how__mock--timeline">
@@ -189,7 +181,7 @@ const teamData = [
             </div>
             <span class="how__num">4</span>
             <h3>Keep the conversation going</h3>
-            <p>Keep messaging about that same need. Ask follow-up questions. Try something. Tell your clinician what happened. Adjust if needed.</p>
+            <p>Keep messaging about that same need. Ask follow-up questions. Try something. Tell your health professional what happened. Adjust if needed.</p>
           </li>
         </ol>
       </section>
@@ -198,10 +190,10 @@ const teamData = [
       <section id="experts" class="experts">
         <div class="section-intro">
           <p class="eyebrow">Meet Krue experts</p>
-          <h2>Real people. Relevant expertise.</h2>
-          <p class="section-intro__body">Krue&rsquo;s clinicians are licensed occupational therapists who help people manage the impact of chronic conditions on everyday activities, routines, and participation. That can include practical strategies, adaptations, tools, and changes to your surroundings.</p>
+          <h2>Licensed health professionals. Relevant expertise.</h2>
+          <p class="section-intro__body">Krue&rsquo;s health professionals are licensed occupational therapists who help people manage the impact of chronic conditions on everyday activities, routines, and participation. That can include practical strategies, adaptations, tools, and changes to your surroundings.</p>
         </div>
-        <div class="team-grid">
+        <div class="team-grid" id="team-grid">
           {teamData.map((t) => (
             <article class="team-card">
               <div class="team-card__photo">
@@ -218,6 +210,11 @@ const teamData = [
                 <p class="team-card__experience">Experience with {t.experience}</p>
               </div>
             </article>
+          ))}
+        </div>
+        <div class="team-dots" id="team-dots" role="tablist" aria-label="Team members">
+          {teamData.map((t, i) => (
+            <button type="button" class="team-dot" data-index={i} aria-label={`Show ${t.name}`}></button>
           ))}
         </div>
         <div class="team-cta">
@@ -304,13 +301,13 @@ const teamData = [
   .hero__intro h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(40px, 6.2vw, 74px); line-height: 1.04; letter-spacing: -0.035em; color: var(--navy-500); text-wrap: balance; margin: 0; }
   .hero__lead { margin: 0; max-width: 720px; font-size: clamp(19px, 1.8vw, 23px); line-height: 1.5; color: var(--navy-900); }
   .hero__lead strong { color: var(--navy-500); }
-  .hero__start { max-width: 860px; margin: 44px auto 0; text-align: left; }
+  .hero__start { max-width: 900px; margin: 44px auto 0; text-align: center; }
 
   /* Lifestyle */
   .lifestyle { max-width: 1220px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
   .lifestyle__figure { margin: 0; position: relative; border-radius: var(--radius-xl); overflow: hidden; min-height: clamp(420px, 52vw, 620px); background: var(--grey-100); }
   .lifestyle__figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .lifestyle__chat { position: absolute; right: clamp(14px, 3vw, 36px); bottom: clamp(14px, 3vw, 36px); left: clamp(14px, 3vw, auto); max-width: 400px; background: #FFFFFF; border-radius: 22px; padding: 22px; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; gap: 12px; }
+  .lifestyle__chat { position: absolute; left: clamp(14px, 3vw, 36px); right: clamp(14px, 3vw, 36px); bottom: clamp(14px, 3vw, 36px); max-width: 400px; margin-left: auto; background: #FFFFFF; border-radius: 22px; padding: 22px; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; gap: 12px; }
   .lifestyle__chat-label { font-size: 13px; font-weight: 700; color: var(--grey-600); }
   .lifestyle__bubble { border-radius: 18px; padding: 12px 16px; font-size: 16px; line-height: 1.45; }
   .lifestyle__bubble--you { align-self: flex-end; background: var(--navy-500); color: #FFFFFF; border-radius: 18px 18px 4px 18px; }
@@ -388,6 +385,21 @@ const teamData = [
   .team-card__experience { margin: 0; font-size: 14px; line-height: 1.45; color: var(--grey-700); }
   .team-cta { margin-top: 40px; display: flex; justify-content: center; }
 
+  .team-dots { display: none; justify-content: center; gap: 8px; margin-top: 18px; }
+  .team-dot { width: 8px; height: 8px; padding: 0; border: none; border-radius: 999px; background: var(--grey-300); cursor: pointer; }
+  .team-dot.is-active { width: 20px; background: var(--navy-500); transition: width 220ms ease, background 220ms ease; }
+
+  @media (max-width: 640px) {
+    .team-grid { display: flex; grid-template-columns: none; max-width: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+    .team-grid::-webkit-scrollbar { display: none; }
+    .team-card { flex: 0 0 80%; scroll-snap-align: center; }
+    .team-dots { display: flex; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .team-dot { transition: none; }
+  }
+
   /* FAQs */
   .faqs { max-width: 860px; margin: 0 auto; }
   .faqs h2 { margin: 0 0 36px; text-align: left; }
@@ -461,4 +473,33 @@ const teamData = [
       window.dispatchEvent(new CustomEvent('krue:pick-topic', { detail: { topics } }));
     }
   });
+
+  const teamGrid = document.getElementById('team-grid');
+  const teamDots = Array.from(document.querySelectorAll<HTMLButtonElement>('.team-dot'));
+  if (teamGrid && teamDots.length) {
+    const cards = Array.from(teamGrid.querySelectorAll<HTMLElement>('.team-card'));
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const setActive = (i: number) => {
+      teamDots.forEach((d, di) => d.classList.toggle('is-active', di === i));
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const i = cards.indexOf(entry.target as HTMLElement);
+          if (i !== -1) setActive(i);
+        }
+      });
+    }, { root: teamGrid, threshold: 0.6 });
+    cards.forEach((c) => observer.observe(c));
+
+    teamDots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        cards[i]?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
+      });
+    });
+
+    setActive(0);
+  }
 </script>

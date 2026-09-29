@@ -9,28 +9,28 @@ import { appLink } from "../lib/appLink";
 
 const NOT_SURE = "I’m not sure where to start";
 const NEEDS = [
-  "Managing my energy",
+  "Managing my energy & symptoms",
   "Taking care of myself",
-  "Keeping up with things at home",
-  "Making work or school more manageable",
-  "Moving in a way that works for me",
-  "Getting out and doing more",
-  "Handling brain fog and staying organized",
+  "Managing tasks & errands",
+  "Building routines & making room for rest",
+  "Making work or school manageable",
+  "Doing things that matter to me",
 ];
 ---
 
-<div id="topic-picker" class="intake-card">
-  <div class="intake-heading">
-    <h2>What do you need help with?</h2>
-  </div>
-  <div role="group" aria-label="What do you need help with?" class="pill-group">
+<div id="topic-picker" class="topic-picker">
+  <div role="group" aria-label="What do you need help with?" class="topic-picker__pills">
     {NEEDS.map((n) => (
-      <button type="button" class="pill" data-value={n} aria-pressed="false">{n}</button>
+      <button type="button" class="pill pill-lg" data-value={n} aria-pressed="false">{n}</button>
     ))}
-    <button type="button" class="pill pill-accent" data-value={NOT_SURE} data-not-sure aria-pressed="false">{NOT_SURE}</button>
+    <button type="button" class="pill pill-lg pill-accent" data-value={NOT_SURE} data-not-sure aria-pressed="false">{NOT_SURE}</button>
   </div>
-  <div class="intake-footer">
-    <button type="button" id="topic-continue" class="btn btn-primary btn-lg" disabled>Continue →</button>
+  <div class="topic-picker__continue">
+    <span id="topic-hint" class="topic-picker__hint">Pick as many as fit.</span>
+    <span id="topic-action" class="topic-picker__action">
+      <button type="button" id="topic-continue" class="btn btn-primary btn-lg" tabindex="-1">Continue →</button>
+      <span id="topic-count" class="topic-picker__count"></span>
+    </span>
   </div>
 </div>
 
@@ -40,8 +40,11 @@ const NEEDS = [
   const NOT_SURE = "I’m not sure where to start";
   const root = document.getElementById("topic-picker");
   const continueBtn = document.getElementById("topic-continue") as HTMLButtonElement | null;
+  const hint = document.getElementById("topic-hint");
+  const action = document.getElementById("topic-action");
+  const count = document.getElementById("topic-count");
 
-  if (root && continueBtn) {
+  if (root && continueBtn && hint && action && count) {
     const pills = Array.from(root.querySelectorAll<HTMLButtonElement>(".pill"));
     let selected: string[] = [];
 
@@ -49,27 +52,30 @@ const NEEDS = [
       pills.forEach((p) => {
         p.setAttribute("aria-pressed", String(selected.includes(p.dataset.value || "")));
       });
-      continueBtn!.disabled = selected.length === 0;
+
+      const hasSelection = selected.length > 0;
+      hint.classList.toggle("is-hidden", hasSelection);
+      action.classList.toggle("is-visible", hasSelection);
+      continueBtn.tabIndex = hasSelection ? 0 : -1;
+      count.textContent = hasSelection ? `${selected.length} selected` : "";
     }
 
     pills.forEach((pill) => {
       pill.addEventListener("click", () => {
         const value = pill.dataset.value || "";
         if (pill.hasAttribute("data-not-sure")) {
-          selected = selected.includes(value) ? [] : [value];
-        } else {
-          const already = selected.includes(value);
-          selected = already
-            ? selected.filter((v) => v !== value)
-            : selected.filter((v) => v !== NOT_SURE).concat(value);
+          window.location.href = appLink(NOT_SURE);
+          return;
         }
+        const already = selected.includes(value);
+        selected = already ? selected.filter((v) => v !== value) : selected.concat(value);
         render();
       });
     });
 
     continueBtn.addEventListener("click", () => {
       if (selected.length === 0) return;
-      window.location.href = appLink(selected.join(", "));
+      window.location.href = appLink(selected.join("|"));
     });
 
     // "Get help with this" (need cards) and "Something else" pre-select pills
@@ -82,9 +88,50 @@ const NEEDS = [
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       const rect = root!.getBoundingClientRect();
       window.scrollTo({ top: rect.top + window.scrollY - 110, behavior: reduce ? "auto" : "smooth" });
-      setTimeout(() => continueBtn!.focus({ preventScroll: true }), reduce ? 0 : 500);
     }) as EventListener);
 
     render();
   }
 </script>
+
+<style>
+  .topic-picker { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+  .topic-picker__pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+  .pill-lg { min-height: 48px; padding: 10px 22px; font-size: 17px; border-width: 1.5px; }
+
+  .topic-picker__continue { position: relative; height: 56px; width: 100%; display: flex; align-items: center; justify-content: center; }
+  .topic-picker__hint {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--grey-600);
+    opacity: 1;
+    transition: opacity 220ms ease;
+  }
+  .topic-picker__hint.is-hidden { opacity: 0; }
+  .topic-picker__action {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 220ms ease, transform 360ms ease-out, visibility 360ms;
+  }
+  .topic-picker__action.is-visible {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .topic-picker__count { font-size: 15px; color: var(--grey-600); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .topic-picker__hint, .topic-picker__action { transition: none; }
+  }
+</style>
