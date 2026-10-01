@@ -2,280 +2,256 @@
 import Base from "../layouts/Base.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { appLink } from "../lib/appLink";
-import TopicPicker from "../components/TopicPicker.astro";
-// The old 4-step IntakeFlow (conditions, contact info, review, submit-to-
-// Sheet) is switched off in favor of the separate intake app. Its code is
-// untouched in src/components/IntakeFlow.astro. The hero now shows
-// TopicPicker instead — just the category pills from the old flow's Step 1,
-// which hand off to the app via PUBLIC_APP_URL. To fully switch back to the
-// old embedded flow: swap TopicPicker for IntakeFlow in the hero below, and
-// point the header/need-card/CTA buttons back to "#start" / dispatch
-// krue:set-needs and krue:jump-notes as before.
 
-const tints = ["var(--navy-50)", "var(--lavender-100)", "var(--dandelion-100)", "var(--pink-100)", "var(--sage-100)"];
-
-const needData = [
-  { title: "Managing energy & symptoms", line: "Explore pacing strategies and practical ways to plan around your energy and symptoms.", more: "Our experts can help you identify demanding activities, work through priorities, and explore adjustments for better and worse days.", img: "texting-seated", pills: ["Managing my energy & symptoms"] },
-  { title: "Showering, dressing & personal care", line: "Explore easier approaches, everyday aids, and changes to your setup.", more: "Our experts can help you break down what’s difficult, consider tools or bathroom equipment, and identify when a more detailed assessment is needed.", img: "showering", pills: ["Taking care of myself"] },
-  { title: "Household tasks & errands", line: "Find ways to simplify cooking, cleaning, shopping, and everyday responsibilities.", more: "Our experts can help you explore task adaptations, useful equipment, and ways to organize chores or errands around your capacity.", img: "cooking", pills: ["Managing tasks & errands"] },
-  { title: "Rest, sleep & daily routines", line: "Explore routines, reminders, and changes to your surroundings that make room for rest.", more: "Our experts can help you work through daily demands, consider bedtime routines, and find planning tools or apps that fit your needs.", img: "bed-bound", pills: ["Building routines & making room for rest"] },
-  { title: "Work & school", line: "Explore changes to tasks, schedules, and your workspace that could make responsibilities more manageable.", more: "Our experts can help you consider possible accommodations, equipment, and strategies for brain fog, focus, or keeping track of tasks.", img: "phone-call", pills: ["Making work or school manageable"] },
-  { title: "Relationships, hobbies & activities", line: "Find ways to adapt activities, communicate your needs, and stay involved in what matters.", more: "Our experts can help you explore different ways to participate, tools that support a hobby, and practical support from the people around you.", img: "walking-dog", pills: ["Doing things that matter to me"] }
+const burdens = [
+  "There are questions to answer.",
+  "Things to research.",
+  "Recommendations to try.",
+  "Appointments to prepare for.",
+  "Referrals to follow up on.",
+  "Symptoms and changes to remember.",
+  "Resources to find.",
 ];
 
-const faqData = [
-  ["What can I ask about?", ["Ask about daily life with chronic illness—from managing energy and adapting work or household tasks to equipment, routines, and practical support. You don’t need to know what kind of help you need. Describe what’s going on, and we’ll let you know whether our health professionals can help."]],
-  ["Is Krue right for my condition?", ["We’re initially focused on POTS and dysautonomia, Long COVID, ME/CFS, EDS and hypermobility, and fibromyalgia and chronic pain. If you have another condition—or are still looking for a diagnosis—you can still ask. We consider your needs alongside our health professionals’ expertise."]],
-  ["Who will answer my question?", ["A real, licensed occupational therapist with relevant experience. These health professionals help people manage how health conditions affect everyday activities, routines, and participation. You’ll see who you’d work with and their credentials before paying."]],
-  ["How does a consultation work?", ["Share your question and a little context. If we can help, you’ll see the consultation details and price before paying. Once your consultation begins, you can keep messaging your health professional about that need. Ask follow-up questions, try what you discuss, and work through next steps. If it’s helpful, you can continue with your health professional over time."]],
-  ["Do you accept insurance?", ["Krue is currently just cash/private pay. You’ll see the price and what’s included before you pay."]],
-  ["When will someone respond?", ["Messaging is asynchronous, so you and your health professional don’t need to be online at the same time. You’ll typically hear back within 24 hours."]],
-  ["Does Krue replace my doctor or ongoing care?", ["No. Krue focuses on the everyday impact of chronic illness alongside your existing care. We don’t diagnose medical conditions or prescribe medication, and we don’t replace ongoing medical or mental-health care. Krue is not an emergency service."]],
-  ["How is my information protected?", ["We use safeguards such as encryption and restricted access to protect your personal and health information. Access is limited to authorized people and service providers who need it to provide care or operate Krue. Our Privacy Policy explains how we collect, use, and share your information and how to contact us with questions."]]
-];
-
-const questions = [
-  "How can I shower without using all my energy?",
-  "I’m having a hard time adjusting to how much my life has changed.",
-  "My energy changes day to day. How do I plan around that?",
-  "How can I make work more manageable?",
-  "How do I explain what I need to my family?",
-  "How should I prepare for my next appointment?",
-  "Cooking has become really difficult. What could I change?",
-  "What kinds of resources or support might be available to me?",
-  "I was just diagnosed. Where do I start?",
-  "How do I keep doing things I enjoy when my capacity changes day to day?",
-  "Who should I talk to about this?"
-].map((text, i) => ({ text, bg: tints[i % 5], radius: i % 2 ? "22px 22px 22px 6px" : "22px 22px 6px 22px" }));
-
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqData.map(([q, a]) => ({
-    "@type": "Question",
-    name: q,
-    acceptedAnswer: { "@type": "Answer", text: a.join(" ") },
-  })),
-};
-
-const teamData = [
-  { name: "Kelsey", credential: "OTD", photo: "team-ot-1", tags: ["Pacing and fatigue", "Stress and well-being"], experience: "EDS, Dysautonomia, Long-COVID, MS" },
-  { name: "Janice", credential: "OTR/L", photo: "team-ot-2", tags: ["Self-care and routines", "Work and productivity"], experience: "POTS, ME/CFS, Fibromyalgia, Chronic Pain" },
-  { name: "Matt", credential: "OTR/L", photo: "team-ot-3", tags: ["Mobility", "Home & daily activities"], experience: "Parkinson’s, MS, Neuropathy, Arthritis" },
-  { name: "Kaitlyn", credential: "OTD", photo: "team-ot-4", tags: ["Brain fog and cognition", "Energy management"], experience: "Long COVID, Migraine, Dysautonomia, Autoimmune conditions" }
+const placeholders = [
+  "Finding strategies for managing my energy...",
+  "Figuring out something my doctor recommended...",
+  "Getting ready for my neurology appointment...",
+  "Finding resources for work...",
+  "Keeping track of everything I need to follow up on...",
+  "I don't even know where to start...",
 ];
 ---
 
 <Base
-  title="Krue | Support for daily life with chronic illness"
-  description="Krue connects you with a licensed occupational therapist for practical guidance on energy, routines, work, and everyday life with chronic illness."
+  title="Krue · Support for everything between appointments"
+  description="Krue helps you find answers, make a plan, and stay on top of everything that happens between appointments, with a real person there to help along the way."
   path="/"
 >
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
-
   <div id="top" class="page">
     <Header />
 
     <main>
-      <!-- Hero + intake -->
-      <section class="hero">
-        <div class="hero__intro">
-          <p class="eyebrow">Support for daily life with chronic illness</p>
-          <h1>Chronic illness comes with a lot to figure out.</h1>
-          <p class="hero__lead"><strong>Tell us where you need help.</strong> We’ll connect you with a licensed health professional who can help you work through it with practical guidance, strategies, and clear next steps.</p>
-        </div>
-        <div class="hero__start">
-          <TopicPicker />
-        </div>
-      </section>
-
-      <!-- Lifestyle visual -->
-      <section class="lifestyle">
-        <figure class="lifestyle__figure">
-          <img src="/assets/photos/lifestyle-photo.webp" alt="A woman resting on the couch, texting on her phone." />
-          <div class="lifestyle__chat">
-            <span class="lifestyle__chat-label">You</span>
-            <div class="lifestyle__bubble lifestyle__bubble--you">By the time I get home from work, I don’t have enough energy to cook.</div>
-            <span class="lifestyle__chat-label">Kelsey, OTD &middot; Occupational therapist</span>
-            <div class="lifestyle__bubble lifestyle__bubble--them">That makes sense. We can look at low-effort meals, ways to prep without as much standing, and shortcuts that save your energy for the rest of your evening.</div>
+      <!-- 1. Hero -->
+      <section class="hero container">
+        <h1>Chronic illness comes with a lot to figure out.</h1>
+        <div class="hero__grid">
+          <div class="hero__copy">
+            <p class="hero__lead">Krue helps you find answers, make a plan, and stay on top of everything that happens between appointments — with a real person there to help along the way.</p>
+            <div><a href="/#try" class="btn btn-primary btn-lg" data-try="hero">Try Krue →</a></div>
+            <p class="hero__note">Currently piloting with a small group of people living with chronic illness.</p>
           </div>
-        </figure>
-        <ul class="lifestyle__points">
-          <li><span class="icon-circle"><img class="icon-inverse" src="/assets/icons/question.svg" alt="" /></span>Start with your question</li>
-          <li><span class="icon-circle"><img class="icon-inverse" src="/assets/icons/people-pair.svg" alt="" /></span>Connect to a licensed health professional</li>
-          <li><span class="icon-circle"><img class="icon-inverse" src="/assets/icons/noun-calendar.svg" alt="" /></span>Follow up as needed</li>
+
+          <div class="hero__visual" aria-hidden="true">
+            <div class="plan-card plan-card--hero">
+              <div class="plan-card__title">Your plan</div>
+              <div class="eyebrow">THIS WEEK</div>
+              <ul class="checklist">
+                <li class="is-done"><span class="check"></span><span>Find compression options</span></li>
+                <li><span class="check"></span><span>Write down questions for neurology</span></li>
+                <li><span class="check"></span><span>Try pacing with a step tracker</span></li>
+                <li><span class="check"></span><span>Follow up on rheumatology referral</span></li>
+              </ul>
+            </div>
+            <div class="bubble bubble--grace bubble--hero">
+              <div class="bubble__head"><span class="avatar">G</span><span>Grace from Krue</span></div>
+              <p>“I know you got the compression stockings. Are you finding they’re helping?”</p>
+            </div>
+            <div class="hand" style="margin:10px 12px 0 auto;transform:rotate(-3deg)" aria-hidden="true">they remember and follow up</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Problem -->
+      <section class="problem container">
+        <h2 class="h-xl" data-reveal>Your appointments are only part of managing your health.</h2>
+        <ul class="burdens">
+          {burdens.map((b) => (
+            <li data-reveal><span class="ring"></span><span>{b}</span></li>
+          ))}
         </ul>
+        <p class="problem__para" data-reveal>And hours spent searching Google, Reddit, patient groups, and saved posts trying to figure out what might actually help.</p>
+        <h2 class="h-xxl problem__left" data-reveal>Most of that gets left to you.</h2>
+        <p class="problem__line" data-reveal>Krue is being built to make it less.</p>
       </section>
 
-      <!-- What we help with -->
-      <section id="help" class="needs">
-        <div class="section-intro">
-          <p class="eyebrow">What we help with</p>
-          <h2>What would you like to make easier?</h2>
-          <p class="section-intro__body">Chronic illness can affect nearly every part of your life. Explore how our experts could help, or tell us about something else.</p>
-        </div>
-        <div class="needs__grid">
-          {needData.map((n, i) => (
-            <div class="need-card" style={`background:${tints[i % 5]}`}>
-              <button type="button" class="need-toggle" aria-expanded="false" aria-controls={`need-panel-${i}`}>
-                <span class="need-toggle__text">
-                  <span class="need-toggle__title">{n.title}</span>
-                  <span class="need-toggle__line">{n.line}</span>
-                  <span class="need-toggle__cue">Learn more</span>
-                </span>
-                <span class="need-toggle__img"><img src={`/assets/illustrations/${n.img}.png`} alt="" /></span>
-              </button>
-              <div id={`need-panel-${i}`} class="need-panel" hidden>
-                <p>{n.more}</p>
-                <div><button type="button" class="btn btn-primary btn-md" data-topics={JSON.stringify(n.pills)}>Get help with this →</button></div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div class="needs__else">
-          <button type="button" class="btn-else" data-topics="[]">Something else</button>
-        </div>
-      </section>
-
-      <!-- How it works -->
+      <!-- 3. How Krue helps -->
       <section id="how" class="how">
-        <div class="section-intro section-intro--left">
-          <p class="eyebrow">How Krue works</p>
-          <h2>A clear next step, with the right person in your corner.</h2>
-        </div>
-        <ol class="how__grid">
-          <li>
-            <div class="how__mock how__mock--chat">
-              <div class="how__msg how__msg--you">“My symptoms vary so much. How can I make my workday more manageable?”</div>
-            </div>
-            <span class="how__num">1</span>
-            <h3>Tell us what’s going on</h3>
-            <p>Start with a question, challenge, or goal. Share enough context for Krue to understand what you’re trying to figure out.</p>
-          </li>
-          <li>
-            <div class="how__mock how__mock--rows">
-              <div class="how__row"><strong>Question</strong> &middot; A more manageable workday</div>
-              <div class="how__row"><strong>Review</strong> &middot; Can a health professional help?</div>
-              <div class="how__row how__row--accent"><strong>Health professional</strong> &middot; Credentials and price</div>
-            </div>
-            <span class="how__num">2</span>
-            <h3>See how we can help</h3>
-            <p>We’ll review your question and whether a health professional with relevant expertise is available. You’ll see who you’d work with, their credentials, and the price before you pay.</p>
-          </li>
-          <li>
-            <div class="how__mock how__mock--convo">
-              <div class="how__bubble">What does a good day look like for you right now?</div>
-              <div class="how__next"><strong>Next steps</strong>A starting point to try this week</div>
-            </div>
-            <span class="how__num">3</span>
-            <h3>Work through it together</h3>
-            <p>Once you’re ready, your health professional joins the conversation, reviews your context, asks questions, and helps you find practical next steps within their scope.</p>
-          </li>
-          <li>
-            <div class="how__mock how__mock--timeline">
-              <div class="how__tl how__tl--navy"><strong>Mon</strong>First conversation</div>
-              <div class="how__tl"><strong>Wed</strong>“Quick question…”</div>
-              <div class="how__tl"><strong>Fri</strong>“That part helped.”</div>
-              <div class="how__tl how__tl--dandelion"><strong>Sun</strong>Adjust together</div>
-            </div>
-            <span class="how__num">4</span>
-            <h3>Keep the conversation going</h3>
-            <p>Keep messaging about that same need. Ask follow-up questions. Try something. Tell your health professional what happened. Adjust if needed.</p>
-          </li>
-        </ol>
-      </section>
-
-      <!-- Meet experts (team) -->
-      <section id="experts" class="experts">
-        <div class="section-intro">
-          <p class="eyebrow">Meet Krue experts</p>
-          <h2>Licensed health professionals. Relevant expertise.</h2>
-          <p class="section-intro__body">Krue&rsquo;s health professionals are licensed occupational therapists who help people manage the impact of chronic conditions on everyday activities, routines, and participation. That can include practical strategies, adaptations, tools, and changes to your surroundings.</p>
-        </div>
-        <div class="team-grid" id="team-grid">
-          {teamData.map((t) => (
-            <article class="team-card">
-              <div class="team-card__photo">
-                <img src={`/assets/photos/${t.photo}.webp`} alt={`Portrait of ${t.name}, ${t.credential}`} />
+        <div class="container how__inner">
+          <div class="label-blue">HOW KRUE HELPS</div>
+          <div class="timeline">
+            <div class="step" data-reveal>
+              <div class="step__rail">
+                <span class="marker"></span>
+                <span class="line line--solid"></span>
               </div>
-              <div class="team-card__body">
-                <div>
-                  <h3>{t.name}</h3>
-                  <p class="team-card__credential">{t.credential}</p>
+              <div class="step__body">
+                <h3>Figure it out.</h3>
+                <p>Bring us what you’re trying to understand. We’ll help find credible information, resources, practical strategies, and useful next steps.</p>
+              </div>
+            </div>
+            <div class="step" data-reveal>
+              <div class="step__rail">
+                <span class="marker"></span>
+                <span class="line line--fade"></span>
+              </div>
+              <div class="step__body">
+                <h3>Make a plan.</h3>
+                <p>We’ll turn what matters to you into a simple plan — things to try, questions to ask, appointments to prepare for, resources to explore, and next steps.</p>
+              </div>
+            </div>
+            <div class="step step--last" data-reveal>
+              <div class="step__rail">
+                <span class="marker marker--final"></span>
+                <span class="line line--dashed"></span>
+              </div>
+              <div class="step__body step__body--last">
+                <h3>Adapt as you go.</h3>
+                <p>You won’t be left with a plan and sent on your way. A real person checks in, helps you follow through, and works through new questions with you as things change.</p>
+                <div class="checkins">
+                  <div class="checkin">
+                    <span class="checkin__day">Monday</span>
+                    <div class="bubble bubble--white">
+                      <div class="bubble__head"><span class="avatar">G</span><span>Grace</span></div>
+                      <p>“You were going to try moving your shower to the evening this week. How did that go?”</p>
+                    </div>
+                  </div>
+                  <div class="checkin">
+                    <span class="checkin__day">The following Tuesday</span>
+                    <div class="bubble bubble--white">
+                      <div class="bubble__head"><span class="avatar">G</span><span>Grace</span></div>
+                      <p>“You mentioned your neurology appointment is Thursday. Want to go through the questions you’ve been saving?”</p>
+                    </div>
+                  </div>
+                  <div class="hand hand--26" style="transform:rotate(-2deg);margin-left:12px" aria-hidden="true">same person, week after week</div>
                 </div>
-                <div class="team-card__tags">
-                  {t.tags.map((tag) => <span>{tag}</span>)}
-                </div>
-                <p class="team-card__experience">Experience with {t.experience}</p>
               </div>
-            </article>
-          ))}
-        </div>
-        <div class="team-dots" id="team-dots" role="tablist" aria-label="Team members">
-          {teamData.map((t, i) => (
-            <button type="button" class="team-dot" data-index={i} aria-label={`Show ${t.name}`}></button>
-          ))}
-        </div>
-        <div class="team-cta">
-          <a href={appLink()} class="btn btn-secondary btn-lg">Ask a question →</a>
+            </div>
+          </div>
+          <h2 class="h-lg how__close" data-reveal>You don’t have to figure out every piece alone.</h2>
         </div>
       </section>
 
-      <!-- Example questions -->
-      <section class="examples">
-        <div class="section-intro">
-          <p class="eyebrow">What could I ask?</p>
-          <h2>Questions that don’t fit neatly into a doctor’s appointment.</h2>
+      <!-- 4. The experience -->
+      <section class="experience container">
+        <h2 class="h-xl exp__title">Start with whatever is on your mind.</h2>
+        <p class="exp__sub">You don’t need to know what kind of help you need. Just tell us what’s going on.</p>
+
+        <div class="exp__grid">
+          <div class="thread">
+            <div class="eyebrow">ONE THREAD, START TO FINISH</div>
+            <span class="thread__on">A question</span>
+            <span>Useful information</span>
+            <span>A plan</span>
+            <span>Something you try</span>
+            <span>Someone following up</span>
+          </div>
+
+          <div class="convo">
+            <div class="bubble bubble--user" style="align-self:flex-end;max-width:86%" data-reveal>My doctor told me to try compression for POTS but I have no idea what I’m actually supposed to buy.</div>
+            <div class="bubble bubble--grace" style="align-self:flex-start;max-width:88%" data-reveal>
+              <div class="bubble__head"><span class="avatar">G</span><span>Grace from Krue</span></div>
+              <p>I can help you sort through the different types and what to consider. Did they mention a compression level or how high it should go?</p>
+            </div>
+            <div class="plan-card plan-card--convo" data-reveal>
+              <div class="eyebrow">ADDED TO YOUR PLAN</div>
+              <ul class="checklist checklist--tight">
+                <li class="is-done"><span class="check"></span><span>Understand compression options</span></li>
+                <li class="is-done"><span class="check"></span><span>Confirm compression level with doctor</span></li>
+                <li><span class="check"></span><span>Choose an option to try</span></li>
+              </ul>
+            </div>
+            <div class="divider" data-reveal><span></span><span>A week later</span><span></span></div>
+            <div class="bubble bubble--grace" style="align-self:flex-start;max-width:88%" data-reveal>
+              <div class="bubble__head"><span class="avatar">G</span><span>Grace from Krue</span></div>
+              <p>You were looking into compression last week. Did you end up trying anything?</p>
+            </div>
+            <div class="bubble bubble--user" style="align-self:flex-end;max-width:80%" data-reveal>I ordered a pair of knee-highs. Still getting used to them.</div>
+            <div class="hand" style="align-self:flex-end;transform:rotate(-2deg);margin-right:8px" aria-hidden="true">and it stays on the plan until it’s sorted</div>
+          </div>
         </div>
-        <div class="examples__wrap">
-          {questions.map((q) => (
-            <p class="examples__bubble" style={`background:${q.bg};border-radius:${q.radius}`}>&ldquo;{q.text}&rdquo;</p>
-          ))}
-        </div>
-        <div class="examples__cta">
-          <a href={appLink()} class="btn btn-primary btn-lg">Ask what’s on your mind →</a>
-          <p class="examples__note">Illustrative questions.</p>
+
+        <div class="examples">
+          <div class="example" data-reveal>
+            <div class="eyebrow eyebrow--grey">PREPARING FOR A SPECIALIST</div>
+            <div class="bubble bubble--user bubble--sm" style="align-self:flex-end;max-width:88%">I see rheumatology in two weeks and I always forget what I wanted to ask.</div>
+            <div class="bubble bubble--grace bubble--sm" style="align-self:flex-start;max-width:90%">Let’s pull together what you’ve been saving. Want to add the joint pain you mentioned last week?</div>
+            <div class="example__row"><span class="check"></span><span>Bring question list to rheumatology</span></div>
+          </div>
+          <div class="example" data-reveal>
+            <div class="eyebrow eyebrow--grey">KNOWING WHETHER SOMETHING HELPED</div>
+            <div class="bubble bubble--user bubble--sm" style="align-self:flex-end;max-width:88%">I’ve been pacing my energy for a couple of weeks. I honestly can’t tell if it’s working.</div>
+            <div class="bubble bubble--grace bubble--sm" style="align-self:flex-start;max-width:90%">Want to jot down a quick energy check each evening? We can look at it together on Friday.</div>
+            <div class="example__row"><span class="check"></span><span>Evening energy check, Monday to Friday</span></div>
+          </div>
         </div>
       </section>
 
-      <!-- FAQs -->
-      <section id="cost" class="faqs">
-        <h2>A few things you may be wondering.</h2>
-        <div class="faq-list">
-          {faqData.map(([q, a], i) => (
-            <details class="faq-item" name="faq" open={i === 0}>
-              <summary class="faq-summary">
-                <h3>{q}</h3>
-                <span class="faq-icon" aria-hidden="true"></span>
-              </summary>
-              <div class="faq-panel">
-                {a.map((p) => <p>{p}</p>)}
+      <!-- 5. Founder -->
+      <section id="why" class="founder">
+        <div class="container founder__grid">
+          <img class="founder__photo" src="/assets/photos/founder-grace.jpg" alt="Grace, founder of Krue" width="240" height="300" loading="lazy" />
+          <div class="founder__text">
+            <h2>I started Krue because I’ve lived this.</h2>
+            <blockquote>
+              <p>“After I suddenly became sick with POTS, I learned how much of managing chronic illness happens outside the doctor’s office.</p>
+              <p>I had to research constantly, find the right people, keep track of recommendations, prepare for appointments, try different strategies, and figure out how to live my life around a body that had changed.</p>
+              <p>Over time, I built my own system for managing it.</p>
+              <p class="strong">Krue is my attempt to give other people the support I wish I’d had.”</p>
+            </blockquote>
+            <div class="founder__sig">— Grace, Founder</div>
+            <p class="founder__note">Built from lived experience and 50+ hours talking with people navigating chronic illness.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. Try Krue -->
+      <section id="try" class="try">
+        <div class="container try__inner">
+          <h2 class="h-xxl">Give yourself less to manage.</h2>
+          <div class="try__body">
+            <p>Krue is currently working with a small group of people with chronic illness to build a better way to manage everything that happens between appointments.</p>
+            <p>For the current pilot, you’ll work directly with Grace to build your plan and have support along the way. Participation is free.</p>
+          </div>
+
+          <div id="try-intro" class="try__intro">
+            <a href="/#try" class="btn btn-primary btn-lg" data-try="try_section">I’d like to try Krue →</a>
+          </div>
+
+          <form id="intake" class="card" hidden novalidate data-placeholders={JSON.stringify(placeholders)}>
+            <label for="help" class="card__q">What could you use help with right now?</label>
+            <textarea id="help" name="help" class="field" rows="5" placeholder={placeholders[0]}></textarea>
+            <div class="form-grid">
+              <div class="fld">
+                <label for="name">Name</label>
+                <input id="name" name="name" class="field" type="text" autocomplete="given-name" />
               </div>
-            </details>
-          ))}
-        </div>
-      </section>
+              <div class="fld">
+                <label for="email">Email</label>
+                <input id="email" name="email" class="field" type="email" required autocomplete="email" aria-describedby="email-error" />
+                <p id="email-error" class="fld__error" role="alert" hidden>Enter an email in the format name@example.com.</p>
+              </div>
+            </div>
+            <div class="fld">
+              <label for="conditions">Condition(s)</label>
+              <input id="conditions" name="conditions" class="field" type="text" placeholder="Whatever you’d like to share" aria-describedby="conditions-hint" />
+              <p id="conditions-hint" class="fld__hint">Optional. You don’t need a diagnosis to join.</p>
+            </div>
+            <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <p class="consent">By submitting, you agree to our <a href="/privacy">Privacy Policy</a>.</p>
+            <p id="form-error" class="form-error" role="alert" hidden>Something went wrong. Please try again.</p>
+            <div><button type="submit" id="submit-btn" class="btn btn-primary btn-lg">I’d like to try Krue →</button></div>
+          </form>
 
-      <!-- Founder -->
-      <section class="founder">
-        <img class="founder__portrait" src="/assets/photos/founder-portrait.webp" alt="Grace, Krue's founder." />
-        <div class="founder__body">
-          <h2>Built from the everyday side of chronic illness.</h2>
-          <p>Living with POTS showed me how much of chronic illness happens outside the doctor’s office. I had questions about managing my energy, adapting my routines, working, exercising, and keeping up with everyday life — but I often didn’t know who to ask.</p>
-          <p>I built Krue to make it easier to bring those questions somewhere and get practical guidance from someone with the right expertise.</p>
-          <p class="founder__sig">— Grace, Founder</p>
-        </div>
-      </section>
-
-      <!-- Final CTA -->
-      <section class="final-cta">
-        <div class="final-cta__panel">
-          <div class="final-cta__content">
-            <h2>You don’t need to know who to ask.</h2>
-            <p class="final-cta__strong">Start with what you need. We’ll review whether we can help.</p>
-            <p class="final-cta__body">Tell Krue what’s getting in the way, and we’ll help figure out the next step.</p>
-            <div><a href={appLink()} class="btn btn-primary btn-lg">Get started →</a></div>
+          <div id="thanks" class="card card--thanks" hidden>
+            <h3 id="thanks-title" tabindex="-1">Thanks. Grace will be in touch by email.</h3>
+            <p class="thanks__lead">Here’s what the pilot looks like:</p>
+            <ul class="dots">
+              <li><span></span><span>A one-hour kickoff conversation about what’s going on and what you want help with</span></li>
+              <li><span></span><span>Two weeks working with Grace on your plan, with messaging whenever something comes up</span></li>
+              <li><span></span><span>A 30-minute debrief at the end and a short feedback survey</span></li>
+            </ul>
+            <p class="thanks__free">It’s free.</p>
           </div>
         </div>
       </section>
@@ -286,220 +262,291 @@ const teamData = [
 </Base>
 
 <style>
-  .page { min-height: 100vh; background: var(--white); color: var(--navy-500); font-family: var(--font-body); }
+  .page { min-height: 100vh; background: var(--surface-cream); color: #3A4350; font-family: var(--font-body); }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 700; color: #242B35; margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  ul { list-style: none; margin: 0; padding: 0; }
 
-  main :global(section) { padding: clamp(72px, 9vw, 128px) 24px 0; }
+  .h-xl { font-size: clamp(36px, 6vw, 76px); line-height: 1.04; letter-spacing: -0.03em; }
+  .h-lg { font-size: clamp(38px, 6vw, 76px); line-height: 1.04; letter-spacing: -0.03em; max-width: 15ch; }
+  .h-xxl { font-size: clamp(44px, 8vw, 104px); line-height: 1; letter-spacing: -0.035em; max-width: 12ch; }
 
-  .section-intro { max-width: 760px; margin: 0 auto 48px; text-align: center; display: flex; flex-direction: column; gap: 16px; align-items: center; }
-  .section-intro--left { text-align: left; align-items: flex-start; max-width: 760px; margin: 0 0 52px; }
-  .section-intro h2, .faqs h2 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(32px, 4.2vw, 52px); line-height: 1.08; letter-spacing: -0.03em; text-wrap: balance; }
-  .section-intro__body { margin: 0; font-size: 19px; line-height: 1.6; color: var(--grey-700); }
+  .eyebrow { font: 700 11px/1.2 var(--font-display); letter-spacing: 0.09em; color: #B34D2C; text-transform: none; }
+  .eyebrow--grey { color: #525C6B; margin-bottom: 6px; }
+  .hand--26 { font-size: 26px; }
 
-  /* Hero */
-  .hero { padding-top: clamp(56px, 8vw, 104px); text-align: center; }
-  .hero__intro { max-width: 980px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 22px; }
-  .hero__intro h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(40px, 6.2vw, 74px); line-height: 1.04; letter-spacing: -0.035em; color: var(--navy-500); text-wrap: balance; margin: 0; }
-  .hero__lead { margin: 0; max-width: 720px; font-size: clamp(19px, 1.8vw, 23px); line-height: 1.5; color: var(--navy-900); }
-  .hero__lead strong { color: var(--navy-500); }
-  .hero__start { max-width: 900px; margin: 44px auto 0; text-align: center; }
+  /* shared pieces */
+  .avatar { width: 28px; height: 28px; border-radius: 50%; background: #DAF1FD; color: #1D4878; font: 700 12px/1 var(--font-display); display: inline-grid; place-items: center; flex: none; }
+  .bubble { border-radius: 22px 22px 22px 6px; padding: 14px 18px 16px; font: 400 17px/1.45 var(--font-body); color: #242B35; }
+  .bubble p { margin: 8px 0 0; }
+  .bubble__head { display: flex; align-items: center; gap: 8px; font: 600 14px/1.2 var(--font-display); color: #242B35; }
+  .bubble--grace { background: #DAF1FD; }
+  .bubble--white { background: #FFFFFF; border-radius: 20px 20px 20px 6px; max-width: 92%; }
+  .bubble--user { background: #242B35; color: #FFFFFF; border-radius: 22px 22px 6px 22px; padding: 14px 18px; }
+  .bubble--sm { font-size: 16px; padding: 12px 16px; border-radius: 20px 20px 20px 6px; }
+  .bubble--sm.bubble--user { border-radius: 20px 20px 6px 20px; }
 
-  /* Lifestyle */
-  .lifestyle { max-width: 1220px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
-  .lifestyle__figure { margin: 0; position: relative; border-radius: var(--radius-xl); overflow: hidden; min-height: clamp(420px, 52vw, 620px); background: var(--grey-100); }
-  .lifestyle__figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .lifestyle__chat { position: absolute; left: clamp(14px, 3vw, 36px); right: clamp(14px, 3vw, 36px); bottom: clamp(14px, 3vw, 36px); max-width: 400px; margin-left: auto; background: #FFFFFF; border-radius: 22px; padding: 22px; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; gap: 12px; }
-  .lifestyle__chat-label { font-size: 13px; font-weight: 700; color: var(--grey-600); }
-  .lifestyle__bubble { border-radius: 18px; padding: 12px 16px; font-size: 16px; line-height: 1.45; }
-  .lifestyle__bubble--you { align-self: flex-end; background: var(--navy-500); color: #FFFFFF; border-radius: 18px 18px 4px 18px; }
-  .lifestyle__bubble--them { background: var(--lavender-100); color: var(--navy-500); border-radius: 18px 18px 18px 4px; }
-  .lifestyle__points { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px 28px; }
-  .lifestyle__points li { display: flex; align-items: center; justify-content: center; gap: 12px; font-size: 17px; font-weight: 600; color: var(--navy-800); }
-  .icon-circle { width: 40px; height: 40px; border-radius: 999px; background: var(--navy-500); display: grid; place-items: center; flex: none; }
-  .icon-circle img { width: 20px; height: 20px; }
+  .plan-card { background: #FFFFFF; }
+  .checklist { display: flex; flex-direction: column; gap: 14px; margin-top: 14px; font: 400 17px/1.35 var(--font-body); color: #242B35; }
+  .checklist--tight { gap: 12px; }
+  .checklist li { display: flex; gap: 12px; align-items: center; }
+  .check { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid #C3CAD6; box-sizing: border-box; flex: none; display: grid; place-items: center; }
+  .is-done { color: #5F6B7D; }
+  .is-done .check { background: #F68B65; border-color: #F68B65; }
+  .is-done .check::after { content: ""; width: 5px; height: 9px; border: solid #FFFFFF; border-width: 0 2px 2px 0; transform: translateY(-1px) rotate(45deg); }
+  .is-done span:last-child { text-decoration: line-through; text-decoration-color: #C3CAD6; }
+  .ring { width: clamp(18px, 2.2vw, 28px); height: clamp(18px, 2.2vw, 28px); border-radius: 50%; border: 2px solid #C3CAD6; box-sizing: border-box; flex: none; }
 
-  /* Needs */
-  .needs { max-width: 1220px; margin: 0 auto; }
-  .needs__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 20px; align-items: start; }
-  .need-card { border-radius: var(--radius-lg); overflow: hidden; transition: box-shadow 220ms ease; }
-  .need-card:hover, .need-card:focus-within { box-shadow: inset 0 0 0 2px var(--sky-300); }
-  .need-toggle { all: unset; box-sizing: border-box; cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) clamp(96px, 26%, 128px); gap: 16px; align-items: center; width: 100%; padding: 24px; min-height: 190px; border-radius: var(--radius-lg); }
-  .need-toggle__text { display: flex; flex-direction: column; gap: 8px; }
-  .need-toggle__title { font-family: var(--font-display); font-weight: 800; font-size: 23px; line-height: 1.15; letter-spacing: -0.02em; color: var(--navy-500); }
-  .need-toggle__line { font-size: 17px; line-height: 1.45; color: var(--navy-700); }
-  .need-toggle__cue { margin-top: 6px; font-size: 14px; font-weight: 700; color: var(--navy-500); text-decoration: underline; text-underline-offset: 3px; }
-  .need-toggle__img { width: 100%; height: 140px; display: flex; align-items: center; justify-content: center; }
-  .need-toggle__img img { max-width: 100%; max-height: 100%; object-fit: contain; }
-  .need-panel { padding: 18px 24px 24px; background: #FFFFFF; margin: 0 10px 10px; border-radius: 16px; display: flex; flex-direction: column; gap: 14px; }
-  .need-panel[hidden] { display: none; }
-  .need-panel p { margin: 0; font-size: 17px; line-height: 1.55; color: var(--navy-700); }
-  .needs__else { margin-top: 32px; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
-  .btn-else { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 26px; border-radius: 999px; border: 1.5px solid var(--navy-500); background: transparent; color: var(--navy-500); font: 700 17px var(--font-body); text-decoration: none; cursor: pointer; }
-  .btn-else:hover { background: var(--navy-50); }
+  /* 1. Hero */
+  .hero { padding-top: clamp(48px, 9vw, 120px); padding-bottom: clamp(72px, 10vw, 140px); }
+  .hero h1 { font-size: clamp(44px, 8.4vw, 104px); line-height: 1; letter-spacing: -0.035em; max-width: 13ch; }
+  .hero__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: clamp(48px, 6vw, 96px); align-items: end; margin-top: clamp(36px, 5vw, 64px); }
+  .hero__copy { display: flex; flex-direction: column; gap: 28px; max-width: 34rem; }
+  .hero__lead { font-size: clamp(19px, 1.7vw, 22px); line-height: 1.5; color: #3A4350; text-wrap: pretty; }
+  .hero__note { font: italic 400 15px/1.5 var(--font-body); color: #5F6B7D; }
+  .hero__visual { position: relative; max-width: 460px; width: 100%; justify-self: end; }
+  .plan-card--hero { border-radius: 24px; padding: 28px 28px 32px; box-shadow: 0 1px 2px rgba(12,30,51,.04), 0 12px 32px rgba(12,30,51,.06); transform: rotate(-1.2deg); }
+  .plan-card__title { font: 700 24px/1.2 var(--font-display); color: #242B35; letter-spacing: -0.01em; margin-bottom: 20px; }
+  .bubble--hero { position: relative; margin: -22px -8px 0 auto; width: min(88%, 360px); border-radius: 22px 22px 6px 22px; padding: 16px 18px 18px; box-shadow: 0 10px 28px rgba(12,30,51,.08); }
+  .bubble--hero .bubble__head { gap: 10px; }
+  .bubble--hero p { margin-top: 10px; }
 
-  /* How it works */
-  .how { max-width: 1220px; margin: 0 auto; }
-  .how__grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-  @media (max-width: 900px) { .how__grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 560px) { .how__grid { grid-template-columns: 1fr; } }
-  .how__grid li { display: flex; flex-direction: column; gap: 14px; }
-  .how__mock { height: 170px; border-radius: var(--radius-lg); background: #FFFFFF; border: 1px solid var(--grey-100); padding: 18px; display: flex; }
-  .how__mock--chat { align-items: flex-end; }
-  .how__msg--you { background: var(--navy-500); color: #FFFFFF; border-radius: 16px 16px 4px 16px; padding: 10px 14px; font-size: 14px; line-height: 1.45; }
-  .how__mock--rows { flex-direction: column; justify-content: center; gap: 8px; font-size: 14px; }
-  .how__row { background: var(--grey-50); border-radius: 10px; padding: 8px 12px; }
-  .how__row--accent { background: var(--lavender-100); }
-  .how__mock--convo { flex-direction: column; justify-content: center; gap: 8px; font-size: 14px; }
-  .how__bubble { background: var(--lavender-100); border-radius: 14px 14px 14px 4px; padding: 8px 12px; max-width: 85%; }
-  .how__next { border-radius: 12px; border: 1.5px solid var(--lavender-200); padding: 10px 12px; }
-  .how__next strong { display: block; margin-bottom: 2px; }
-  .how__mock--timeline { flex-direction: column; justify-content: center; gap: 10px; font-size: 14px; padding: 18px 22px; }
-  .how__tl { display: flex; gap: 12px; align-items: center; }
-  .how__tl::before { content: ""; width: 10px; height: 10px; border-radius: 999px; background: var(--lavender-200); flex: none; }
-  .how__tl--navy::before { background: var(--navy-500); }
-  .how__tl--dandelion::before { background: var(--dandelion-400); }
-  .how__tl strong { width: 48px; }
-  .how__num { width: 36px; height: 36px; border-radius: 999px; background: var(--dandelion-400); color: var(--navy-500); display: grid; place-items: center; font-weight: 800; font-family: var(--font-display); }
-  .how__grid h3 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 22px; letter-spacing: -0.02em; }
-  .how__grid p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--grey-700); }
+  /* 2. Problem */
+  .problem { padding-top: clamp(56px, 9vw, 120px); padding-bottom: clamp(96px, 14vw, 180px); }
+  .problem .h-xl { max-width: 16ch; }
+  .burdens { margin-top: clamp(56px, 8vw, 104px); display: flex; flex-direction: column; gap: clamp(18px, 2.4vw, 28px); font: 600 clamp(24px, 3.6vw, 44px)/1.15 var(--font-display); letter-spacing: -0.015em; color: #525C6B; }
+  .burdens li { display: flex; gap: clamp(14px, 2vw, 24px); align-items: center; }
+  .problem__para { margin-top: clamp(40px, 6vw, 72px); max-width: 34ch; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.45; color: #3A4350; text-wrap: pretty; }
+  .problem__left { margin-top: clamp(96px, 14vw, 180px); }
+  .problem__line { margin-top: clamp(24px, 3vw, 36px); font: 600 clamp(22px, 2.6vw, 32px)/1.25 var(--font-display); letter-spacing: -0.01em; color: #BC5230; }
 
-  /* Example questions */
-  .examples { max-width: 1220px; margin: 0 auto; overflow: hidden; }
-  .examples__wrap { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; gap: 10px; max-width: 1060px; margin: 0 auto; }
-  .examples__bubble { margin: 0; padding: 16px 22px; font-size: clamp(16px, 1.4vw, 19px); font-weight: 600; line-height: 1.4; color: var(--navy-500); max-width: 460px; }
-  .examples__cta { margin-top: 44px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-  .examples__note { margin: 0; font-size: 14px; color: var(--grey-600); }
+  /* 3. How */
+  .how { background: #DAF1FD; scroll-margin-top: 60px; }
+  .how__inner { padding-block: clamp(80px, 11vw, 150px); }
+  .label-blue { font: 700 12px/1.2 var(--font-display); letter-spacing: 0.09em; color: #235592; }
+  .timeline { margin-top: clamp(40px, 6vw, 72px); display: flex; flex-direction: column; max-width: 900px; }
+  .step { display: grid; grid-template-columns: 28px minmax(0, 1fr); column-gap: clamp(20px, 3vw, 40px); }
+  .step__rail { display: flex; flex-direction: column; align-items: center; }
+  .marker { width: 18px; height: 18px; border-radius: 50%; background: #FFFFFF; border: 2px solid #235592; box-sizing: border-box; margin-top: clamp(12px, 1.6vw, 20px); flex: none; }
+  .marker--final { width: 26px; height: 26px; border: 0; background: #F68B65; margin-top: clamp(10px, 1.6vw, 20px); box-shadow: 0 0 0 6px rgba(246,139,101,.22); }
+  .line { flex: 1; width: 2px; margin-top: 8px; }
+  .line--solid { background: #9BDBF5; }
+  .line--fade { background: linear-gradient(#9BDBF5, #F68B65); }
+  .line--dashed { background: repeating-linear-gradient(#F68B65 0 6px, transparent 6px 12px); margin-top: 10px; }
+  .step__body { padding-bottom: clamp(48px, 6vw, 80px); }
+  .step__body--last { padding-bottom: 0; }
+  .step h3 { font-size: clamp(34px, 5vw, 60px); line-height: 1.05; letter-spacing: -0.03em; }
+  .step p { margin-top: 18px; max-width: 40ch; font-size: clamp(18px, 1.6vw, 21px); line-height: 1.55; color: #3A4350; text-wrap: pretty; }
+  .step--last h3 { font-size: clamp(40px, 6.4vw, 80px); line-height: 1.02; letter-spacing: -0.035em; }
+  .step--last > .step__body > p { max-width: 42ch; font-size: clamp(19px, 1.8vw, 23px); line-height: 1.5; color: #242B35; }
+  .checkins { margin-top: clamp(32px, 4vw, 48px); display: flex; flex-direction: column; gap: 20px; max-width: 520px; }
+  .checkin { display: flex; flex-direction: column; gap: 8px; }
+  .checkin__day { font: 600 13px/1.2 var(--font-body); color: #525C6B; }
+  .step .bubble p { max-width: none; margin: 8px 0 0; font: 400 17px/1.45 var(--font-body); color: #242B35; }
+  .how__close { margin-top: clamp(96px, 12vw, 160px); }
 
-  /* Experts (team) */
-  .experts { max-width: 1220px; margin: 0 auto; }
-  .team-grid { max-width: 1040px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  @media (max-width: 900px) { .team-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 480px) { .team-grid { grid-template-columns: 1fr; } }
-  .team-card { background: #FFFFFF; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); overflow: hidden; display: flex; flex-direction: column; }
-  .team-card__photo { aspect-ratio: 1 / 1; background: var(--navy-50); }
-  .team-card__photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .team-card__body { padding: 16px 16px 18px; display: flex; flex-direction: column; gap: 10px; }
-  .team-card__body h3 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 18px; letter-spacing: -0.02em; }
-  .team-card__credential { margin: 2px 0 0; font-size: 14px; font-weight: 700; color: var(--navy-400); }
-  .team-card__tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .team-card__tags span { background: var(--lavender-100); border-radius: 999px; padding: 4px 10px; font-size: 13px; font-weight: 600; }
-  .team-card__experience { margin: 0; font-size: 14px; line-height: 1.45; color: var(--grey-700); }
-  .team-cta { margin-top: 40px; display: flex; justify-content: center; }
+  /* 4. Experience */
+  .experience { padding-block: clamp(80px, 11vw, 150px); }
+  .exp__title { max-width: 14ch; }
+  .exp__sub { margin-top: 24px; max-width: 36ch; font-size: clamp(19px, 1.8vw, 22px); line-height: 1.5; color: #3A4350; text-wrap: pretty; }
+  .exp__grid { margin-top: clamp(56px, 8vw, 96px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(40px, 6vw, 96px); align-items: start; }
+  .thread { display: flex; flex-direction: column; gap: 10px; font: 600 15px/1.3 var(--font-display); color: #5F6B7D; max-width: 300px; }
+  .thread .eyebrow { margin-bottom: 6px; }
+  .thread__on { color: #242B35; }
+  .convo { display: flex; flex-direction: column; gap: 16px; max-width: 560px; width: 100%; grid-column: span 2 / auto; }
+  .plan-card--convo { margin: 14px 0; border-radius: 20px; padding: 20px 22px 22px; box-shadow: 0 1px 2px rgba(12,30,51,.04), 0 8px 24px rgba(12,30,51,.05); }
+  .divider { display: flex; align-items: center; gap: 14px; font: 600 13px/1.2 var(--font-body); color: #5F6B7D; }
+  .divider span:first-child, .divider span:last-child { flex: 1; height: 1px; background: #E4DDD2; }
+  .examples { margin-top: clamp(88px, 12vw, 150px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(48px, 6vw, 80px); }
+  .example { border-top: 1px solid #E4DDD2; padding-top: 28px; display: flex; flex-direction: column; gap: 14px; }
+  .example__row { display: flex; gap: 10px; align-items: center; font: 400 16px/1.35 var(--font-body); color: #242B35; margin-top: 6px; }
+  .example__row .check { width: 18px; height: 18px; }
 
-  .team-dots { display: none; justify-content: center; gap: 8px; margin-top: 18px; }
-  .team-dot { width: 8px; height: 8px; padding: 0; border: none; border-radius: 999px; background: var(--grey-300); cursor: pointer; }
-  .team-dot.is-active { width: 20px; background: var(--navy-500); transition: width 220ms ease, background 220ms ease; }
+  /* 5. Founder */
+  .founder { border-top: 1px solid #E4DDD2; scroll-margin-top: 60px; }
+  .founder__grid { padding-block: clamp(80px, 11vw, 150px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(36px, 5vw, 72px); align-items: start; }
+  .founder__photo { width: min(100%, 240px); height: 300px; border-radius: 20px; object-fit: cover; display: block; }
+  .founder__text { grid-column: span 2 / auto; max-width: 640px; display: flex; flex-direction: column; }
+  .founder h2 { font-size: clamp(34px, 5vw, 60px); line-height: 1.06; letter-spacing: -0.03em; }
+  .founder blockquote { margin: 32px 0 0; display: flex; flex-direction: column; gap: 18px; font-size: clamp(18px, 1.6vw, 20px); line-height: 1.6; color: #3A4350; text-wrap: pretty; }
+  .founder .strong { color: #242B35; font-weight: 600; }
+  .founder__sig { margin-top: 24px; font: 600 16px/1.3 var(--font-display); color: #242B35; }
+  .founder__note { margin-top: 40px; padding-top: 20px; border-top: 1px solid #E4DDD2; font-size: 15px; line-height: 1.5; color: #525C6B; }
 
-  @media (max-width: 640px) {
-    .team-grid { display: flex; grid-template-columns: none; max-width: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
-    .team-grid::-webkit-scrollbar { display: none; }
-    .team-card { flex: 0 0 80%; scroll-snap-align: center; }
-    .team-dots { display: flex; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .team-dot { transition: none; }
-  }
-
-  /* FAQs */
-  .faqs { max-width: 860px; margin: 0 auto; }
-  .faqs h2 { margin: 0 0 36px; text-align: left; }
-  .faq-list { border-top: 1px solid var(--grey-200); }
-  .faq-item { border-bottom: 1px solid var(--grey-200); }
-  .faq-summary { list-style: none; margin: 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 22px 4px; }
-  .faq-summary h3 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: clamp(18px, 1.6vw, 21px); letter-spacing: -0.01em; color: var(--navy-500); }
-  .faq-summary::-webkit-details-marker { display: none; }
-  .faq-summary:focus-visible { box-shadow: 0 0 0 3px var(--navy-200); border-radius: 8px; }
-  .faq-icon { width: 32px; height: 32px; border-radius: 999px; background: var(--lavender-100); color: var(--navy-500); display: grid; place-items: center; flex: none; font-size: 20px; font-weight: 700; }
-  .faq-icon::before { content: "+"; }
-  .faq-item[open] .faq-icon { background: var(--navy-500); color: #FFFFFF; }
-  .faq-item[open] .faq-icon::before { content: "\2212"; }
-  .faq-panel { padding: 0 56px 24px 4px; display: flex; flex-direction: column; gap: 12px; }
-  .faq-panel p { margin: 0; font-size: 17px; line-height: 1.65; color: var(--grey-700); max-width: 64ch; }
-
-  /* Founder */
-  .founder { max-width: 960px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), auto)); gap: clamp(28px, 5vw, 56px); align-items: center; }
-  .founder__portrait { width: 200px; height: 200px; border-radius: 999px; background: var(--lavender-100); object-fit: cover; display: block; }
-  .founder__body { display: flex; flex-direction: column; gap: 16px; max-width: 620px; }
-  .founder__body h2 { font-size: clamp(26px, 3vw, 36px); line-height: 1.12; letter-spacing: -0.025em; text-align: left; margin: 0; }
-  .founder__body p { margin: 0; font-size: 18px; line-height: 1.65; color: var(--grey-700); }
-  .founder__sig { font-weight: 700; font-size: 17px; color: var(--navy-500); }
-
-  /* Final CTA */
-  .final-cta { padding-bottom: clamp(72px, 9vw, 128px); }
-  .final-cta__panel {
-    max-width: 1220px;
-    margin: 0 auto;
-    min-height: 480px;
-    border-radius: var(--radius-xl);
-    padding: clamp(36px, 6vw, 80px) clamp(24px, 5vw, 72px);
-    display: flex;
-    align-items: center;
-    background:
-      linear-gradient(90deg, #F2E9F3 0%, #F2E9F3 38%, rgba(242,233,243,.86) 52%, rgba(242,233,243,.3) 72%, rgba(242,233,243,.12) 100%),
-      url("/assets/photos/final-cta-phone.png") 70% center / cover no-repeat;
-  }
-  .final-cta__content { display: flex; flex-direction: column; gap: 18px; max-width: 520px; }
-  .final-cta__content h2 { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(32px, 4.4vw, 54px); line-height: 1.06; letter-spacing: -0.03em; text-wrap: balance; text-align: left; }
-  .final-cta__strong { margin: 0; font-size: 20px; line-height: 1.55; font-weight: 700; }
-  .final-cta__body { margin: 0; font-size: 18px; line-height: 1.6; color: var(--grey-700); }
-
-  @media (max-width: 900px) {
-    .final-cta__panel {
-      background:
-        linear-gradient(180deg, rgba(242,233,243,.92) 0%, rgba(242,233,243,.9) 55%, rgba(242,233,243,.75) 100%),
-        url("/assets/photos/final-cta-phone.png") 72% center / cover no-repeat;
-    }
-  }
+  /* 6. Try */
+  .try { background: #FEEBE4; scroll-margin-top: 60px; }
+  .try__inner { padding-block: clamp(80px, 11vw, 150px); }
+  .try__body { margin-top: 32px; max-width: 40rem; display: flex; flex-direction: column; gap: 16px; font-size: clamp(18px, 1.7vw, 21px); line-height: 1.55; color: #3A4350; text-wrap: pretty; }
+  .try__intro { margin-top: 40px; display: flex; }
+  .card { margin-top: clamp(56px, 7vw, 88px); max-width: 720px; background: #FFFFFF; border-radius: 28px; padding: clamp(24px, 4vw, 48px); display: flex; flex-direction: column; gap: 24px; box-shadow: 0 12px 40px rgba(12,30,51,.06); scroll-margin-top: 90px; }
+  .card[hidden], .try__intro[hidden] { display: none; }
+  .card--thanks { display: block; box-shadow: none; }
+  .card__q { font: 700 clamp(28px, 4vw, 44px)/1.1 var(--font-display); letter-spacing: -0.025em; color: #242B35; }
+  .card .field { font: 400 16px var(--font-body); border: 1.5px solid #C3CAD6; border-radius: 14px; }
+  .card input.field { height: 44px; padding: 0 16px; }
+  .card textarea.field { padding: 12px 16px; }
+  .card .field.is-invalid { border-color: #E06B42; }
+  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 20px; }
+  .fld { display: flex; flex-direction: column; gap: 8px; }
+  .fld label { font: 600 14px/1.3 var(--font-body); color: #242B35; }
+  .fld__hint { font-size: 13px; line-height: 1.4; color: #5F6B7D; }
+  .fld__error, .form-error { font-size: 13px; line-height: 1.4; color: #BC5230; }
+  .form-error { font-size: 15px; }
+  .consent { font-size: 14px; line-height: 1.5; color: #525C6B; }
+  .consent a { color: #525C6B; text-decoration: underline; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .card--thanks h3 { font-size: clamp(28px, 4vw, 44px); line-height: 1.1; letter-spacing: -0.025em; outline: none; }
+  .thanks__lead { margin-top: 20px; font-size: 18px; line-height: 1.55; color: #3A4350; }
+  .dots { margin-top: 16px; display: flex; flex-direction: column; gap: 12px; font-size: 18px; line-height: 1.45; color: #242B35; }
+  .dots li { display: flex; gap: 12px; align-items: baseline; }
+  .dots li span:first-child { width: 8px; height: 8px; border-radius: 50%; background: #F68B65; flex: none; transform: translateY(-2px); }
+  .thanks__free { margin-top: 24px; font-size: 16px; line-height: 1.5; color: #525C6B; }
 </style>
 
 <script>
-  document.addEventListener('click', (e) => {
-    const target = e.target as HTMLElement;
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const toggle = target.closest('.need-toggle') as HTMLElement | null;
-    if (toggle) {
-      const panel = document.getElementById(toggle.getAttribute('aria-controls') || '');
-      const expanded = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', String(!expanded));
-      const cue = toggle.querySelector('.need-toggle__cue');
-      if (cue) cue.textContent = expanded ? 'Learn more' : 'Show less';
-      if (panel) panel.hidden = expanded;
-      return;
-    }
+  const form = document.getElementById("intake") as HTMLFormElement;
+  const intro = document.getElementById("try-intro") as HTMLElement;
+  const thanks = document.getElementById("thanks") as HTMLElement;
+  const thanksTitle = document.getElementById("thanks-title") as HTMLElement;
+  const helpEl = document.getElementById("help") as HTMLTextAreaElement;
+  const nameEl = document.getElementById("name") as HTMLInputElement;
+  const emailEl = document.getElementById("email") as HTMLInputElement;
+  const condEl = document.getElementById("conditions") as HTMLInputElement;
+  const emailErr = document.getElementById("email-error") as HTMLElement;
+  const formErr = document.getElementById("form-error") as HTMLElement;
+  const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement;
 
-    const topicBtn = target.closest('[data-topics]') as HTMLElement | null;
-    if (topicBtn) {
-      const topics = JSON.parse(topicBtn.dataset.topics || '[]');
-      window.dispatchEvent(new CustomEvent('krue:pick-topic', { detail: { topics } }));
-    }
+  let submitted = false;
+
+  // Analytics events for Google Tag Manager. Names and button locations only;
+  // never include anything the visitor typed.
+  function track(event: string, params: Record<string, string> = {}) {
+    const w = window as unknown as { dataLayer?: unknown[] };
+    (w.dataLayer = w.dataLayer || []).push({ event, ...params });
+  }
+
+  function scrollToId(id: string) {
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 90, behavior: reduceMotion ? "auto" : "smooth" });
+    }, 40);
+  }
+
+  function openForm() {
+    if (submitted) return scrollToId("thanks");
+    intro.hidden = true;
+    form.hidden = false;
+    scrollToId("intake");
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-try]").forEach((el) =>
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      track("try_krue_click", { button_location: el.dataset.try || "unknown" });
+      history.replaceState(null, "", "/#try");
+      openForm();
+    })
+  );
+  if (location.hash === "#try" || location.hash === "#start") openForm();
+
+  // Rotating placeholder
+  const placeholders: string[] = JSON.parse(form.dataset.placeholders || "[]");
+  if (!reduceMotion && placeholders.length > 1) {
+    let i = 0;
+    setInterval(() => {
+      i = (i + 1) % placeholders.length;
+      helpEl.placeholder = placeholders[i];
+    }, 3200);
+  }
+
+  let started = false;
+  form.addEventListener("input", () => {
+    if (started) return;
+    started = true;
+    track("form_start");
   });
 
-  const teamGrid = document.getElementById('team-grid');
-  const teamDots = Array.from(document.querySelectorAll<HTMLButtonElement>('.team-dot'));
-  if (teamGrid && teamDots.length) {
-    const cards = Array.from(teamGrid.querySelectorAll<HTMLElement>('.team-card'));
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Validation
+  function validateEmail() {
+    const ok = EMAIL_RE.test(emailEl.value.trim());
+    emailEl.classList.toggle("is-invalid", !ok);
+    emailEl.setAttribute("aria-invalid", String(!ok));
+    emailErr.hidden = ok;
+    return ok;
+  }
+  emailEl.addEventListener("blur", validateEmail);
+  emailEl.addEventListener("input", () => { if (!emailErr.hidden) validateEmail(); });
 
-    const setActive = (i: number) => {
-      teamDots.forEach((d, di) => d.classList.toggle('is-active', di === i));
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const i = cards.indexOf(entry.target as HTMLElement);
-          if (i !== -1) setActive(i);
-        }
-      });
-    }, { root: teamGrid, threshold: 0.6 });
-    cards.forEach((c) => observer.observe(c));
-
-    teamDots.forEach((dot, i) => {
-      dot.addEventListener('click', () => {
-        cards[i]?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', inline: 'center', block: 'nearest' });
-      });
+  // Sends the sign-up to the Google Sheet script. Never log help/conditions.
+  async function sendPilot(payload: Record<string, string>): Promise<boolean> {
+    const url = import.meta.env.PUBLIC_INTAKE_URL;
+    if (!url) {
+      console.warn("PUBLIC_INTAKE_URL is not set; sign-up was not sent.");
+      return false;
+    }
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload),
     });
+    const json = await res.json();
+    return json?.ok === true;
+  }
 
-    setActive(0);
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    formErr.hidden = true;
+    if (!validateEmail()) { emailEl.focus(); return; }
+    const data = new FormData(form);
+    const payload = {
+      submittedAt: new Date().toISOString(),
+      form: "pilot",
+      help: helpEl.value,
+      firstName: nameEl.value.trim(),
+      email: emailEl.value.trim(),
+      conditions: condEl.value,
+      source: "homepage-v2",
+      website: String(data.get("website") || ""),
+    };
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending…";
+    let ok = false;
+    try { ok = await sendPilot(payload); } catch { ok = false; }
+    if (!ok) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "I’d like to try Krue →";
+      formErr.hidden = false;
+      track("form_submit_error");
+      return;
+    }
+    submitted = true;
+    track("form_submit_success");
+    const n = payload.firstName;
+    thanksTitle.textContent = n ? `Thanks, ${n}. Grace will be in touch by email.` : "Thanks. Grace will be in touch by email.";
+    form.hidden = true;
+    thanks.hidden = false;
+    scrollToId("thanks");
+    thanksTitle.focus({ preventScroll: true });
+  });
+
+  // Scroll reveal: hidden state is applied only from JS so no-JS/crawlers see everything.
+  if (!reduceMotion && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver((entries) => entries.forEach((en) => {
+      if (!en.isIntersecting) return;
+      const t = en.target as HTMLElement;
+      t.style.opacity = "1";
+      t.style.transform = "none";
+      io.unobserve(t);
+    }), { rootMargin: "0px 0px -10% 0px" });
+    document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
+      if (el.getBoundingClientRect().top < innerHeight * 0.9) return;
+      el.style.opacity = "0";
+      el.style.transform = "translateY(16px)";
+      el.style.transition = "opacity 700ms cubic-bezier(.2,.7,.2,1), transform 700ms cubic-bezier(.2,.7,.2,1)";
+      io.observe(el);
+    });
   }
 </script>

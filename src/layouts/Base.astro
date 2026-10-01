@@ -1,14 +1,16 @@
 ---
 import "../styles/global.css";
+import Analytics from "../components/Analytics.astro";
 
 interface Props {
   title: string;
   description: string;
   path?: string;
   ogType?: "website" | "article";
+  noindex?: boolean;
 }
 
-const { title, description, path = "/", ogType = "website" } = Astro.props;
+const { title, description, path = "/", ogType = "website", noindex = false } = Astro.props;
 const canonical = new URL(path, Astro.site ?? "https://krue.io");
 const ogImage = new URL("/og-image.png", Astro.site ?? "https://krue.io");
 const siteUrl = new URL("/", Astro.site ?? "https://krue.io");
@@ -42,6 +44,13 @@ const siteJsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    {import.meta.env.PUBLIC_GSC_VERIFICATION && (
+      <meta name="google-site-verification" content={import.meta.env.PUBLIC_GSC_VERIFICATION} />
+    )}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap" />
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
@@ -55,17 +64,19 @@ const siteJsonLd = {
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Krue — support for daily life with chronic illness." />
+    <meta property="og:image:alt" content="Krue · Support for everything between appointments." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
     <script type="application/ld+json" set:html={JSON.stringify(siteJsonLd)} />
+    <Analytics placement="head" />
 
     <slot name="head" />
   </head>
   <body>
+    <Analytics placement="body" />
     <slot />
   </body>
 </html>

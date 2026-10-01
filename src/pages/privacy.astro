@@ -5,47 +5,49 @@ import Footer from "../components/Footer.astro";
 ---
 
 <Base
-  title="Privacy Policy | Krue"
+  title="Privacy Policy · Krue"
   description="How Krue collects, uses, and protects your information."
   path="/privacy"
 >
   <div class="page">
-    <Header showAnnouncement={false} />
+    <Header />
     <main>
-      <section class="placeholder">
-        <p class="eyebrow">Privacy Policy</p>
-        <h1>This page is a placeholder.</h1>
-        <p>Krue's real Privacy Policy needs to go here before launch — ideally reviewed by a lawyer, since this covers how personal and health information is collected, used, and protected. It's linked from the site footer and from the intake form's consent line.</p>
-      </section>
+      <article class="doc">
+        <h1>Krue Privacy Policy</h1>
+        <p class="doc__date">Last updated: October 1, 2026</p>
+
+        <p>This policy explains how Krue (“Krue,” “we,” “us”) collects and uses personal information through krue.io and the services we provide.</p>
+        <p>Krue is not a healthcare provider and does not give medical advice. In an emergency, call 911.</p>
+
+        <h2>What we collect and why</h2>
+        <p>We collect information you give us, such as your name, email address, what you’d like help with, health conditions you choose to share, and your messages with us. If you accept cookies, we also collect basic website usage data, such as pages viewed and device type.</p>
+        <p>We use this information to provide and improve our services, communicate with you, keep our site secure, and meet legal obligations. Health information you share is treated as sensitive and used only to support you, unless you agree otherwise.</p>
+        <p>We may use AI tools to help organize or summarize information, with providers that don’t train their models on your data.</p>
+
+        <h2>Sharing, cookies, and storage</h2>
+        <p>We share information with service providers that help us run Krue (such as hosting, email, data storage, and analytics), when you ask us to, or when the law requires it. Before we use or share your health information in a new way, we’ll ask for your consent.</p>
+        <p>We use analytics cookies only if you accept them, and you can change your choice at any time.</p>
+        <p>We keep information only as long as we need it, and we protect it with reasonable security measures. Your information is stored in the United States.</p>
+
+        <h2>Your choices</h2>
+        <p>You can ask to see, correct, or delete your information, or unsubscribe from emails, at any time by contacting us. Depending on where you live, you may have additional rights under state law.</p>
+        <p>Krue is for adults 18 and older.</p>
+        <p>We may update this policy from time to time. If we make significant changes, we’ll update the date above and let you know.</p>
+
+        <h2>Contact</h2>
+        <p><a href="mailto:community@krue.io">community@krue.io</a></p>
+      </article>
     </main>
     <Footer />
   </div>
 </Base>
 
 <style>
-  .page { min-height: 100vh; display: flex; flex-direction: column; background: var(--white); color: var(--navy-500); font-family: var(--font-body); }
+  .page { min-height: 100vh; display: flex; flex-direction: column; background: var(--surface-cream); color: #3A4350; font-family: var(--font-body); }
   main { flex: 1; }
-  .placeholder {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: clamp(56px, 8vw, 104px) 24px clamp(72px, 9vw, 128px);
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .placeholder h1 {
-    margin: 0;
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(32px, 4vw, 48px);
-    line-height: 1.1;
-    letter-spacing: -0.03em;
-    color: var(--navy-500);
-  }
-  .placeholder p:last-child {
-    margin: 0;
-    font-size: 18px;
-    line-height: 1.6;
-    color: var(--grey-700);
-  }
+  .doc { max-width: 720px; margin: 0 auto; padding: clamp(48px, 7vw, 96px) clamp(20px, 4vw, 40px) clamp(72px, 9vw, 128px); display: flex; flex-direction: column; gap: 18px; font-size: 18px; line-height: 1.65; }
+  .doc h1 { margin: 0; font: 700 clamp(36px, 5vw, 56px)/1.05 var(--font-display); letter-spacing: -0.03em; color: #242B35; }
+  .doc h2 { margin: 24px 0 0; font: 700 26px/1.2 var(--font-display); letter-spacing: -0.02em; color: #242B35; }
+  .doc p { margin: 0; }
+  .doc__date { font-size: 15px; color: #525C6B; }
 </style>

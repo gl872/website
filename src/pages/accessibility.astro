@@ -8,9 +8,10 @@ import Footer from "../components/Footer.astro";
   title="Accessibility | Krue"
   description="Krue's commitment to accessibility."
   path="/accessibility"
+  noindex
 >
   <div class="page">
-    <Header showAnnouncement={false} />
+    <Header />
     <main>
       <section class="placeholder">
         <p class="eyebrow">Accessibility</p>
@@ -23,7 +24,7 @@ import Footer from "../components/Footer.astro";
 </Base>
 
 <style>
-  .page { min-height: 100vh; display: flex; flex-direction: column; background: var(--white); color: var(--navy-500); font-family: var(--font-body); }
+  .page { min-height: 100vh; display: flex; flex-direction: column; background: var(--surface-cream); color: #3A4350; font-family: var(--font-body); }
   main { flex: 1; }
   .placeholder {
     max-width: 720px;

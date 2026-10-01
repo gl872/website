@@ -3,198 +3,133 @@ import { getCollection } from "astro:content";
 import Base from "../../layouts/Base.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import PostCard from "../../components/PostCard.astro";
+import ClosingBand from "../../components/ClosingBand.astro";
 
-const TYPES = ["Company news", "Articles", "Practical guides"];
+const FILTERS = ["All", "Company news", "Articles", "Practical guides"];
 
 const allPosts = await getCollection("blog", ({ data }) => !data.draft);
 const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const hasPosts = posts.length > 0;
+const fmt = (d: Date) => d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
 ---
 
 <Base
-  title="Blog | Krue"
+  title="Blog · Krue"
   description="Updates on what we're building, and practical ideas for everyday life with chronic illness."
   path="/blog"
 >
   <div class="page">
-    <Header showAnnouncement={false} />
+    <Header />
     <main>
-      <section class="blog-hero">
-        <div class="blog-hero__intro">
-          <p class="eyebrow">Blog</p>
-          <h1>News, articles, and practical guides.</h1>
-        </div>
-        <p class="blog-hero__lead">Updates on what we&rsquo;re building, and practical ideas for everyday life with chronic illness.</p>
+      <section class="blog container">
+        <h1>Notes from Krue.</h1>
+        <p class="blog__intro">Updates on what we’re building, and practical ideas for everyday life with chronic illness.</p>
 
-        {!hasPosts && (
-          <div role="status" class="blog-empty">
-            <p class="blog-empty__big">Coming soon</p>
-            <h2>We&rsquo;re working on our first posts.</h2>
-            <p class="blog-empty__note">Check back soon for company news, articles, and practical guides.</p>
+        {hasPosts && (
+          <div role="group" aria-label="Filter by type" class="tabs">
+            {FILTERS.map((f, i) => (
+              <button type="button" class="tab" data-filter={f} aria-pressed={i === 0 ? "true" : "false"}>{f}</button>
+            ))}
           </div>
         )}
 
         {hasPosts && (
-          <>
-            <div class="blog-controls">
-              <div role="group" aria-label="Filter by type" class="blog-filters">
-                <button type="button" class="pill blog-filter" data-filter="All" aria-pressed="true">All</button>
-                {TYPES.map((t) => (
-                  <button type="button" class="pill blog-filter" data-filter={t} aria-pressed="false">{t}</button>
-                ))}
-              </div>
-              <div class="blog-search">
-                <label for="blog-search" class="visually-hidden">Search the blog</label>
-                <input id="blog-search" type="search" class="field" placeholder="Search by keyword" />
-              </div>
-            </div>
-
-            <div id="blog-grid" class="blog-grid">
-              {posts.map((post) => (
-                <PostCard
-                  slug={post.id}
-                  title={post.data.title}
-                  type={post.data.type}
-                  excerpt={post.data.excerpt}
-                  date={post.data.date}
-                  cover={post.data.cover}
-                  coverAlt={post.data.coverAlt}
-                />
-              ))}
-            </div>
-
-            <div id="blog-no-results" class="blog-no-results" hidden>
-              <p class="blog-no-results__title">No posts match that yet.</p>
-              <p class="blog-no-results__body">Try a different word, or see everything.</p>
-              <button type="button" id="blog-clear" class="btn btn-secondary btn-md">Show all posts</button>
-            </div>
-          </>
+          <div id="posts" class="posts">
+            {posts.map((post, i) => (
+              <article class:list={["post", i === 0 ? "is-featured" : "is-row"]} data-type={post.data.type}>
+                <div class="post__img">
+                  {post.data.cover && <img src={post.data.cover} alt={post.data.coverAlt || ""} loading="lazy" />}
+                </div>
+                <div class="post__type">{post.data.type}</div>
+                <div class="post__main">
+                  <div class="post__meta"><span>{post.data.type}</span><span aria-hidden="true">·</span><span>{fmt(post.data.date)}</span></div>
+                  <h2><a href={`/blog/${post.id}`}>{post.data.title}</a></h2>
+                  <p class="post__excerpt">{post.data.excerpt}</p>
+                  <span class="post__date">{fmt(post.data.date)}</span>
+                </div>
+              </article>
+            ))}
+          </div>
         )}
+
+        <p id="empty" class="empty" hidden={hasPosts}>Nothing here yet.</p>
       </section>
+
+      <ClosingBand />
     </main>
-    <Footer showBlogLink />
+    <Footer />
   </div>
 </Base>
 
 <style>
-  .page { min-height: 100vh; background: var(--white); color: var(--navy-500); font-family: var(--font-body); display: flex; flex-direction: column; }
+  .page { min-height: 100vh; background: var(--surface-cream); color: #3A4350; font-family: var(--font-body); display: flex; flex-direction: column; }
   main { flex: 1; }
 
-  .blog-hero {
-    max-width: 1220px;
-    margin: 0 auto;
-    padding: clamp(56px, 7vw, 96px) 24px clamp(72px, 9vw, 128px);
-    display: flex;
-    flex-direction: column;
-    gap: 36px;
-  }
-  .blog-hero__intro { display: flex; flex-direction: column; gap: 14px; max-width: 720px; }
-  .blog-hero__intro h1 {
-    margin: 0;
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(40px, 5.4vw, 64px);
-    line-height: 1.04;
-    letter-spacing: -0.035em;
-    color: var(--navy-500);
-    text-wrap: balance;
-  }
-  .blog-hero__lead { margin: 0; max-width: none; font-size: 19px; line-height: 1.6; color: var(--grey-700); }
+  .blog { padding-top: clamp(48px, 8vw, 112px); padding-bottom: clamp(80px, 10vw, 140px); }
+  .blog h1 { margin: 0; font: 700 clamp(44px, 8vw, 96px)/1 var(--font-display); letter-spacing: -0.035em; color: #242B35; max-width: 13ch; text-wrap: balance; }
+  .blog__intro { margin: 24px 0 0; max-width: 36ch; font-size: clamp(19px, 1.8vw, 22px); line-height: 1.5; color: #3A4350; text-wrap: pretty; }
 
-  .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-  }
+  .tabs { margin-top: clamp(48px, 6vw, 72px); display: flex; flex-wrap: wrap; gap: 4px 28px; border-bottom: 1px solid var(--border-warm); }
+  .tab { min-height: 48px; padding: 0; margin-bottom: -1px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: #5F6B7D; font: 600 16px/1 var(--font-display); cursor: pointer; }
+  .tab:hover { color: #242B35; }
+  .tab[aria-pressed="true"] { color: #242B35; border-bottom-color: #F68B65; }
 
-  /* Empty state */
-  .blog-empty {
-    background: var(--grey-50);
-    border-radius: 32px;
-    padding: clamp(64px, 10vw, 140px) 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 18px;
-  }
-  .blog-empty__big { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(56px, 10vw, 128px); line-height: 0.95; letter-spacing: -0.045em; color: var(--sky-200); }
-  .blog-empty h2 { margin: 8px 0 0; font-family: var(--font-display); font-weight: 800; font-size: clamp(22px, 2.4vw, 28px); line-height: 1.2; letter-spacing: -0.02em; color: var(--grey-500); }
-  .blog-empty__note { margin: 0; max-width: 46ch; font-size: 18px; line-height: 1.6; color: var(--grey-500); }
+  .posts { margin-top: clamp(40px, 5vw, 64px); display: flex; flex-direction: column; }
+  .post[hidden] { display: none; }
 
-  /* Filters + search */
-  .blog-controls {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--grey-100);
-  }
-  .blog-filters { display: flex; flex-wrap: wrap; gap: 8px; }
-  .blog-filter { padding: 8px 18px; }
-  .blog-search { width: min(100%, 340px); }
-  .blog-search input.field { height: var(--control-height-lg); }
+  .post h2 { margin: 0; text-wrap: balance; }
+  .post h2 a { color: #242B35; text-decoration: none; }
+  .post h2 a:hover { color: #BC5230; }
+  .post__excerpt { margin: 0; color: #3A4350; text-wrap: pretty; }
 
-  /* Grid */
-  .blog-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
-    gap: 28px 24px;
-  }
-  .blog-grid[hidden] { display: none; }
+  /* Featured */
+  .post.is-featured { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: clamp(28px, 4vw, 56px); align-items: center; }
+  .is-featured .post__img { aspect-ratio: 4 / 3; border-radius: 24px; overflow: hidden; background: var(--surface-peach); }
+  .is-featured .post__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .is-featured .post__type, .is-featured .post__date { display: none; }
+  .is-featured .post__main { display: flex; flex-direction: column; gap: 16px; }
+  .post__meta { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; font: 600 14px/1.2 var(--font-body); color: #525C6B; }
+  .is-featured h2 { font: 700 clamp(30px, 4vw, 48px)/1.06 var(--font-display); letter-spacing: -0.03em; }
+  .is-featured .post__excerpt { max-width: 44ch; font-size: 18px; line-height: 1.55; }
 
-  .blog-no-results { padding: 48px 0; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
-  .blog-no-results[hidden] { display: none; }
-  .blog-no-results__title { margin: 0; font-family: var(--font-display); font-weight: 800; font-size: 24px; }
-  .blog-no-results__body { margin: 0; font-size: 17px; color: var(--grey-700); }
+  /* Rows */
+  .post.is-row { margin-top: 0; border-top: 1px solid var(--border-warm); padding-block: clamp(24px, 3vw, 36px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 12px clamp(24px, 4vw, 56px); align-items: baseline; }
+  .is-row .post__img, .is-row .post__meta { display: none; }
+  .is-row .post__type { font: 600 14px/1.2 var(--font-body); color: #525C6B; }
+  .is-row .post__main { grid-column: span 2 / auto; display: flex; flex-direction: column; gap: 10px; }
+  .is-row h2 { font: 700 clamp(24px, 2.8vw, 32px)/1.12 var(--font-display); letter-spacing: -0.02em; }
+  .is-row .post__excerpt { max-width: 56ch; font-size: 17px; line-height: 1.55; }
+  .is-row .post__date { font-size: 14px; line-height: 1.4; color: #5F6B7D; }
+  .post.is-row:first-child { margin-top: 0; }
+  .is-featured + .is-row, .is-row + .is-row { }
+  .post.is-featured + .post.is-row { margin-top: clamp(48px, 6vw, 80px); }
+
+  .empty { margin: 0; border-top: 1px solid var(--border-warm); padding: 40px 0; font-size: 18px; line-height: 1.5; color: #525C6B; }
+  .empty[hidden] { display: none; }
 </style>
 
 <script>
-  const pills = Array.from(document.querySelectorAll<HTMLButtonElement>(".blog-filter"));
-  const search = document.getElementById("blog-search") as HTMLInputElement | null;
-  const cards = Array.from(document.querySelectorAll<HTMLElement>(".post-card"));
-  const grid = document.getElementById("blog-grid");
-  const noResults = document.getElementById("blog-no-results");
-  const clearBtn = document.getElementById("blog-clear");
+  const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>(".tab"));
+  const posts = Array.from(document.querySelectorAll<HTMLElement>(".post"));
+  const empty = document.getElementById("empty");
 
-  let filter = "All";
-
-  function apply() {
-    const q = (search?.value ?? "").trim().toLowerCase();
-    let visible = 0;
-    cards.forEach((card) => {
-      const matchesFilter = filter === "All" || card.dataset.type === filter;
-      const matchesQuery = !q || (card.dataset.search ?? "").includes(q);
-      const show = matchesFilter && matchesQuery;
-      card.hidden = !show;
-      if (show) visible++;
+  function apply(filter: string) {
+    let first = true;
+    posts.forEach((p) => {
+      const show = filter === "All" || p.dataset.type === filter;
+      p.hidden = !show;
+      if (!show) return;
+      p.classList.toggle("is-featured", first);
+      p.classList.toggle("is-row", !first);
+      first = false;
     });
-    if (grid) grid.hidden = visible === 0;
-    if (noResults) noResults.hidden = visible !== 0;
+    if (empty) empty.hidden = !first;
   }
 
-  pills.forEach((pill) => {
-    pill.addEventListener("click", () => {
-      filter = pill.dataset.filter || "All";
-      pills.forEach((p) => p.setAttribute("aria-pressed", String(p === pill)));
-      apply();
-    });
-  });
-
-  search?.addEventListener("input", apply);
-
-  clearBtn?.addEventListener("click", () => {
-    filter = "All";
-    if (search) search.value = "";
-    pills.forEach((p) => p.setAttribute("aria-pressed", String(p.dataset.filter === "All")));
-    apply();
-  });
-
-  apply();
+  tabs.forEach((t) =>
+    t.addEventListener("click", () => {
+      tabs.forEach((x) => x.setAttribute("aria-pressed", String(x === t)));
+      apply(t.dataset.filter || "All");
+    })
+  );
 </script>
