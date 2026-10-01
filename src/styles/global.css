@@ -11,19 +11,40 @@ html {
   scroll-behavior: smooth;
 }
 
+:root {
+  --surface-cream: #FBF7F1;
+  --border-warm: #E4DDD2;
+  --surface-peach: #FEEBE4;
+  --font-hand: "Caveat", cursive;
+}
+
 body {
   font-family: var(--font-body);
-  color: var(--navy-500);
-  background: var(--white);
+  color: #3A4350;
+  background: var(--surface-cream);
 }
 
 a {
-  color: var(--navy-400);
+  color: #242B35;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 a:hover {
-  color: var(--navy-500);
+  color: #BC5230;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-inline: clamp(20px, 4vw, 40px);
+}
+
+/* Handwritten annotations (decorative) */
+.hand {
+  font: 600 24px/1 var(--font-hand);
+  color: #BC5230;
+  width: max-content;
+  max-width: 100%;
 }
 
 textarea::placeholder,
@@ -41,6 +62,7 @@ button {
 
 /* ---- Buttons ---- */
 .btn {
+  font-family: var(--font-display);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -64,12 +86,13 @@ button {
   color: var(--action-disabled-text) !important;
   border-color: transparent !important;
 }
+.btn-sm { height: 36px; padding: 0 16px; font-size: 14px; }
 .btn-md { height: var(--control-height-md); padding: 0 22px; font-size: var(--size-body); }
 .btn-lg { height: var(--control-height-lg); padding: 0 30px; font-size: var(--size-body-lg); }
 .btn-full { width: 100%; }
 
 .btn-primary { background: var(--action-primary); color: var(--action-primary-text); }
-.btn-primary:hover:not([disabled]) { background: var(--action-primary-hover); }
+.btn-primary:hover:not([disabled]) { background: var(--action-primary-hover); color: var(--action-primary-text); }
 
 .btn-secondary { background: var(--action-secondary); color: var(--action-primary); border-color: var(--action-secondary-border); }
 .btn-secondary:hover:not([disabled]) { background: var(--action-secondary-hover); }
@@ -139,92 +162,16 @@ select.field {
   margin-left: 2px;
 }
 
-/* ---- Pills (multi-select chips) ---- */
-.pill {
-  min-height: 44px;
-  padding: 8px 16px;
-  max-width: 100%;
-  text-align: left;
-  border-radius: var(--radius-pill);
-  border: 1.5px solid var(--grey-300);
-  background: #FFFFFF;
-  color: var(--navy-500);
-  font: 600 15px var(--font-body);
-  cursor: pointer;
-  transition: var(--transition-control);
-}
-.pill[aria-pressed="true"] {
-  background: var(--navy-500);
-  color: #FFFFFF;
-  border-color: var(--navy-500);
-}
-.pill.pill-accent {
-  background: var(--dandelion-100);
-  color: var(--navy-800);
-  border-color: var(--dandelion-400);
-  font-weight: 700;
-}
-.pill.pill-accent[aria-pressed="true"] {
-  background: var(--navy-500);
-  color: #FFFFFF;
-  border-color: var(--navy-500);
-}
-
-/* ---- Shared "intake card" shell (TopicPicker, and IntakeFlow if re-enabled) ---- */
-.intake-card {
-  box-sizing: border-box;
-  width: 100%;
-  background: #FFFFFF;
-  border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-xs), 0 18px 48px rgba(12, 30, 51, 0.08);
-  padding: clamp(20px, 4vw, 36px);
-  font-family: var(--font-body);
-  color: var(--navy-500);
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.intake-heading h2 {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(24px, 3vw, 30px);
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-  color: var(--navy-500);
-  text-wrap: balance;
-}
-.intake-heading p {
-  margin: 8px 0 0;
-  font-size: 17px;
-  line-height: 1.55;
-  color: var(--grey-700);
-}
-.pill-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.intake-footer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 12px;
-  flex-wrap: wrap;
-  padding-top: 4px;
-}
-
-.eyebrow {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: var(--lavender-500);
-}
-
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   * { transition: none !important; }
+}
+
+/* Small label used on the simple text pages (privacy, terms, accessibility, coming soon) */
+.eyebrow {
+  margin: 0;
+  font: 700 12px/1.2 var(--font-display);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #B34D2C;
 }

@@ -1,23 +1,23 @@
 # Krue website
 
-Marketing site for Krue: homepage, intake flow, and blog. Built with [Astro](https://astro.build), static output.
-
-Built from a design handoff; see the handoff's `README.md` and `BUILD_PLAN.md` for the full spec (not included in this repo).
+Marketing site for Krue: homepage (with the Try Krue sign-up form), blog, and policy pages. Built with [Astro](https://astro.build), static output, deployed by Netlify from `main`.
 
 ## Project structure
 
 ```
 src/
-  layouts/Base.astro        header meta, OG tags
-  pages/index.astro         homepage
-  pages/blog/index.astro    blog listing (+ empty state)
-  pages/blog/[slug].astro   article template
-  components/               Header, Footer, IntakeFlow, PostCard, ShareButtons
-  content/blog/              *.md posts
+  layouts/Base.astro         head meta, OG tags, JSON-LD
+  pages/index.astro          homepage + Try Krue form
+  pages/blog/index.astro     blog listing
+  pages/blog/[slug].astro    article template
+  pages/llms.txt.ts          llms.txt, built from the blog posts
+  pages/privacy.astro        privacy policy (terms/accessibility are noindex placeholders)
+  components/                Header, Footer, ClosingBand, ShareButtons, Analytics
+  content/blog/              *.md posts (written in Pages CMS)
   content.config.ts          blog collection schema
   styles/                    design tokens + global styles
 public/
-  assets/                    logos, illustrations, photos, icons
+  assets/                    logos and founder photo
   uploads/                   Pages CMS media folder
 ```
 
@@ -32,7 +32,7 @@ public/
 
 ## Environment variables
 
-Copy `.env.example` to `.env` and set `PUBLIC_INTAKE_URL` to the Google Apps Script web app URL once it's deployed (see the design handoff README's "Google Apps Script (intake receiver)" section). Without it, intake submissions are logged to the browser console instead of being sent anywhere.
+Copy `.env.example` to `.env`. `PUBLIC_INTAKE_URL` is the Google Apps Script web app address that saves sign-ups to the Pilot tab of the Krue intake sheet. Set the same variables in Netlify.
 
 ## Blog
 

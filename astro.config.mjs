@@ -6,5 +6,10 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://krue.io',
   output: 'static',
-  integrations: [sitemap()],
+  integrations: [
+    sitemap({
+      // Placeholder pages stay out of the sitemap until they have real text.
+      filter: (page) => !/\/(terms|accessibility)\/?$/.test(page),
+    }),
+  ],
 });

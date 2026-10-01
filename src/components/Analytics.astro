@@ -1,16 +1,12 @@
 ---
 // Google Tag Manager + a minimal cookie-consent banner, entirely inert unless
-// PUBLIC_GTM_ID is set (same fallback-safe pattern as PUBLIC_APP_URL in
-// src/lib/appLink.ts). GTM's own install instructions require two separate
+// PUBLIC_GTM_ID is set. GTM's own install instructions require two separate
 // snippets — one in <head>, one right after <body> opens — so this component
 // takes a `placement` prop and is included twice from Base.astro.
 //
 // Analytics/ad cookies default to denied (Google Consent Mode v2) until the
-// visitor accepts the banner. GA4's "Outbound clicks" Enhanced Measurement
-// setting must be turned off in the GA4 dashboard — see the plan doc — since
-// the hero topic picker's Continue button links to the app with the chosen
-// topic in the URL (?topic=...), and that setting would otherwise report
-// which health topic someone picked back to Google by default.
+// visitor accepts the banner. No health details are ever put in a page address
+// or sent to analytics.
 interface Props {
   placement: "head" | "body";
 }
@@ -114,9 +110,9 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID as string | undefined;
     max-width: 640px;
     margin: 0 auto;
     background: #FFFFFF;
-    border: 1px solid var(--grey-200);
+    border: 1px solid var(--border-warm);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 12px 40px rgba(12, 30, 51, 0.12);
     padding: 18px 20px;
     display: flex;
     flex-wrap: wrap;
@@ -135,7 +131,7 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID as string | undefined;
     margin: 0;
     font-size: 15px;
     line-height: 1.5;
-    color: var(--navy-800);
+    color: #3A4350;
     flex: 1 1 260px;
   }
   .cookie-consent__actions {

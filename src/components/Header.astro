@@ -1,168 +1,74 @@
 ---
-interface Props {
-  showAnnouncement?: boolean;
-}
-const { showAnnouncement = true } = Astro.props;
 const isBlog = Astro.url.pathname.startsWith("/blog");
 ---
 
-{showAnnouncement && (
-  <div class="announcement">
-    Support starts with what matters to you. <a href="/#help">Explore what we help with →</a>
-  </div>
-)}
-
 <header class="site-header">
-  <div class="site-header__row">
-    <a href="/#top" aria-label="Krue home" class="site-header__logo">
-      <img src="/assets/logos/krue-wordmark-navy.png" alt="Krue" height="30" />
+  <div class="site-header__row container">
+    <a href="/" aria-label="Krue home" class="site-header__logo">
+      <img src="/assets/logos/krue-wordmark-navy.png" alt="Krue" height="24" />
     </a>
     <nav aria-label="Main" class="site-header__nav">
-      <a href="/#help">What we help with</a>
       <a href="/#how">How it works</a>
-      <a href="/#experts">Our experts</a>
-      <a href="/#cost">FAQs</a>
-      <a href="/blog" class="nav-blog-link" aria-current={isBlog ? "page" : undefined}>Blog</a>
+      <a href="/#why">Why Krue</a>
+      <a href="/blog" aria-current={isBlog ? "page" : undefined}>Blog</a>
     </nav>
-    <div class="site-header__actions">
-      <a href="/#hero-lead" class="btn btn-primary btn-md">Get started</a>
-      <button type="button" id="menu-toggle" class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu">Menu</button>
-    </div>
+    <a href="/#try" class="btn btn-primary btn-sm" data-try="header">Try Krue</a>
   </div>
-  <nav id="mobile-menu" aria-label="Main" class="mobile-menu" hidden>
-    <a href="/#help">What we help with</a>
-    <a href="/#how">How it works</a>
-    <a href="/#experts">Our experts</a>
-    <a href="/#cost">FAQs</a>
-    <a href="/blog" aria-current={isBlog ? "page" : undefined}>Blog</a>
-  </nav>
 </header>
 
 <style>
-  .announcement {
-    background: var(--lavender-100);
-    border-bottom: 1px solid var(--lavender-200);
-    color: var(--navy-800);
-    text-align: center;
-    padding: 10px 20px;
-    font-size: 15px;
-    font-weight: 600;
-  }
-  .announcement a {
-    color: var(--navy-500);
-    font-weight: 700;
-    text-decoration: underline;
-  }
-
   .site-header {
     position: sticky;
     top: 0;
-    z-index: 50;
-    background: var(--glass-fill);
+    z-index: 20;
+    background: rgba(251, 247, 241, 0.82);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--grey-100);
   }
   .site-header__row {
-    max-width: 1220px;
-    margin: 0 auto;
-    padding: 0 24px;
-    height: 80px;
+    padding-block: 12px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 24px;
+    gap: 16px;
   }
   .site-header__logo {
     display: flex;
-    text-decoration: none;
+    flex: none;
   }
   .site-header__logo img {
-    height: 30px;
+    height: 24px;
     width: auto;
     max-width: none;
   }
   .site-header__nav {
+    flex: 1 1 0;
+    min-width: 0;
     display: flex;
-    gap: 32px;
-    font-size: 16px;
-    font-weight: 600;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    column-gap: 24px;
+    row-gap: 40px;
+    height: 44px;
+    overflow: hidden;
+    font: 600 15px/44px var(--font-display);
   }
   .site-header__nav a {
-    color: var(--navy-500);
+    color: #242B35;
     text-decoration: none;
+    white-space: nowrap;
   }
   .site-header__nav a:hover {
-    color: var(--navy-400);
+    color: #BC5230;
   }
-  .nav-blog-link[aria-current="page"] {
+  .site-header__nav a[aria-current="page"] {
     text-decoration: underline;
+    text-decoration-color: #F68B65;
     text-decoration-thickness: 2px;
-    text-underline-offset: 8px;
+    text-underline-offset: 6px;
   }
-  .site-header__actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .menu-toggle {
-    display: none;
-    height: 44px;
-    min-width: 44px;
-    padding: 0 14px;
-    border-radius: 999px;
-    border: 1.5px solid var(--navy-500);
-    background: transparent;
-    color: var(--navy-500);
-    font: 600 15px var(--font-body);
-    cursor: pointer;
-  }
-  .mobile-menu {
-    display: none;
-    padding: 8px 24px 20px;
-    font-size: 18px;
-    font-weight: 600;
-  }
-  .mobile-menu a {
-    color: var(--navy-500);
-    text-decoration: none;
-    padding: 12px 0;
-    border-top: 1px solid var(--grey-100);
-    display: block;
-  }
-  .mobile-menu.is-open {
-    display: grid;
-  }
-
-  @media (max-width: 899px) {
-    .site-header__nav {
-      display: none;
-    }
-    .menu-toggle {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-    }
+  .site-header .btn {
+    flex: none;
+    color: #FFFFFF;
   }
 </style>
-
-<script>
-  const toggle = document.getElementById('menu-toggle');
-  const menu = document.getElementById('mobile-menu');
-  if (toggle && menu) {
-    toggle.addEventListener('click', () => {
-      const open = menu.classList.toggle('is-open');
-      menu.hidden = !open;
-      toggle.setAttribute('aria-expanded', String(open));
-      toggle.textContent = open ? 'Close' : 'Menu';
-    });
-    menu.querySelectorAll('a').forEach((a) => {
-      a.addEventListener('click', () => {
-        menu.classList.remove('is-open');
-        menu.hidden = true;
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.textContent = 'Menu';
-      });
-    });
-  }
-</script>
