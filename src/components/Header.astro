@@ -7,12 +7,15 @@ const isBlog = Astro.url.pathname.startsWith("/blog");
     <a href="/" aria-label="Krue home" class="site-header__logo">
       <img src="/assets/logos/krue-wordmark-navy.png" alt="Krue" height="24" />
     </a>
-    <nav aria-label="Main" class="site-header__nav">
+    <nav aria-label="Main" class="site-header__nav" id="site-nav">
       <a href="/#how">How it works</a>
       <a href="/#why">Why Krue</a>
       <a href="/blog" aria-current={isBlog ? "page" : undefined}>Blog</a>
     </nav>
     <a href="/#try" class="btn btn-primary btn-sm" data-try="header">Try Krue</a>
+    <button type="button" class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
 
@@ -72,24 +75,79 @@ const isBlog = Astro.url.pathname.startsWith("/blog");
     color: #FFFFFF;
   }
 
-  /* Narrow screens: logo and Try Krue on the first row, all nav links on a
-     second row so Blog and the section links stay reachable. */
+  .menu-toggle { display: none; }
+
+  /* Narrow screens: nav links move into a menu opened by the hamburger button. */
   @media (max-width: 539px) {
-    .site-header__row {
-      flex-wrap: wrap;
-      row-gap: 0;
+    .menu-toggle {
+      flex: none;
+      width: 44px;
+      height: 44px;
+      margin-right: -10px;
+      padding: 0;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
     }
-    .site-header__logo { order: 1; }
-    .site-header .btn { order: 2; margin-left: auto; }
+    .site-header .btn { margin-left: auto; }
+    .menu-toggle span {
+      width: 20px;
+      height: 2px;
+      border-radius: 2px;
+      background: #242B35;
+      transition: transform 140ms ease, opacity 140ms ease;
+    }
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
     .site-header__nav {
-      order: 3;
-      flex: 1 1 100%;
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
       height: auto;
       overflow: visible;
-      justify-content: flex-start;
+      flex-direction: column;
+      align-items: stretch;
+      flex-wrap: nowrap;
       row-gap: 0;
-      column-gap: 22px;
-      margin-top: -2px;
+      padding: 4px clamp(20px, 4vw, 40px) 16px;
+      background: #FBF7F1;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-warm);
+      font-size: 18px;
     }
+    .site-header__nav.is-open { display: flex; }
+    .site-header__nav a { display: block; padding: 4px 0; }
   }
 </style>
+
+<script>
+  const toggle = document.getElementById("menu-toggle");
+  const nav = document.getElementById("site-nav");
+  if (toggle && nav) {
+    const setOpen = (open: boolean) => {
+      nav.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Menu");
+    };
+    toggle.addEventListener("click", () => setOpen(!nav.classList.contains("is-open")));
+    nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && nav.classList.contains("is-open")) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+    window.matchMedia("(min-width: 540px)").addEventListener("change", (m) => { if (m.matches) setOpen(false); });
+  }
+</script>
