@@ -71,4 +71,25 @@ const isBlog = Astro.url.pathname.startsWith("/blog");
     flex: none;
     color: #FFFFFF;
   }
+
+  /* Narrow screens: logo and Try Krue on the first row, all nav links on a
+     second row so Blog and the section links stay reachable. */
+  @media (max-width: 539px) {
+    .site-header__row {
+      flex-wrap: wrap;
+      row-gap: 0;
+    }
+    .site-header__logo { order: 1; }
+    .site-header .btn { order: 2; margin-left: auto; }
+    .site-header__nav {
+      order: 3;
+      flex: 1 1 100%;
+      height: auto;
+      overflow: visible;
+      justify-content: flex-start;
+      row-gap: 0;
+      column-gap: 22px;
+      margin-top: -2px;
+    }
+  }
 </style>
