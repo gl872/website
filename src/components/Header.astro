@@ -3,6 +3,7 @@ const isBlog = Astro.url.pathname.startsWith("/blog");
 ---
 
 <header class="site-header">
+  <div class="stripe stripe--6" aria-hidden="true"></div>
   <div class="site-header__row container">
     <a href="/" aria-label="Krue home" class="site-header__logo">
       <img src="/assets/logos/krue-wordmark-navy.png" alt="Krue" height="24" />
@@ -12,7 +13,7 @@ const isBlog = Astro.url.pathname.startsWith("/blog");
       <a href="/#why">Why Krue</a>
       <a href="/blog" aria-current={isBlog ? "page" : undefined}>Blog</a>
     </nav>
-    <a href="/#try" class="btn btn-primary btn-sm" data-try="header">Try Krue</a>
+    <a href="/#try" class="btn btn-primary btn-sm" data-try="header">Join the waitlist</a>
     <button type="button" class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
@@ -62,7 +63,7 @@ const isBlog = Astro.url.pathname.startsWith("/blog");
     white-space: nowrap;
   }
   .site-header__nav a:hover {
-    color: #BC5230;
+    color: #B2497B;
   }
   .site-header__nav a[aria-current="page"] {
     text-decoration: underline;

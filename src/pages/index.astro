@@ -34,18 +34,18 @@ const placeholders = [
     <main>
       <!-- 1. Hero -->
       <section class="hero container">
-        <h1>Chronic illness comes with a lot to figure out.</h1>
+        <h1>Chronic illness comes with <span class="hl hl--pink">a lot</span> to figure out.</h1>
         <div class="hero__grid">
           <div class="hero__copy">
             <p class="hero__lead">Krue helps you find answers, make a plan, and stay on top of everything that happens between appointments — with a real person there to help along the way.</p>
-            <div><a href="/#try" class="btn btn-primary btn-lg" data-try="hero">Try Krue →</a></div>
-            <p class="hero__note">Currently piloting with a small group of people living with chronic illness.</p>
+            <div><a href="/#try" class="btn btn-primary btn-lg" data-try="hero">Join the waitlist →</a></div>
+            <p class="hero__note">For people living with POTS, ME/CFS, MCAS, hEDS and related conditions.</p>
           </div>
 
           <div class="hero__visual" aria-hidden="true">
             <div class="plan-card plan-card--hero">
               <div class="plan-card__title">Your plan</div>
-              <div class="eyebrow">THIS WEEK</div>
+              <div class="eyebrow eyebrow--plum">THIS WEEK</div>
               <ul class="checklist">
                 <li class="is-done"><span class="check"></span><span>Find compression options</span></li>
                 <li><span class="check"></span><span>Write down questions for neurology</span></li>
@@ -54,10 +54,10 @@ const placeholders = [
               </ul>
             </div>
             <div class="bubble bubble--grace bubble--hero">
-              <div class="bubble__head"><span class="avatar">G</span><span>Grace from Krue</span></div>
+              <div class="bubble__head"><span class="avatar">K</span><span>Your Krue Guide</span></div>
               <p>“I know you got the compression stockings. Are you finding they’re helping?”</p>
             </div>
-            <div class="hand" style="margin:10px 12px 0 auto;transform:rotate(-3deg)" aria-hidden="true">they remember and follow up</div>
+            <div class="hand hand--rose" style="margin:10px 12px 0 auto;transform:rotate(-3deg)" aria-hidden="true">they remember and follow up</div>
           </div>
         </div>
       </section>
@@ -71,7 +71,7 @@ const placeholders = [
           ))}
         </ul>
         <p class="problem__para" data-reveal>And hours spent searching Google, Reddit, patient groups, and saved posts trying to figure out what might actually help.</p>
-        <h2 class="h-xxl problem__left" data-reveal>Most of that gets left to you.</h2>
+        <h2 class="h-xxl problem__left" data-reveal>Most of that gets left to <span class="hl hl--dandelion">you</span>.</h2>
         <p class="problem__line" data-reveal>Krue is being built to make it less.</p>
       </section>
 
@@ -112,18 +112,18 @@ const placeholders = [
                   <div class="checkin">
                     <span class="checkin__day">Monday</span>
                     <div class="bubble bubble--white">
-                      <div class="bubble__head"><span class="avatar">G</span><span>Grace</span></div>
+                      <div class="bubble__head"><span class="avatar">K</span><span>Your Krue Guide</span></div>
                       <p>“You were going to try moving your shower to the evening this week. How did that go?”</p>
                     </div>
                   </div>
                   <div class="checkin">
                     <span class="checkin__day">The following Tuesday</span>
                     <div class="bubble bubble--white">
-                      <div class="bubble__head"><span class="avatar">G</span><span>Grace</span></div>
+                      <div class="bubble__head"><span class="avatar">K</span><span>Your Krue Guide</span></div>
                       <p>“You mentioned your neurology appointment is Thursday. Want to go through the questions you’ve been saving?”</p>
                     </div>
                   </div>
-                  <div class="hand hand--26" style="transform:rotate(-2deg);margin-left:12px" aria-hidden="true">same person, week after week</div>
+                  <div class="hand hand--26 hand--plum" style="transform:rotate(-2deg);margin-left:12px" aria-hidden="true">same person, week after week</div>
                 </div>
               </div>
             </div>
@@ -139,7 +139,7 @@ const placeholders = [
 
         <div class="exp__grid">
           <div class="thread">
-            <div class="eyebrow">ONE THREAD, START TO FINISH</div>
+            <div class="eyebrow eyebrow--rose">ONE THREAD, START TO FINISH</div>
             <span class="thread__on">A question</span>
             <span>Useful information</span>
             <span>A plan</span>
@@ -150,11 +150,11 @@ const placeholders = [
           <div class="convo">
             <div class="bubble bubble--user" style="align-self:flex-end;max-width:86%" data-reveal>My doctor told me to try compression for POTS but I have no idea what I’m actually supposed to buy.</div>
             <div class="bubble bubble--grace" style="align-self:flex-start;max-width:88%" data-reveal>
-              <div class="bubble__head"><span class="avatar">G</span><span>Grace from Krue</span></div>
+              <div class="bubble__head"><span class="avatar">K</span><span>Your Krue Guide</span></div>
               <p>I can help you sort through the different types and what to consider. Did they mention a compression level or how high it should go?</p>
             </div>
             <div class="plan-card plan-card--convo" data-reveal>
-              <div class="eyebrow">ADDED TO YOUR PLAN</div>
+              <div class="eyebrow eyebrow--plum">ADDED TO YOUR PLAN</div>
               <ul class="checklist checklist--tight">
                 <li class="is-done"><span class="check"></span><span>Understand compression options</span></li>
                 <li class="is-done"><span class="check"></span><span>Confirm compression level with doctor</span></li>
@@ -163,22 +163,22 @@ const placeholders = [
             </div>
             <div class="divider" data-reveal><span></span><span>A week later</span><span></span></div>
             <div class="bubble bubble--grace" style="align-self:flex-start;max-width:88%" data-reveal>
-              <div class="bubble__head"><span class="avatar">G</span><span>Grace from Krue</span></div>
+              <div class="bubble__head"><span class="avatar">K</span><span>Your Krue Guide</span></div>
               <p>You were looking into compression last week. Did you end up trying anything?</p>
             </div>
             <div class="bubble bubble--user" style="align-self:flex-end;max-width:80%" data-reveal>I ordered a pair of knee-highs. Still getting used to them.</div>
-            <div class="hand" style="align-self:flex-end;transform:rotate(-2deg);margin-right:8px" aria-hidden="true">and it stays on the plan until it’s sorted</div>
+            <div class="hand hand--rose" style="align-self:flex-end;transform:rotate(-2deg);margin-right:8px" aria-hidden="true">and it stays on the plan until it’s sorted</div>
           </div>
         </div>
 
         <div class="examples">
-          <div class="example" data-reveal>
+          <div class="example example--pink" data-reveal>
             <div class="eyebrow eyebrow--grey">PREPARING FOR A SPECIALIST</div>
             <div class="bubble bubble--user bubble--sm" style="align-self:flex-end;max-width:88%">I see rheumatology in two weeks and I always forget what I wanted to ask.</div>
             <div class="bubble bubble--grace bubble--sm" style="align-self:flex-start;max-width:90%">Let’s pull together what you’ve been saving. Want to add the joint pain you mentioned last week?</div>
             <div class="example__row"><span class="check"></span><span>Bring question list to rheumatology</span></div>
           </div>
-          <div class="example" data-reveal>
+          <div class="example example--lav" data-reveal>
             <div class="eyebrow eyebrow--grey">KNOWING WHETHER SOMETHING HELPED</div>
             <div class="bubble bubble--user bubble--sm" style="align-self:flex-end;max-width:88%">I’ve been pacing my energy for a couple of weeks. I honestly can’t tell if it’s working.</div>
             <div class="bubble bubble--grace bubble--sm" style="align-self:flex-start;max-width:90%">Want to jot down a quick energy check each evening? We can look at it together on Friday.</div>
@@ -190,7 +190,7 @@ const placeholders = [
       <!-- 5. Founder -->
       <section id="why" class="founder">
         <div class="container founder__grid">
-          <img class="founder__photo" src="/assets/photos/founder-grace.jpg" alt="Grace, founder of Krue" width="240" height="300" loading="lazy" />
+          <div class="founder__photo-wrap"><img class="founder__photo" src="/assets/photos/founder-grace.jpg" alt="Grace, founder of Krue" width="240" height="300" loading="lazy" /></div>
           <div class="founder__text">
             <h2>I started Krue because I’ve lived this.</h2>
             <blockquote>
@@ -205,53 +205,78 @@ const placeholders = [
         </div>
       </section>
 
-      <!-- 6. Try Krue -->
+      <!-- 6. Waitlist -->
       <section id="try" class="try">
         <div class="container try__inner">
-          <h2 class="h-xxl">Give yourself less to manage.</h2>
+          <h2 class="h-xxl">Give yourself <span class="hl hl--pink">less</span> to manage.</h2>
           <div class="try__body">
-            <p>Krue is currently working with a small group of people with chronic illness to build a better way to manage everything that happens between appointments.</p>
-            <p>For the current pilot, you’ll work directly with Grace to build your plan and have support along the way. Participation is free.</p>
+            <p>Krue is building a better way to manage everything that happens between appointments.</p>
+            <p>Join the waitlist and we’ll be in touch as Krue opens up.</p>
           </div>
 
           <div id="try-intro" class="try__intro">
-            <a href="/#try" class="btn btn-primary btn-lg" data-try="try_section">I’d like to try Krue →</a>
+            <a href="/#try" class="btn btn-primary btn-lg" data-try="try_section">Join the waitlist →</a>
           </div>
 
           <form id="intake" class="card" hidden novalidate data-placeholders={JSON.stringify(placeholders)}>
-            <label for="help" class="card__q">What could you use help with right now?</label>
-            <textarea id="help" name="help" class="field" rows="5" placeholder={placeholders[0]}></textarea>
+            <h3 class="card__q">Join the waitlist</h3>
             <div class="form-grid">
               <div class="fld">
                 <label for="name">Name</label>
-                <input id="name" name="name" class="field" type="text" autocomplete="given-name" />
+                <input id="name" name="name" class="field" type="text" placeholder="Your name" required autocomplete="name" aria-describedby="name-error" />
+                <p id="name-error" class="fld__error" role="alert" hidden>Enter your name.</p>
               </div>
               <div class="fld">
                 <label for="email">Email</label>
-                <input id="email" name="email" class="field" type="email" required autocomplete="email" aria-describedby="email-error" />
+                <input id="email" name="email" class="field" type="email" placeholder="you@example.com" required autocomplete="email" aria-describedby="email-error" />
                 <p id="email-error" class="fld__error" role="alert" hidden>Enter an email in the format name@example.com.</p>
               </div>
             </div>
-            <div class="fld">
-              <label for="conditions">Condition(s)</label>
-              <input id="conditions" name="conditions" class="field" type="text" placeholder="Whatever you’d like to share" aria-describedby="conditions-hint" />
-              <p id="conditions-hint" class="fld__hint">Optional. You don’t need a diagnosis to join.</p>
+
+            <fieldset class="roles" aria-describedby="role-error">
+              <legend>I’m a…</legend>
+              <div class="roles__grid">
+                {["Patient", "Clinician", "Investor", "Other"].map((r) => (
+                  <label class="opt">
+                    <input type="radio" name="role" value={r} />
+                    <span class="opt__ctl opt__ctl--radio" aria-hidden="true"></span>
+                    <span class="opt__text">{r}</span>
+                  </label>
+                ))}
+              </div>
+              <p id="role-error" class="fld__error" role="alert" hidden>Choose the option that fits you best.</p>
+              <div id="role-other-wrap" class="fld" hidden>
+                <label for="role-other">Tell us your role</label>
+                <input id="role-other" name="roleOther" class="field" type="text" placeholder="e.g. Caregiver, researcher" />
+              </div>
+            </fieldset>
+
+            <div class="options">
+              <label id="beta-wrap" class="opt" hidden>
+                <input type="checkbox" id="beta" name="beta" />
+                <span class="opt__ctl opt__ctl--box" aria-hidden="true"></span>
+                <span class="opt__text">I’m interested in joining the beta</span>
+              </label>
+              <div id="help-wrap" class="help" hidden>
+                <label for="help">Anything specific you could use help with right now?</label>
+                <textarea id="help" name="help" class="field" rows="4" placeholder={placeholders[0]}></textarea>
+              </div>
+              <label class="opt">
+                <input type="checkbox" id="updates" name="updates" />
+                <span class="opt__ctl opt__ctl--box" aria-hidden="true"></span>
+                <span class="opt__text">Send me product and company updates</span>
+              </label>
             </div>
+
             <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <p class="consent">By submitting, you agree to our <a href="/privacy">Privacy Policy</a>.</p>
             <p id="form-error" class="form-error" role="alert" hidden>Something went wrong. Please try again.</p>
-            <div><button type="submit" id="submit-btn" class="btn btn-primary btn-lg">I’d like to try Krue →</button></div>
+            <div><button type="submit" id="submit-btn" class="btn btn-primary btn-lg">Join the waitlist →</button></div>
           </form>
 
           <div id="thanks" class="card card--thanks" hidden>
-            <h3 id="thanks-title" tabindex="-1">Thanks. Grace will be in touch by email.</h3>
-            <p class="thanks__lead">Here’s what the pilot looks like:</p>
-            <ul class="dots">
-              <li><span></span><span>A one-hour kickoff conversation about what’s going on and what you want help with</span></li>
-              <li><span></span><span>Two weeks working with Grace on your plan, with messaging whenever something comes up</span></li>
-              <li><span></span><span>A 30-minute debrief at the end and a short feedback survey</span></li>
-            </ul>
-            <p class="thanks__free">It’s free.</p>
+            <h3 id="thanks-title" tabindex="-1">Thanks. You’re on the waitlist.</h3>
+            <p id="thanks-text" class="thanks__lead">We’ll be in touch by email with product and company updates.</p>
           </div>
         </div>
       </section>
@@ -273,6 +298,13 @@ const placeholders = [
 
   .eyebrow { font: 700 11px/1.2 var(--font-display); letter-spacing: 0.09em; color: #B34D2C; text-transform: none; }
   .eyebrow--grey { color: #525C6B; margin-bottom: 6px; }
+  .eyebrow--plum { color: #6F3F74; }
+  .eyebrow--rose { color: #B2497B; }
+  .hand--rose { color: #B2497B; }
+  .hand--plum { color: #6F3F74; }
+  .hl { padding: 0 .06em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .hl--pink { background: linear-gradient(transparent 58%, #FACEDF 58%, #FACEDF 92%, transparent 92%); }
+  .hl--dandelion { background: linear-gradient(transparent 58%, #FADFB5 58%, #FADFB5 92%, transparent 92%); }
   .hand--26 { font-size: 26px; }
 
   /* shared pieces */
@@ -290,12 +322,19 @@ const placeholders = [
   .checklist { display: flex; flex-direction: column; gap: 14px; margin-top: 14px; font: 400 17px/1.35 var(--font-body); color: #242B35; }
   .checklist--tight { gap: 12px; }
   .checklist li { display: flex; gap: 12px; align-items: center; }
-  .check { width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid #C3CAD6; box-sizing: border-box; flex: none; display: grid; place-items: center; }
+  .check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #C3CAD6; box-sizing: border-box; flex: none; display: grid; place-items: center; }
   .is-done { color: #5F6B7D; }
-  .is-done .check { background: #F68B65; border-color: #F68B65; }
+  .is-done .check { background: #63A895; border-color: #63A895; }
   .is-done .check::after { content: ""; width: 5px; height: 9px; border: solid #FFFFFF; border-width: 0 2px 2px 0; transform: translateY(-1px) rotate(45deg); }
   .is-done span:last-child { text-decoration: line-through; text-decoration-color: #C3CAD6; }
-  .ring { width: clamp(18px, 2.2vw, 28px); height: clamp(18px, 2.2vw, 28px); border-radius: 50%; border: 2px solid #C3CAD6; box-sizing: border-box; flex: none; }
+  .ring { width: clamp(18px, 2.2vw, 28px); height: clamp(18px, 2.2vw, 28px); border-radius: 50%; border: 3px solid #C3CAD6; box-sizing: border-box; flex: none; }
+  .burdens li:nth-child(1) .ring { border-color: #4FB8DD; }
+  .burdens li:nth-child(2) .ring { border-color: #63A895; }
+  .burdens li:nth-child(3) .ring { border-color: #DE9736; }
+  .burdens li:nth-child(4) .ring { border-color: #E06B42; }
+  .burdens li:nth-child(5) .ring { border-color: #D8639A; }
+  .burdens li:nth-child(6) .ring { border-color: #AC72B0; }
+  .burdens li:nth-child(7) .ring { border-color: #235592; }
 
   /* 1. Hero */
   .hero { padding-top: clamp(48px, 9vw, 120px); padding-bottom: clamp(72px, 10vw, 140px); }
@@ -305,7 +344,9 @@ const placeholders = [
   .hero__lead { font-size: clamp(19px, 1.7vw, 22px); line-height: 1.5; color: #3A4350; text-wrap: pretty; }
   .hero__note { font: italic 400 15px/1.5 var(--font-body); color: #5F6B7D; }
   .hero__visual { position: relative; max-width: 460px; width: 100%; justify-self: end; }
-  .plan-card--hero { border-radius: 24px; padding: 28px 28px 32px; box-shadow: 0 1px 2px rgba(12,30,51,.04), 0 12px 32px rgba(12,30,51,.06); transform: rotate(-1.2deg); }
+  .plan-card--hero { border-radius: 24px; padding: 28px 28px 32px; box-shadow: 0 1px 2px rgba(12,30,51,.04), 0 12px 32px rgba(12,30,51,.06); transform: rotate(-1.2deg); border-top: 8px solid #F3B258; }
+  .plan-card--hero .check { border: 2px solid #63A895; }
+  .plan-card--hero .is-done .check { border-color: #63A895; }
   .plan-card__title { font: 700 24px/1.2 var(--font-display); color: #242B35; letter-spacing: -0.01em; margin-bottom: 20px; }
   .bubble--hero { position: relative; margin: -22px -8px 0 auto; width: min(88%, 360px); border-radius: 22px 22px 6px 22px; padding: 16px 18px 18px; box-shadow: 0 10px 28px rgba(12,30,51,.08); }
   .bubble--hero .bubble__head { gap: 10px; }
@@ -318,7 +359,7 @@ const placeholders = [
   .burdens li { display: flex; gap: clamp(14px, 2vw, 24px); align-items: center; }
   .problem__para { margin-top: clamp(40px, 6vw, 72px); max-width: 34ch; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.45; color: #3A4350; text-wrap: pretty; }
   .problem__left { margin-top: clamp(96px, 14vw, 180px); }
-  .problem__line { margin-top: clamp(24px, 3vw, 36px); font: 600 clamp(22px, 2.6vw, 32px)/1.25 var(--font-display); letter-spacing: -0.01em; color: #BC5230; }
+  .problem__line { margin-top: clamp(24px, 3vw, 36px); font: 600 clamp(22px, 2.6vw, 32px)/1.25 var(--font-display); letter-spacing: -0.01em; color: #6F3F74; }
 
   /* 3. How */
   .how { background: #DAF1FD; scroll-margin-top: 60px; }
@@ -327,12 +368,13 @@ const placeholders = [
   .timeline { margin-top: clamp(40px, 6vw, 72px); display: flex; flex-direction: column; max-width: 900px; }
   .step { display: grid; grid-template-columns: 28px minmax(0, 1fr); column-gap: clamp(20px, 3vw, 40px); }
   .step__rail { display: flex; flex-direction: column; align-items: center; }
-  .marker { width: 18px; height: 18px; border-radius: 50%; background: #FFFFFF; border: 2px solid #235592; box-sizing: border-box; margin-top: clamp(12px, 1.6vw, 20px); flex: none; }
-  .marker--final { width: 26px; height: 26px; border: 0; background: #F68B65; margin-top: clamp(10px, 1.6vw, 20px); box-shadow: 0 0 0 6px rgba(246,139,101,.22); }
-  .line { flex: 1; width: 2px; margin-top: 8px; }
-  .line--solid { background: #9BDBF5; }
-  .line--fade { background: linear-gradient(#9BDBF5, #F68B65); }
-  .line--dashed { background: repeating-linear-gradient(#F68B65 0 6px, transparent 6px 12px); margin-top: 10px; }
+  .marker { width: 22px; height: 22px; border-radius: 50%; background: #90C9B2; border: 3px solid #FFFFFF; box-sizing: border-box; margin-top: clamp(12px, 1.6vw, 20px); flex: none; }
+  .step:nth-child(2) .marker { background: #F3B258; }
+  .marker--final { width: 26px; height: 26px; border: 0; background: #F290BA; margin-top: clamp(10px, 1.6vw, 20px); box-shadow: 0 0 0 6px rgba(242,144,186,.3); }
+  .line { flex: 1; width: 3px; margin-top: 8px; }
+  .line--solid { background: linear-gradient(#90C9B2, #F3B258); }
+  .line--fade { background: linear-gradient(#F3B258, #F290BA); }
+  .line--dashed { background: repeating-linear-gradient(#F290BA 0 6px, transparent 6px 12px); margin-top: 10px; }
   .step__body { padding-bottom: clamp(48px, 6vw, 80px); }
   .step__body--last { padding-bottom: 0; }
   .step h3 { font-size: clamp(34px, 5vw, 60px); line-height: 1.05; letter-spacing: -0.03em; }
@@ -350,38 +392,78 @@ const placeholders = [
   .exp__title { max-width: 14ch; }
   .exp__sub { margin-top: 24px; max-width: 36ch; font-size: clamp(19px, 1.8vw, 22px); line-height: 1.5; color: #3A4350; text-wrap: pretty; }
   .exp__grid { margin-top: clamp(56px, 8vw, 96px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(40px, 6vw, 96px); align-items: start; }
-  .thread { display: flex; flex-direction: column; gap: 10px; font: 600 15px/1.3 var(--font-display); color: #5F6B7D; max-width: 300px; }
+  .thread { display: flex; flex-direction: column; gap: 10px; font: 600 15px/1.3 var(--font-display); color: #242B35; max-width: 300px; }
+  .thread > span { display: flex; align-items: center; gap: 10px; }
+  .thread > span::before { content: ""; width: 10px; height: 10px; border-radius: 50%; flex: none; }
+  .thread > span:nth-of-type(1)::before { background: #7AD1EF; }
+  .thread > span:nth-of-type(2)::before { background: #90C9B2; }
+  .thread > span:nth-of-type(3)::before { background: #F3B258; }
+  .thread > span:nth-of-type(4)::before { background: #F68B65; }
+  .thread > span:nth-of-type(5)::before { background: #AC72B0; }
   .thread .eyebrow { margin-bottom: 6px; }
   .thread__on { color: #242B35; }
   .convo { display: flex; flex-direction: column; gap: 16px; max-width: 560px; width: 100%; grid-column: span 2 / auto; }
-  .plan-card--convo { margin: 14px 0; border-radius: 20px; padding: 20px 22px 22px; box-shadow: 0 1px 2px rgba(12,30,51,.04), 0 8px 24px rgba(12,30,51,.05); }
+  .plan-card--convo { margin: 14px 0; border-radius: 20px; padding: 20px 22px 22px; box-shadow: 0 1px 2px rgba(12,30,51,.04), 0 8px 24px rgba(12,30,51,.05); border-top: 8px solid #90C9B2; }
+  .plan-card--convo .check { border: 2px solid #AC72B0; }
+  .plan-card--convo .is-done .check { border-color: #63A895; }
   .divider { display: flex; align-items: center; gap: 14px; font: 600 13px/1.2 var(--font-body); color: #5F6B7D; }
   .divider span:first-child, .divider span:last-child { flex: 1; height: 1px; background: #E4DDD2; }
   .examples { margin-top: clamp(88px, 12vw, 150px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(48px, 6vw, 80px); }
   .example { border-top: 1px solid #E4DDD2; padding-top: 28px; display: flex; flex-direction: column; gap: 14px; }
+  .example--pink { border-top: 6px solid #F290BA; }
+  .example--pink .eyebrow { color: #B2497B; }
+  .example--pink .check { border: 2px solid #D8639A; }
+  .example--lav { border-top: 6px solid #AC72B0; }
+  .example--lav .eyebrow { color: #6F3F74; }
+  .example--lav .check { border: 2px solid #AC72B0; }
   .example__row { display: flex; gap: 10px; align-items: center; font: 400 16px/1.35 var(--font-body); color: #242B35; margin-top: 6px; }
   .example__row .check { width: 18px; height: 18px; }
 
   /* 5. Founder */
-  .founder { border-top: 1px solid #E4DDD2; scroll-margin-top: 60px; }
+  .founder { background: #F2E9F3; scroll-margin-top: 60px; }
   .founder__grid { padding-block: clamp(80px, 11vw, 150px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(36px, 5vw, 72px); align-items: start; }
-  .founder__photo { width: min(100%, 240px); height: 300px; border-radius: 20px; object-fit: cover; display: block; }
+  .founder__photo-wrap { position: relative; width: min(100%, 240px); margin: 0 16px 16px 0; }
+  .founder__photo-wrap::before { content: ""; position: absolute; inset: 0; transform: translate(16px, 16px); background: #F3B258; border-radius: 20px; }
+  .founder__photo { position: relative; width: 100%; height: 300px; border-radius: 20px; object-fit: cover; display: block; }
   .founder__text { grid-column: span 2 / auto; max-width: 640px; display: flex; flex-direction: column; }
   .founder h2 { font-size: clamp(34px, 5vw, 60px); line-height: 1.06; letter-spacing: -0.03em; }
   .founder blockquote { margin: 32px 0 0; display: flex; flex-direction: column; gap: 18px; font-size: clamp(18px, 1.6vw, 20px); line-height: 1.6; color: #3A4350; text-wrap: pretty; }
   .founder .strong { color: #242B35; font-weight: 600; }
   .founder__sig { margin-top: 24px; font: 600 16px/1.3 var(--font-display); color: #242B35; }
-  .founder__note { margin-top: 40px; padding-top: 20px; border-top: 1px solid #E4DDD2; font-size: 15px; line-height: 1.5; color: #525C6B; }
+  .founder__note { margin-top: 40px; padding-top: 20px; border-top: 1px solid #DFCCE2; font-size: 15px; line-height: 1.5; color: #3A4350; }
 
   /* 6. Try */
-  .try { background: #FEEBE4; scroll-margin-top: 60px; }
+  .try { background: #FDF1DE; scroll-margin-top: 60px; }
   .try__inner { padding-block: clamp(80px, 11vw, 150px); }
   .try__body { margin-top: 32px; max-width: 40rem; display: flex; flex-direction: column; gap: 16px; font-size: clamp(18px, 1.7vw, 21px); line-height: 1.55; color: #3A4350; text-wrap: pretty; }
   .try__intro { margin-top: 40px; display: flex; }
-  .card { margin-top: clamp(56px, 7vw, 88px); max-width: 720px; background: #FFFFFF; border-radius: 28px; padding: clamp(24px, 4vw, 48px); display: flex; flex-direction: column; gap: 24px; box-shadow: 0 12px 40px rgba(12,30,51,.06); scroll-margin-top: 90px; }
+  .card { margin-top: clamp(56px, 7vw, 88px); max-width: 720px; background: #FFFFFF; border-radius: 28px; padding: clamp(24px, 4vw, 48px); display: flex; flex-direction: column; gap: 28px; box-shadow: 0 12px 40px rgba(12,30,51,.06); scroll-margin-top: 90px; border-top: 10px solid #AC72B0; }
   .card[hidden], .try__intro[hidden] { display: none; }
-  .card--thanks { display: block; box-shadow: none; }
+  .card--thanks { display: block; box-shadow: none; border-top-color: #90C9B2; }
   .card__q { font: 700 clamp(28px, 4vw, 44px)/1.1 var(--font-display); letter-spacing: -0.025em; color: #242B35; }
+  .card__q { margin: 0; }
+  .roles { margin: 0; padding: 0; border: 0; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+  .roles legend { padding: 0; margin-bottom: 8px; font: 600 15px/1.3 var(--font-display); color: #242B35; }
+  .roles__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); gap: 4px 16px; }
+  .roles #role-other-wrap { margin-top: 8px; }
+  .options { display: flex; flex-direction: column; gap: 16px; padding-top: 24px; border-top: 1px solid #E4DDD2; }
+  .help { display: flex; flex-direction: column; gap: 10px; padding-left: 36px; }
+  .help label { font: 600 15px/1.3 var(--font-display); color: #242B35; }
+  .card [hidden] { display: none; }
+  .opt { position: relative; display: flex; align-items: flex-start; gap: 12px; min-height: 44px; padding-top: 2px; cursor: pointer; }
+  .opt input { position: absolute; opacity: 0; width: 22px; height: 22px; margin: 0; }
+  .opt__ctl { flex: none; position: relative; width: 22px; height: 22px; background: #FFFFFF; border: 1.5px solid #C3CAD6; transition: border-color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard); }
+  .opt__ctl--radio { border-radius: 50%; }
+  .opt__ctl--box { border-radius: 6px; }
+  .opt__ctl--radio::after { content: ""; position: absolute; inset: 0; margin: auto; width: 11px; height: 11px; border-radius: 50%; background: #235592; transform: scale(0); transition: transform 140ms var(--ease-soft-spring); }
+  .opt input:checked + .opt__ctl--radio { border-color: #235592; }
+  .opt input:checked + .opt__ctl--radio::after { transform: scale(1); }
+  .opt input:checked + .opt__ctl--box { background: #235592; border-color: #235592; }
+  .opt__ctl--box::after { content: ""; position: absolute; left: 5px; top: 5px; width: 10px; height: 5px; border-left: 2.5px solid #FFFFFF; border-bottom: 2.5px solid #FFFFFF; transform: rotate(-45deg) scale(0); transition: transform 140ms var(--ease-soft-spring); }
+  .opt input:checked + .opt__ctl--box::after { transform: rotate(-45deg) scale(1); }
+  .opt input:focus-visible + .opt__ctl { box-shadow: var(--shadow-focus); }
+  .opt__text { font: 400 16px/1.4 var(--font-body); color: #3A4350; padding-top: 1px; }
+  @media (prefers-reduced-motion: reduce) { .opt__ctl, .opt__ctl::after { transition: none; } }
   .card .field { font: 400 16px var(--font-body); border: 1.5px solid #C3CAD6; border-radius: 14px; }
   .card input.field { height: 44px; padding: 0 16px; }
   .card textarea.field { padding: 12px 16px; }
@@ -397,10 +479,6 @@ const placeholders = [
   .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
   .card--thanks h3 { font-size: clamp(28px, 4vw, 44px); line-height: 1.1; letter-spacing: -0.025em; outline: none; }
   .thanks__lead { margin-top: 20px; font-size: 18px; line-height: 1.55; color: #3A4350; }
-  .dots { margin-top: 16px; display: flex; flex-direction: column; gap: 12px; font-size: 18px; line-height: 1.45; color: #242B35; }
-  .dots li { display: flex; gap: 12px; align-items: baseline; }
-  .dots li span:first-child { width: 8px; height: 8px; border-radius: 50%; background: #F68B65; flex: none; transform: translateY(-2px); }
-  .thanks__free { margin-top: 24px; font-size: 16px; line-height: 1.5; color: #525C6B; }
 </style>
 
 <script>
@@ -412,10 +490,19 @@ const placeholders = [
   const thanks = document.getElementById("thanks") as HTMLElement;
   const thanksTitle = document.getElementById("thanks-title") as HTMLElement;
   const helpEl = document.getElementById("help") as HTMLTextAreaElement;
+  const helpWrap = document.getElementById("help-wrap") as HTMLElement;
   const nameEl = document.getElementById("name") as HTMLInputElement;
   const emailEl = document.getElementById("email") as HTMLInputElement;
-  const condEl = document.getElementById("conditions") as HTMLInputElement;
+  const nameErr = document.getElementById("name-error") as HTMLElement;
   const emailErr = document.getElementById("email-error") as HTMLElement;
+  const roleErr = document.getElementById("role-error") as HTMLElement;
+  const roleEls = Array.from(form.querySelectorAll<HTMLInputElement>('input[name="role"]'));
+  const roleOtherWrap = document.getElementById("role-other-wrap") as HTMLElement;
+  const roleOtherEl = document.getElementById("role-other") as HTMLInputElement;
+  const betaWrap = document.getElementById("beta-wrap") as HTMLElement;
+  const betaEl = document.getElementById("beta") as HTMLInputElement;
+  const updatesEl = document.getElementById("updates") as HTMLInputElement;
+  const thanksText = document.getElementById("thanks-text") as HTMLElement;
   const formErr = document.getElementById("form-error") as HTMLElement;
   const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement;
 
@@ -469,19 +556,40 @@ const placeholders = [
     track("form_start");
   });
 
-  // Validation
-  function validateEmail() {
-    const ok = EMAIL_RE.test(emailEl.value.trim());
-    emailEl.classList.toggle("is-invalid", !ok);
-    emailEl.setAttribute("aria-invalid", String(!ok));
-    emailErr.hidden = ok;
-    return ok;
+  // Role-dependent fields
+  const currentRole = () => roleEls.find((r) => r.checked)?.value || "";
+  function syncRole() {
+    const role = currentRole();
+    roleOtherWrap.hidden = role !== "Other";
+    if (role !== "Other") roleOtherEl.value = "";
+    betaWrap.hidden = role !== "Patient";
+    if (role !== "Patient") { betaEl.checked = false; }
+    syncBeta();
+    if (role) { roleErr.hidden = true; }
   }
+  function syncBeta() {
+    helpWrap.hidden = !betaEl.checked;
+    if (!betaEl.checked) helpEl.value = "";
+  }
+  roleEls.forEach((r) => r.addEventListener("change", syncRole));
+  betaEl.addEventListener("change", syncBeta);
+
+  // Validation
+  function setInvalid(el: HTMLElement, err: HTMLElement, bad: boolean) {
+    el.classList.toggle("is-invalid", bad);
+    el.setAttribute("aria-invalid", String(bad));
+    err.hidden = !bad;
+    return !bad;
+  }
+  const validateName = () => setInvalid(nameEl, nameErr, !nameEl.value.trim());
+  const validateEmail = () => setInvalid(emailEl, emailErr, !EMAIL_RE.test(emailEl.value.trim()));
+  nameEl.addEventListener("blur", validateName);
+  nameEl.addEventListener("input", () => { if (!nameErr.hidden) validateName(); });
   emailEl.addEventListener("blur", validateEmail);
   emailEl.addEventListener("input", () => { if (!emailErr.hidden) validateEmail(); });
 
-  // Sends the sign-up to the Google Sheet script. Never log help/conditions.
-  async function sendPilot(payload: Record<string, string>): Promise<boolean> {
+  // Sends the sign-up to the Google Sheet script. Never log help.
+  async function sendWaitlist(payload: Record<string, string | boolean>): Promise<boolean> {
     const url = import.meta.env.PUBLIC_INTAKE_URL;
     if (!url) {
       console.warn("PUBLIC_INTAKE_URL is not set; sign-up was not sent.");
@@ -499,33 +607,45 @@ const placeholders = [
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     formErr.hidden = true;
-    if (!validateEmail()) { emailEl.focus(); return; }
+    const nameOk = validateName();
+    const emailOk = validateEmail();
+    const role = currentRole();
+    roleErr.hidden = !!role;
+    if (!nameOk) { nameEl.focus(); return; }
+    if (!emailOk) { emailEl.focus(); return; }
+    if (!role) { roleEls[0].focus(); return; }
     const data = new FormData(form);
+    const beta = role === "Patient" && betaEl.checked;
     const payload = {
       submittedAt: new Date().toISOString(),
-      form: "pilot",
-      help: helpEl.value,
-      firstName: nameEl.value.trim(),
+      form: "waitlist",
+      name: nameEl.value.trim(),
       email: emailEl.value.trim(),
-      conditions: condEl.value,
-      source: "homepage-v2",
+      role,
+      roleOther: role === "Other" ? roleOtherEl.value.trim() : "",
+      beta,
+      help: beta ? helpEl.value : "",
+      updates: updatesEl.checked,
+      source: "homepage-waitlist",
       website: String(data.get("website") || ""),
     };
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending…";
     let ok = false;
-    try { ok = await sendPilot(payload); } catch { ok = false; }
+    try { ok = await sendWaitlist(payload); } catch { ok = false; }
     if (!ok) {
       submitBtn.disabled = false;
-      submitBtn.textContent = "I’d like to try Krue →";
+      submitBtn.textContent = "Join the waitlist →";
       formErr.hidden = false;
       track("form_submit_error");
       return;
     }
     submitted = true;
     track("form_submit_success");
-    const n = payload.firstName;
-    thanksTitle.textContent = n ? `Thanks, ${n}. Grace will be in touch by email.` : "Thanks. Grace will be in touch by email.";
+    thanksTitle.textContent = `Thanks, ${payload.name}. You’re on the waitlist.`;
+    thanksText.textContent = beta
+      ? "We’ll be in touch by email about the beta."
+      : "We’ll be in touch by email with product and company updates.";
     form.hidden = true;
     thanks.hidden = false;
     scrollToId("thanks");
