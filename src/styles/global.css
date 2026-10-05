@@ -30,7 +30,7 @@ a {
   text-underline-offset: 3px;
 }
 a:hover {
-  color: #BC5230;
+  color: #B2497B;
 }
 
 .container {
@@ -175,3 +175,12 @@ select.field {
   text-transform: uppercase;
   color: #B34D2C;
 }
+
+/* Rainbow stripe: 7 equal segments */
+.stripe {
+  width: 100%;
+  background: linear-gradient(to right,
+    #235592 0 calc(100% / 7), #7AD1EF 0 calc(200% / 7), #90C9B2 0 calc(300% / 7),
+    #F3B258 0 calc(400% / 7), #F68B65 0 calc(500% / 7), #F290BA 0 calc(600% / 7), #AC72B0 0);
+}
+.stripe--6 { height: 6px; }

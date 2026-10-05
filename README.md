@@ -1,13 +1,13 @@
 # Krue website
 
-Marketing site for Krue: homepage (with the Try Krue sign-up form), blog, and policy pages. Built with [Astro](https://astro.build), static output, deployed by Netlify from `main`.
+Marketing site for Krue: homepage (with the waitlist form), blog, and policy pages. Built with [Astro](https://astro.build), static output, deployed by Netlify from `main`.
 
 ## Project structure
 
 ```
 src/
   layouts/Base.astro         head meta, OG tags, JSON-LD
-  pages/index.astro          homepage + Try Krue form
+  pages/index.astro          homepage + waitlist form
   pages/blog/index.astro     blog listing
   pages/blog/[slug].astro    article template
   pages/llms.txt.ts          llms.txt, built from the blog posts
@@ -32,7 +32,7 @@ public/
 
 ## Environment variables
 
-Copy `.env.example` to `.env`. `PUBLIC_INTAKE_URL` is the Google Apps Script web app address that saves sign-ups to the Pilot tab of the Krue intake sheet. Set the same variables in Netlify.
+Copy `.env.example` to `.env`. `PUBLIC_INTAKE_URL` is the Google Apps Script web app address that saves waitlist sign-ups to the Waitlist tab of the Krue intake sheet. Set the same variables in Netlify.
 
 ## Blog
 
