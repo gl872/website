@@ -6,6 +6,7 @@ excerpt: The story of how I went from bedbound to building Krue, support for
   daily life with chronic illness, and what I'm working on in my first weeks at
   CIC.
 date: 2026-10-06
+cover: /uploads/IMG_1706.jpg
 draft: false
 ---
 Seven years ago, I went from being an active college student to bedbound for months. I suddenly developed POTS (Postural Orthostatic Tachycardia Syndrome), a condition that affects the body's automatic functions, like heart rate and blood pressure. In days I went from running a half marathon to being unable to sit up. Luckily, I was diagnosed within about a week of the onset of my severe symptoms, but all I was given was a pamphlet with little information and a medication to try. At the time, I didn't know if I'd ever get back to traversing the world without a wheelchair.
