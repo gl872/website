@@ -6,15 +6,22 @@ content:
     format: yaml-frontmatter
     filename: "{year}-{month}-{day}-{primary}.md"
     view:
+      fields: [title, type, date, featured, draft]
       primary: title
-      sort: date
+      sort: [date]
+      default: { sort: date, order: desc }
     fields:
       - name: title
         label: Title
         type: string
         required: true
+      - name: highlight
+        label: Word or phrase to underline in the title
+        description: Must match text in the title exactly, e.g. "appointment". Leave empty for no underline.
+        type: string
       - name: type
-        label: Type
+        label: Category
+        description: Sets the post's color. Company news is pink, Articles are blue, Practical guides are green.
         type: select
         required: true
         options:
@@ -23,8 +30,8 @@ content:
             - Articles
             - Practical guides
       - name: excerpt
-        label: Excerpt
-        description: Shown on the blog card. Keep it around 160 characters.
+        label: One-line summary
+        description: Shown under the title, on blog cards, and as the page's search and social description. Keep it around 160 characters.
         type: text
         required: true
       - name: date
@@ -33,10 +40,26 @@ content:
         required: true
       - name: cover
         label: Cover image
+        description: Optional. If empty, the category's thread art is used. Also used as the social share image.
         type: image
       - name: coverAlt
         label: Cover image alt text
         type: string
+      - name: in_short
+        label: "\"In short\" points"
+        description: 2–3 short takeaways shown in a blue box at the top. Leave empty to hide the box.
+        type: string
+        list: { min: 0, max: 3 }
+      - name: author
+        label: Author
+        description: Must match the Blog author name to show their photo and bio.
+        type: string
+        default: Grace Landry
+      - name: featured
+        label: Pin as featured on the blog page
+        description: Otherwise the newest post is featured.
+        type: boolean
+        default: false
       - name: draft
         label: Draft
         description: Turn off and save to publish this post.
@@ -58,9 +81,13 @@ content:
         required: true
       - name: role
         label: Title
-        description: Shown under the name on each post, e.g. "Founder, Krue".
+        description: Used in search data for each post, e.g. "Founder, Krue".
         type: string
         required: true
+      - name: bio
+        label: Short bio
+        description: Shown in the author card at the end of each post. One or two sentences.
+        type: text
       - name: photo
         label: Photo
         type: image

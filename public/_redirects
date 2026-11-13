@@ -1,0 +1,5 @@
+# Netlify redirects. "!" forces the redirect even though Astro also writes a meta-refresh page at these paths.
+/terms           /   301!
+/terms/          /   301!
+/accessibility   /   301!
+/accessibility/  /   301!

@@ -1,53 +1,133 @@
 ---
 import Base from "../layouts/Base.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+
+// Set to the date this version of the policy goes live (handoff §7). Update it whenever the policy changes.
+const PRIVACY_UPDATED = "November 13, 2026";
 ---
 
 <Base
-  title="Privacy Policy · Krue"
+  title="Privacy policy · Krue"
   description="How Krue collects, uses, and protects your information."
   path="/privacy"
 >
-  <div class="page">
-    <Header />
-    <main>
-      <article class="doc">
-        <h1>Krue Privacy Policy</h1>
-        <p class="doc__date">Last updated: October 1, 2026</p>
+  <main>
+    <section class="p-wrap" style="padding-top:clamp(40px,6vw,80px)">
+      <p style="margin:0 0 14px;font:700 13px/1 var(--font-display);letter-spacing:.16em;text-transform:uppercase;color:#69727F">Legal</p>
+      <h1 style="margin:0;font:800 clamp(38px,5vw,60px)/1.04 var(--font-display);letter-spacing:-0.035em;color:#14325A;text-wrap:balance">Privacy <span class="k-hl" style="--hl:#C4EBF9">policy</span></h1>
+      <p style="margin:18px 0 0;font:400 clamp(18px,1.6vw,21px)/1.55 var(--font-body);color:#3B4656;text-wrap:pretty">How Krue collects, uses, and protects your information.</p>
+      <p style="margin:16px 0 0;font:500 15px/1.4 var(--font-body);color:#69727F">Last updated: {PRIVACY_UPDATED}</p>
+    </section>
 
-        <p>This policy explains how Krue (“Krue,” “we,” “us”) collects and uses personal information through krue.io and the services we provide.</p>
-        <p>Krue is not a healthcare provider and does not give medical advice. In an emergency, call 911.</p>
+    <article class="p-wrap p-body" style="padding-top:clamp(32px,4vw,48px)">
+      <div class="p-short"><b>The short version</b><ul>
+        <li>We use your information to run Krue for you and to make Krue better.</li>
+        <li>We don’t sell your personal information.</li>
+        <li>We only share your health information with research or industry partners if you opt in.</li>
+        <li>You can ask to see, change, or delete your information at any time.</li>
+      </ul></div>
 
-        <h2>What we collect and why</h2>
-        <p>We collect information you give us, such as your name, email address, what you’d like help with, health conditions you choose to share, and your messages with us. If you accept cookies, we also collect basic website usage data, such as pages viewed and device type.</p>
-        <p>We use this information to provide and improve our services, communicate with you, keep our site secure, and meet legal obligations. Health information you share is treated as sensitive and used only to support you, unless you agree otherwise.</p>
-        <p>We may use AI tools to help organize or summarize information, with providers that don’t train their models on your data.</p>
+      <nav class="pv-toc" aria-label="On this page"><b>On this page</b><ol>
+        <li><a href="#covers">Who this policy covers</a></li>
+        <li><a href="#hipaa">Krue and HIPAA</a></li>
+        <li><a href="#collect">What we collect</a></li>
+        <li><a href="#use">How we use it</a></li>
+        <li><a href="#ai">AI at Krue</a></li>
+        <li><a href="#share">How we share it</a></li>
+        <li><a href="#deid">De-identified data and research</a></li>
+        <li><a href="#cookies">Cookies</a></li>
+        <li><a href="#safe">How we protect and keep it</a></li>
+        <li><a href="#choices">Your choices and rights</a></li>
+        <li><a href="#health">Washington and Nevada health data</a></li>
+        <li><a href="#more">Other things to know</a></li>
+        <li><a href="#contact">Contact us</a></li>
+      </ol></nav>
 
-        <h2>Sharing, cookies, and storage</h2>
-        <p>We share information with service providers that help us run Krue (such as hosting, email, data storage, and analytics), when you ask us to, or when the law requires it. Before we use or share your health information in a new way, we’ll ask for your consent.</p>
-        <p>We use analytics cookies only if you accept them, and you can change your choice at any time.</p>
-        <p>We keep information only as long as we need it, and we protect it with reasonable security measures. Your information is stored in the United States.</p>
+      <h2 id="covers">Who this policy covers</h2>
+      <p>This policy explains how Krue Health Corporation (“Krue,” “we,” “us”) collects, uses, and shares information when you visit krue.io, join our waitlist, sign up for Krue updates, use the Krue app, or contact us (together, our “Services”). It is also our Consumer Health Data Privacy Policy.</p>
+      <p>If you take part in a Krue beta or pilot, we may give you an added notice with more details. If that notice is different from this policy, the notice applies to the beta.</p>
+      <p>Krue is not a healthcare provider and does not give medical advice. In an emergency, call 911.</p>
 
-        <h2>Your choices</h2>
-        <p>You can ask to see, correct, or delete your information, or unsubscribe from emails, at any time by contacting us. Depending on where you live, you may have additional rights under state law.</p>
-        <p>Krue is for adults 18 and older.</p>
-        <p>We may update this policy from time to time. If we make significant changes, we’ll update the date above and let you know.</p>
+      <h2 id="hipaa">Krue and HIPAA</h2>
+      <p>Krue is not a doctor’s office, hospital, or health plan, so HIPAA generally doesn’t apply to the information you give us. This policy and state privacy and health-data laws do. We still treat your health information as sensitive and protect it with care.</p>
 
-        <h2>Contact</h2>
-        <p><a href="mailto:community@krue.io">community@krue.io</a></p>
-      </article>
-    </main>
-    <Footer />
-  </div>
+      <h2 id="collect">What we collect</h2>
+      <ul>
+        <li><b>Information you give us,</b> like your name, email address, and account and profile details.</li>
+        <li><b>When you talk with us,</b> like messages, interviews, surveys, or beta sign-up forms.</li>
+        <li><b>Sign-up forms.</b> When you join the waitlist or sign up for Krue updates, we collect your name, email address, and the page you signed up from. For updates, you can also tell us your role (like investor, partner, or press) and your organization.</li>
+        <li><b>Health information you add,</b> like your conditions, appointments, care team, notes, goals, and questions.</li>
+        <li><b>Appointment recordings,</b> if you choose to record, and the transcripts, notes, and plans Krue makes from them. Recordings may include other people’s voices, like your doctor’s. You’re responsible for getting their permission.</li>
+        <li><b>Information from accounts you connect,</b> like Google sign-in or your calendar.</li>
+        <li><b>Basic technical information,</b> like when you sign in. On our website, if you accept cookies, how you use the site.</li>
+      </ul>
+
+      <h2 id="use">How we use it</h2>
+      <ul>
+        <li>To provide the Services, like helping you get ready for appointments, keeping track of what was said, and building your plan.</li>
+        <li>To run your account and contact you about Krue, including waitlist news and the updates you sign up for. You can unsubscribe at any time.</li>
+        <li>To improve and develop the Services. We use your information to improve our AI only with your permission.</li>
+        <li>To keep the Services safe and fix problems.</li>
+        <li>To follow the law.</li>
+        <li>For other purposes we tell you about, or that you agree to.</li>
+      </ul>
+
+      <h2 id="ai">AI at Krue</h2>
+      <p>Krue uses AI, including AI from other companies, to power features like transcripts, notes, and answers to your questions. Your information is sent to these services only to do that work. With your permission, we may use your information to improve Krue, including our AI. The AI companies we work with can’t use your information to train their own models.</p>
+
+      <h2 id="share">How we share it</h2>
+      <p><b>We don’t sell your personal information.</b> We share it only:</p>
+      <ul>
+        <li>With service providers that help us run Krue, like hosting, storage, AI, email, and analytics.</li>
+        <li>When you ask us to, or agree to it.</li>
+        <li>When the law requires it, or to protect someone’s rights or safety.</li>
+        <li>If Krue is part of a merger, sale, or similar event. This policy would still apply to your information.</li>
+      </ul>
+
+      <h2 id="deid">De-identified data and research</h2>
+      <p>Before we use your information to improve Krue or for research, we remove names and other direct identifiers. We may combine it with other users’ information, and use and share this de-identified information to run, study, and improve Krue, and for research. We don’t try to identify you from it, and we require anyone we share it with not to try either.</p>
+      <p>Krue may offer you the choice to share your health information with research or industry partners, like nonprofits or life-sciences companies. We only do this if you opt in. You can change your mind at any time.</p>
+
+      <h2 id="cookies">Cookies</h2>
+      <p>We use cookies and similar tools to keep the Services working and secure, and, if you accept them, to understand how people use our site. You can change your cookie choices at any time. Our site doesn’t respond to “Do Not Track” signals.</p>
+
+      <h2 id="safe">How we protect and keep it</h2>
+      <p>We use reasonable safeguards to protect your information. We store your information in the United States. Some service providers may process it elsewhere. No system is perfectly secure. If a breach affects your information, we’ll tell you as the law requires.</p>
+      <p>We keep information as long as we need it to provide the Services, or as the law requires. When you delete your account, we delete your information from our systems. Some copies may remain for a limited time, for example with service providers or in backups.</p>
+
+      <h2 id="choices">Your choices and rights</h2>
+      <p>Depending on where you live, you can ask us to:</p>
+      <ul>
+        <li>Tell you what information we have about you, and give you a copy.</li>
+        <li>Correct or delete your information.</li>
+        <li>Stop a use of your information that you agreed to.</li>
+      </ul>
+      <p>You can also unsubscribe from our emails at any time. To make a request, email <a href="mailto:community@krue.io">community@krue.io</a>. We’ll confirm it’s you before we act, and reply within the time the law requires. If we say no, you can appeal by replying to our answer. We won’t treat you differently for using your rights.</p>
+
+      <h2 id="health">Washington and Nevada health data</h2>
+      <p>If you live in Washington or Nevada, we collect and share your consumer health data only to provide the Services you ask for, or with your consent. We don’t sell it. The types of health data we collect, why, and who we share it with are listed above. You can ask to see or delete it, or take back your consent, by emailing us. If we deny your request, you can appeal, and then contact your state attorney general.</p>
+
+      <h2 id="more">Other things to know</h2>
+      <ul>
+        <li><b>Adults in the US.</b> Krue is for people 18 and older who live in the United States. If we learn we have information from someone under 18, we delete it.</li>
+        <li><b>Other websites.</b> This policy doesn’t cover other companies’ sites or services, even if we link to them.</li>
+        <li><b>Changes.</b> We may update this policy. If we make a big change, we’ll update the date at the top and let you know.</li>
+      </ul>
+
+      <h2 id="contact">Contact us</h2>
+      <p>Krue Health Corporation<br>Questions or requests: <a href="mailto:community@krue.io">community@krue.io</a></p>
+    </article>
+    <div style="height:clamp(64px,8vw,110px)"></div>
+  </main>
 </Base>
 
-<style>
-  .page { min-height: 100vh; display: flex; flex-direction: column; background: var(--surface-cream); color: #3A4350; font-family: var(--font-body); }
-  main { flex: 1; }
-  .doc { max-width: 720px; margin: 0 auto; padding: clamp(48px, 7vw, 96px) clamp(20px, 4vw, 40px) clamp(72px, 9vw, 128px); display: flex; flex-direction: column; gap: 18px; font-size: 18px; line-height: 1.65; }
-  .doc h1 { margin: 0; font: 700 clamp(36px, 5vw, 56px)/1.05 var(--font-display); letter-spacing: -0.03em; color: #242B35; }
-  .doc h2 { margin: 24px 0 0; font: 700 26px/1.2 var(--font-display); letter-spacing: -0.02em; color: #242B35; }
-  .doc p { margin: 0; }
-  .doc__date { font-size: 15px; color: #525C6B; }
+<style is:global>
+  /* Privacy-only styles from the reference. */
+    .pv-draft{padding:16px 20px;border:1.5px dashed #F3B258;border-radius:16px;background:#FFF6E6;font:400 15px/1.55 var(--font-body);color:#5A4A2A}
+    .pv-draft b{display:block;margin-bottom:4px;font:700 12px/1 var(--font-display);letter-spacing:.12em;text-transform:uppercase;color:#9A6512}
+    .pv-c{background:#FFF3B0;color:#6B5400;border-radius:6px;padding:1px 6px;font-size:.88em;font-weight:600}
+    .pv-toc{margin:0 0 2.2em;padding:20px 24px;border:1px solid #ECE6DC;border-radius:20px;background:#FFFFFF;font:500 16px/1.5 var(--font-body)}
+    .pv-toc b{display:block;margin-bottom:8px;font:700 12px/1 var(--font-display);letter-spacing:.12em;text-transform:uppercase;color:#69727F}
+    .pv-toc ol{margin:0;padding-left:1.4em;columns:2;column-gap:32px} .pv-toc li{margin:.25em 0;break-inside:avoid}
+    @media (max-width:600px){.pv-toc ol{columns:1}}
+    .p-body h2[id]{scroll-margin-top:96px}
 </style>
