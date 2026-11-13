@@ -4,9 +4,14 @@
 // snippets — one in <head>, one right after <body> opens — so this component
 // takes a `placement` prop and is included twice from Base.astro.
 //
-// Analytics/ad cookies default to denied (Google Consent Mode v2) until the
-// visitor accepts the banner. No health details are ever put in a page address
-// or sent to analytics.
+// Consent rules (Google Consent Mode v2). Krue is a health site, so:
+// - Everything defaults to denied. Before a choice, or after Decline, nothing
+//   non-essential runs.
+// - Accept grants analytics_storage ONLY. ad_storage, ad_user_data and
+//   ad_personalization are never granted. An ad pixel on pages about chronic
+//   illness would count as sharing health information.
+// - A Global Privacy Control signal is treated as Decline, and the banner is not shown.
+// The GTM container must hold no ad pixels or session-recording tags.
 interface Props {
   placement: "head" | "body";
 }
@@ -45,11 +50,11 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID as string | undefined;
       <iframe src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`} height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
 
-    <div id="cookie-consent" class="cookie-consent" hidden>
-      <p>We use cookies to understand site traffic and improve Krue. <a href="/privacy">Learn more</a></p>
-      <div class="cookie-consent__actions">
-        <button type="button" id="cookie-decline" class="btn btn-ghost btn-md">Decline</button>
-        <button type="button" id="cookie-accept" class="btn btn-primary btn-md">Accept</button>
+    <div id="cookie-consent" class="cc" role="region" aria-label="Cookie choices" hidden>
+      <p>We use analytics cookies to understand site traffic and improve Krue. No ads or tracking pixels. <a href="/privacy/#cookies">Learn more</a></p>
+      <div class="cc-acts">
+        <button type="button" id="cookie-decline" class="cc-no">Decline</button>
+        <button type="button" id="cookie-accept" class="cc-yes">Accept</button>
       </div>
     </div>
 
@@ -61,16 +66,26 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID as string | undefined;
         var decline = document.getElementById('cookie-decline');
         if (!banner || !accept || !decline) return;
 
+        // Only analytics is ever granted. Ad signals stay denied in every case.
         function update(granted) {
           window.dataLayer = window.dataLayer || [];
           function gtag() { window.dataLayer.push(arguments); }
-          var state = granted ? 'granted' : 'denied';
           gtag('consent', 'update', {
-            analytics_storage: state,
-            ad_storage: state,
-            ad_user_data: state,
-            ad_personalization: state,
+            analytics_storage: granted ? 'granted' : 'denied',
+            ad_storage: 'denied',
+            ad_user_data: 'denied',
+            ad_personalization: 'denied',
           });
+        }
+        function hide() {
+          banner.classList.remove('cc-in');
+          setTimeout(function () { banner.hidden = true; }, 300);
+        }
+
+        // Global Privacy Control means Decline, without asking.
+        if (navigator.globalPrivacyControl === true) {
+          update(false);
+          return;
         }
 
         var stored = null;
@@ -82,65 +97,20 @@ const gtmId = import.meta.env.PUBLIC_GTM_ID as string | undefined;
           update(false);
         } else {
           banner.hidden = false;
-          requestAnimationFrame(function () { banner.classList.add('is-visible'); });
+          requestAnimationFrame(function () { banner.classList.add('cc-in'); });
         }
 
         accept.addEventListener('click', function () {
           try { localStorage.setItem(KEY, 'granted'); } catch (e) {}
           update(true);
-          banner.classList.remove('is-visible');
+          hide();
         });
         decline.addEventListener('click', function () {
           try { localStorage.setItem(KEY, 'denied'); } catch (e) {}
           update(false);
-          banner.classList.remove('is-visible');
+          hide();
         });
       })();
     </script>
   </>
 )}
-
-<style>
-  .cookie-consent {
-    position: fixed;
-    left: 16px;
-    right: 16px;
-    bottom: 16px;
-    z-index: 100;
-    max-width: 640px;
-    margin: 0 auto;
-    background: #FFFFFF;
-    border: 1px solid var(--border-warm);
-    border-radius: var(--radius-lg);
-    box-shadow: 0 12px 40px rgba(12, 30, 51, 0.12);
-    padding: 18px 20px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    opacity: 0;
-    transform: translateY(12px);
-    transition: opacity 220ms ease, transform 280ms ease-out;
-  }
-  .cookie-consent.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  .cookie-consent p {
-    margin: 0;
-    font-size: 15px;
-    line-height: 1.5;
-    color: #3A4350;
-    flex: 1 1 260px;
-  }
-  .cookie-consent__actions {
-    display: flex;
-    gap: 10px;
-    flex: none;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .cookie-consent { transition: none; }
-  }
-</style>

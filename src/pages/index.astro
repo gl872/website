@@ -1,672 +1,280 @@
 ---
 import Base from "../layouts/Base.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import ClosingStart from "../components/ClosingStart.astro";
 
-const burdens = [
-  "There are questions to answer.",
-  "Things to research.",
-  "Recommendations to try.",
-  "Appointments to prepare for.",
-  "Referrals to follow up on.",
-  "Symptoms and changes to remember.",
-  "Resources to find.",
-];
-
-const placeholders = [
-  "Finding strategies for managing my energy...",
-  "Figuring out something my doctor recommended...",
-  "Getting ready for my neurology appointment...",
-  "Finding resources for work...",
-  "Keeping track of everything I need to follow up on...",
-  "I don't even know where to start...",
-];
+// Markup ported verbatim from the Concept A2 reference build (krue-site-handoff/krue-site/index.html).
+// Behavior: src/scripts/home.js (hero untangle, How it works steps) and src/scripts/site.js (pop-ups).
 ---
 
 <Base
-  title="Krue · Support for everything between appointments"
-  description="Krue helps you find answers, make a plan, and stay on top of everything that happens between appointments, with a real person there to help along the way."
+  title="Krue · An advocate in your pocket"
+  description="Krue helps people with complex chronic conditions get ready for appointments, keep track of what was said, and create one connected plan across their care."
   path="/"
 >
-  <div id="top" class="page">
-    <Header />
-
-    <main>
-      <!-- 1. Hero -->
-      <section class="hero container">
-        <h1>Chronic illness comes with <span class="hl hl--pink">a lot</span> to figure out.</h1>
-        <div class="hero__grid">
-          <div class="hero__copy">
-            <p class="hero__lead">Krue helps you find answers, make a plan, and stay on top of everything that happens between appointments — with a real person there to help along the way.</p>
-            <div><a href="/#try" class="btn btn-primary btn-lg" data-try="hero">Join the waitlist →</a></div>
-            <p class="hero__note">For people living with POTS, ME/CFS, MCAS, hEDS and related conditions.</p>
-          </div>
-
-          <div class="hero__visual" aria-hidden="true">
-            <div class="plan-card plan-card--hero">
-              <div class="plan-card__title">Your plan</div>
-              <div class="eyebrow eyebrow--plum">THIS WEEK</div>
-              <ul class="checklist">
-                <li class="is-done"><span class="check"></span><span>Find compression options</span></li>
-                <li><span class="check"></span><span>Write down questions for neurology</span></li>
-                <li><span class="check"></span><span>Try pacing with a step tracker</span></li>
-                <li><span class="check"></span><span>Follow up on rheumatology referral</span></li>
-              </ul>
-            </div>
-            <div class="bubble bubble--grace bubble--hero">
-              <div class="bubble__head"><span class="avatar">K</span><span>Your Krue Guide</span></div>
-              <p>“I know you got the compression stockings. Are you finding they’re helping?”</p>
-            </div>
-            <div class="hand hand--rose" style="margin:10px 12px 0 auto;transform:rotate(-3deg)" aria-hidden="true">they remember and follow up</div>
-          </div>
+  <main>
+  <section id="top" class="h-sec h-hero">
+  <div class="h-copy">
+      <p class="h-eyebrow">For complex chronic illness</p>
+      <h1 class="h-h1 h-wide">An <span class="k-hl" style="--hl:#C4EBF9">advocate</span> in your pocket</h1>
+      <p class="h-intro">For people with large care teams and conditions that lack clear answers. Krue helps you get ready for appointments, keep track of what was said, and create one connected plan across your care.</p>
+      <a class="h-cta" href="#start">Join the waitlist</a>
+      <div class="h-row"><span class="h-pill" style="--bg:#E2F5FC;--fg:#1F7FA3;--bgh:#3ABAE8;--fgh:#14325A;">POTS</span><span class="h-pill" style="--bg:#FCE6F0;--fg:#A93E72;--bgh:#E2169E;--fgh:#FFFFFF;">hEDS</span><span class="h-pill" style="--bg:#F4F8D2;--fg:#6E7A0C;--bgh:#E0EE40;--fgh:#14325A;">MCAS</span><span class="h-pill" style="--bg:#FDF0DE;--fg:#9A5E14;--bgh:#F3B258;--fgh:#14325A;">ME/CFS</span><span class="h-pill" style="--bg:#E4EDF8;--fg:#235592;--bgh:#235592;--fgh:#FFFFFF;">Migraine</span><span class="h-pill" style="--bg:#F3E8F4;--fg:#7E4683;--bgh:#B555D9;--fgh:#FFFFFF;">Endometriosis</span><span class="h-pill" style="--bg:#fff;--fg:#14325A;--bgh:#14325A;--fgh:#fff;border:1.5px dashed #9AA3AF;">+ yours</span></div>
+    </div>
+  <div class="h-stage h-untangle" data-untangle="c" style="height:440px">
+    <svg class="h-svg" viewBox="0 0 1200 440" preserveAspectRatio="none" aria-hidden="true"><path class="h-l" fill="none" stroke="#235592" stroke-width="4" stroke-linecap="round"/><path class="h-l" fill="none" stroke="#7AD1EF" stroke-width="4" stroke-linecap="round"/><path class="h-l" fill="none" stroke="#F290BA" stroke-width="4" stroke-linecap="round"/><path class="h-l" fill="none" stroke="#E0EE40" stroke-width="4" stroke-linecap="round"/><path class="h-l" fill="none" stroke="#F3B258" stroke-width="4" stroke-linecap="round"/><path class="h-l" fill="none" stroke="#90C9B2" stroke-width="4" stroke-linecap="round"/><path class="h-l" fill="none" stroke="#AC72B0" stroke-width="4" stroke-linecap="round"/><path class="h-l" fill="none" stroke="#F68B65" stroke-width="4" stroke-linecap="round"/></svg>
+    <div class="h-phonewrap" style="top:30px">
+      <div class="h-phone h-ps" role="img" aria-label="Krue prep sheet for Dr. Rao: two goals, a note about dizziness when standing, and a to-do">
+        <div class="h-ps-top"><span class="h-ps-btn">←</span><span class="h-ps-btn">···</span></div>
+        <div class="h-ps-card">
+          <div class="h-ps-head"><b>Prep for Dr. Rao</b><span class="h-ps-chip">Draft</span></div>
+          <div class="h-ps-meta">Rheumatology · Wed, Nov 4</div>
+          <div class="h-ps-sec">Your goals</div>
+          <div class="h-ps-goal"><span class="h-ps-n">1</span>Check if my dose is working</div>
+          <div class="h-ps-goal"><span class="h-ps-n">2</span>Next steps for joint pain</div>
+          <div class="h-ps-sec">What to bring up</div>
+          <div class="h-ps-note"><b>Dizziness when I stand up</b><span class="h-ps-stat">Heart rate 72 → 124 standing</span><span class="h-ps-li">Using compression socks and salt tablets</span></div>
+          <div class="h-ps-sec">To-do</div>
+          <div class="h-ps-todo"><span class="h-ps-box"></span><span>Write down standing heart rate for 3 mornings<em>Due Mon</em></span></div>
         </div>
-      </section>
-
-      <!-- 2. Problem -->
-      <section class="problem container">
-        <h2 class="h-xl" data-reveal>Your appointments are only part of managing your health.</h2>
-        <ul class="burdens">
-          {burdens.map((b) => (
-            <li data-reveal><span class="ring"></span><span>{b}</span></li>
-          ))}
-        </ul>
-        <p class="problem__para" data-reveal>And hours spent searching Google, Reddit, patient groups, and saved posts trying to figure out what might actually help.</p>
-        <h2 class="h-xxl problem__left" data-reveal>Most of that gets left to <span class="hl hl--dandelion">you</span>.</h2>
-        <p class="problem__line" data-reveal>Krue is being built to make it less.</p>
-      </section>
-
-      <!-- 3. How Krue helps -->
-      <section id="how" class="how">
-        <div class="container how__inner">
-          <div class="label-blue">HOW KRUE HELPS</div>
-          <div class="timeline">
-            <div class="step" data-reveal>
-              <div class="step__rail">
-                <span class="marker"></span>
-                <span class="line line--solid"></span>
-              </div>
-              <div class="step__body">
-                <h3>Figure it out.</h3>
-                <p>Bring us what you’re trying to understand. We’ll help find credible information, resources, practical strategies, and useful next steps.</p>
-              </div>
-            </div>
-            <div class="step" data-reveal>
-              <div class="step__rail">
-                <span class="marker"></span>
-                <span class="line line--fade"></span>
-              </div>
-              <div class="step__body">
-                <h3>Make a plan.</h3>
-                <p>We’ll turn what matters to you into a simple plan — things to try, questions to ask, appointments to prepare for, resources to explore, and next steps.</p>
-              </div>
-            </div>
-            <div class="step step--last" data-reveal>
-              <div class="step__rail">
-                <span class="marker marker--final"></span>
-                <span class="line line--dashed"></span>
-              </div>
-              <div class="step__body step__body--last">
-                <h3>Adapt as you go.</h3>
-                <p>You won’t be left with a plan and sent on your way. A real person checks in, helps you follow through, and works through new questions with you as things change.</p>
-                <div class="checkins">
-                  <div class="checkin">
-                    <span class="checkin__day">Monday</span>
-                    <div class="bubble bubble--white">
-                      <div class="bubble__head"><span class="avatar">K</span><span>Your Krue Guide</span></div>
-                      <p>“You were going to try moving your shower to the evening this week. How did that go?”</p>
-                    </div>
-                  </div>
-                  <div class="checkin">
-                    <span class="checkin__day">The following Tuesday</span>
-                    <div class="bubble bubble--white">
-                      <div class="bubble__head"><span class="avatar">K</span><span>Your Krue Guide</span></div>
-                      <p>“You mentioned your neurology appointment is Thursday. Want to go through the questions you’ve been saving?”</p>
-                    </div>
-                  </div>
-                  <div class="hand hand--26 hand--plum" style="transform:rotate(-2deg);margin-left:12px" aria-hidden="true">same person, week after week</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <h2 class="h-lg how__close" data-reveal>You don’t have to figure out every piece alone.</h2>
-        </div>
-      </section>
-
-      <!-- 4. The experience -->
-      <section class="experience container">
-        <h2 class="h-xl exp__title">Start with whatever is on your mind.</h2>
-        <p class="exp__sub">You don’t need to know what kind of help you need. Just tell us what’s going on.</p>
-
-        <div class="exp__grid">
-          <div class="thread">
-            <div class="eyebrow eyebrow--rose">ONE THREAD, START TO FINISH</div>
-            <span class="thread__on">A question</span>
-            <span>Useful information</span>
-            <span>A plan</span>
-            <span>Something you try</span>
-            <span>Someone following up</span>
-          </div>
-
-          <div class="convo">
-            <div class="bubble bubble--user" style="align-self:flex-end;max-width:86%" data-reveal>My doctor told me to try compression for POTS but I have no idea what I’m actually supposed to buy.</div>
-            <div class="bubble bubble--grace" style="align-self:flex-start;max-width:88%" data-reveal>
-              <div class="bubble__head"><span class="avatar">K</span><span>Your Krue Guide</span></div>
-              <p>I can help you sort through the different types and what to consider. Did they mention a compression level or how high it should go?</p>
-            </div>
-            <div class="plan-card plan-card--convo" data-reveal>
-              <div class="eyebrow eyebrow--plum">ADDED TO YOUR PLAN</div>
-              <ul class="checklist checklist--tight">
-                <li class="is-done"><span class="check"></span><span>Understand compression options</span></li>
-                <li class="is-done"><span class="check"></span><span>Confirm compression level with doctor</span></li>
-                <li><span class="check"></span><span>Choose an option to try</span></li>
-              </ul>
-            </div>
-            <div class="divider" data-reveal><span></span><span>A week later</span><span></span></div>
-            <div class="bubble bubble--grace" style="align-self:flex-start;max-width:88%" data-reveal>
-              <div class="bubble__head"><span class="avatar">K</span><span>Your Krue Guide</span></div>
-              <p>You were looking into compression last week. Did you end up trying anything?</p>
-            </div>
-            <div class="bubble bubble--user" style="align-self:flex-end;max-width:80%" data-reveal>I ordered a pair of knee-highs. Still getting used to them.</div>
-            <div class="hand hand--rose" style="align-self:flex-end;transform:rotate(-2deg);margin-right:8px" aria-hidden="true">and it stays on the plan until it’s sorted</div>
-          </div>
-        </div>
-
-        <div class="examples">
-          <div class="example example--pink" data-reveal>
-            <div class="eyebrow eyebrow--grey">PREPARING FOR A SPECIALIST</div>
-            <div class="bubble bubble--user bubble--sm" style="align-self:flex-end;max-width:88%">I see rheumatology in two weeks and I always forget what I wanted to ask.</div>
-            <div class="bubble bubble--grace bubble--sm" style="align-self:flex-start;max-width:90%">Let’s pull together what you’ve been saving. Want to add the joint pain you mentioned last week?</div>
-            <div class="example__row"><span class="check"></span><span>Bring question list to rheumatology</span></div>
-          </div>
-          <div class="example example--lav" data-reveal>
-            <div class="eyebrow eyebrow--grey">KNOWING WHETHER SOMETHING HELPED</div>
-            <div class="bubble bubble--user bubble--sm" style="align-self:flex-end;max-width:88%">I’ve been pacing my energy for a couple of weeks. I honestly can’t tell if it’s working.</div>
-            <div class="bubble bubble--grace bubble--sm" style="align-self:flex-start;max-width:90%">Want to jot down a quick energy check each evening? We can look at it together on Friday.</div>
-            <div class="example__row"><span class="check"></span><span>Evening energy check, Monday to Friday</span></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 5. Founder -->
-      <section id="why" class="founder">
-        <div class="container founder__grid">
-          <div class="founder__photo-wrap"><img class="founder__photo" src="/assets/photos/founder-grace.jpg" alt="Grace, founder of Krue" width="240" height="300" loading="lazy" /></div>
-          <div class="founder__text">
-            <h2>I started Krue because I’ve lived this.</h2>
-            <blockquote>
-              <p>“After I suddenly became sick with POTS, I learned how much of managing chronic illness happens outside the doctor’s office.</p>
-              <p>I had to research constantly, find the right people, keep track of recommendations, prepare for appointments, try different strategies, and figure out how to live my life around a body that had changed.</p>
-              <p>Over time, I built my own system for managing it.</p>
-              <p class="strong">Krue is my attempt to give other people the support I wish I’d had.”</p>
-            </blockquote>
-            <div class="founder__sig">— Grace, Founder</div>
-            <p class="founder__note">Built from lived experience and 50+ hours talking with people navigating chronic illness.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- 6. Waitlist -->
-      <section id="try" class="try">
-        <div class="container try__inner">
-          <h2 class="h-xxl">Give yourself <span class="hl hl--pink">less</span> to manage.</h2>
-          <div class="try__body">
-            <p>Krue is building a better way to manage everything that happens between appointments.</p>
-            <p>Join the waitlist and we’ll be in touch as Krue opens up.</p>
-          </div>
-
-          <div id="try-intro" class="try__intro">
-            <a href="/#try" class="btn btn-primary btn-lg" data-try="try_section">Join the waitlist →</a>
-          </div>
-
-          <form id="intake" class="card" hidden novalidate data-placeholders={JSON.stringify(placeholders)}>
-            <h3 class="card__q">Join the waitlist</h3>
-            <div class="form-grid">
-              <div class="fld">
-                <label for="name">Name</label>
-                <input id="name" name="name" class="field" type="text" placeholder="Your name" required autocomplete="name" aria-describedby="name-error" />
-                <p id="name-error" class="fld__error" role="alert" hidden>Enter your name.</p>
-              </div>
-              <div class="fld">
-                <label for="email">Email</label>
-                <input id="email" name="email" class="field" type="email" placeholder="you@example.com" required autocomplete="email" aria-describedby="email-error" />
-                <p id="email-error" class="fld__error" role="alert" hidden>Enter an email in the format name@example.com.</p>
-              </div>
-            </div>
-
-            <fieldset class="roles" aria-describedby="role-error">
-              <legend>I’m a…</legend>
-              <div class="roles__grid">
-                {["Patient", "Clinician", "Investor", "Other"].map((r) => (
-                  <label class="opt">
-                    <input type="radio" name="role" value={r} />
-                    <span class="opt__ctl opt__ctl--radio" aria-hidden="true"></span>
-                    <span class="opt__text">{r}</span>
-                  </label>
-                ))}
-              </div>
-              <p id="role-error" class="fld__error" role="alert" hidden>Choose the option that fits you best.</p>
-              <div id="role-other-wrap" class="fld" hidden>
-                <label for="role-other">Tell us your role</label>
-                <input id="role-other" name="roleOther" class="field" type="text" placeholder="e.g. Caregiver, researcher" />
-              </div>
-            </fieldset>
-
-            <div class="options">
-              <label id="beta-wrap" class="opt" hidden>
-                <input type="checkbox" id="beta" name="beta" />
-                <span class="opt__ctl opt__ctl--box" aria-hidden="true"></span>
-                <span class="opt__text">I’m interested in joining the beta</span>
-              </label>
-              <div id="help-wrap" class="help" hidden>
-                <label for="help">Anything specific you could use help with right now?</label>
-                <textarea id="help" name="help" class="field" rows="4" placeholder={placeholders[0]}></textarea>
-              </div>
-              <label class="opt">
-                <input type="checkbox" id="updates" name="updates" />
-                <span class="opt__ctl opt__ctl--box" aria-hidden="true"></span>
-                <span class="opt__text">Send me product and company updates</span>
-              </label>
-            </div>
-
-            <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-            <p class="consent">By submitting, you agree to our <a href="/privacy">Privacy Policy</a>.</p>
-            <p id="form-error" class="form-error" role="alert" hidden>Something went wrong. Please try again.</p>
-            <div><button type="submit" id="submit-btn" class="btn btn-primary btn-lg">Join the waitlist →</button></div>
-          </form>
-
-          <div id="thanks" class="card card--thanks" hidden>
-            <h3 id="thanks-title" tabindex="-1">Thanks. You’re on the waitlist.</h3>
-            <p id="thanks-text" class="thanks__lead">We’ll be in touch by email with product and company updates.</p>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <Footer />
+      </div>
+      <div class="h-ocard h-land h-landL" style="left:-200px;top:140px"><span class="h-oeb">Linked to 3 appointments</span><ul class="h-tl"><li><span class="h-tld" style="background:#7AD1EF"></span><b>Neurology</b><em>Mar 12</em></li><li><span class="h-tld" style="background:#F290BA"></span><b>Cardiology</b><em>Apr 3</em></li><li><span class="h-tld" style="background:#E0EE40;box-shadow:0 0 0 4px #F4F8D2"></span><b>Rheumatology</b><em>Today</em></li></ul></div>
+      <div class="h-ocard h-land h-landR" style="right:-200px;top:250px"><span class="h-oeb">Try saying it this way</span><span class="h-mold">“I get dizzy.”</span><span class="h-mnew">“I get lightheaded and have to sit down within 2 minutes of standing.”</span></div>
+    </div>
   </div>
+</section>
+
+  <!-- HOW IT WORKS: one pinned phone, steps advance on scroll, a rainbow rail -->
+  <section id="how" style="max-width:1180px;margin:0 auto;padding-left:clamp(16px,4vw,40px);padding-right:clamp(16px,4vw,40px);box-sizing:border-box;padding-top:clamp(80px,11vw,160px);padding-bottom:clamp(56px,7vw,96px)">
+    <p style="margin:0 0 16px;font:700 13px/1 var(--font-display);letter-spacing:.16em;text-transform:uppercase;color:#69727F">How it works</p>
+    <h2 style="margin:0;font:800 clamp(34px,4.6vw,58px)/1.04 var(--font-display);letter-spacing:-0.035em;color:#14325A;text-wrap:balance;max-width:18ch">Walk in prepared. Walk out <span class="k-hl" style="--hl:#CFE8DD">with a plan.</span></h2>
+    <div class="k-how-row" style="display:flex;flex-wrap:wrap;gap:clamp(40px,6vw,96px);margin-top:clamp(32px,5vw,56px)">
+      <div style="flex:1 1 380px;min-width:0;position:relative;padding-left:32px">
+        
+        
+          <div class="k-step" data-step="0" style="position:relative;min-height:clamp(260px,52vh,460px);display:flex;flex-direction:column;justify-content:center"><span aria-hidden="true" class="k-rail" style="position:absolute;left:-32px;top:6px;bottom:6px;width:6px;border-radius:3px;background:var(--cur0)"></span>
+            <span class="k-num" style="align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;background:var(--cur0);font:800 15px/1 var(--font-display);color:var(--curfg0)">01</span>
+            <h3 style="margin:14px 0 0;font:800 clamp(30px,3.4vw,44px)/1.05 var(--font-display);letter-spacing:-0.03em;color:#14325A">Get ready</h3>
+            <p style="margin:0;font:400 clamp(17px,1.4vw,19px)/1.6 var(--font-body);color:#3B4656;text-wrap:pretty;margin-top:14px;max-width:28rem">Tell Krue what&#x27;s going on. Krue connects the dots across your appointments. It helps you set goals, know what to do first, and plan what to say.</p>
+            <div class="k-inline-phone" style="margin-top:28px;justify-content:center">
+              <div style="position:relative;overflow:hidden;width:min(280px,100%);aspect-ratio:402/874;border-radius:40px;background:#F4F6FA;border:9px solid #14325A;box-shadow:0 4px 10px rgba(20,50,90,0.08), 0 28px 56px rgba(20,50,90,0.16);box-sizing:border-box"><div class="s-scr"><div class="s-top"><span class="s-btn">←</span><div class="s-ttl"><b>Prep for Dr. Rao</b><span>Rheumatology · Wed, Nov 4</span></div><span class="s-btn">···</span></div>
+<div class="s-body">
+  <div class="s-b s-krue">What's changed since your last appointment?</div>
+  <div class="s-b s-me">Dizzier in the mornings, and my knee is worse.</div>
+  <div class="s-b s-krue">Got it. I added both to your prep sheet so they don't get lost.</div>
+  <span class="s-chip s-chip-ok">✓ Prep sheet updated</span>
+</div><div class="s-input"><span>Tell Krue what's going on</span><span class="s-mic">●</span></div></div></div>
+              <div class="s-pop" style="right:-120px;top:345px;--c:#7AD1EF"><span class="s-peb">Added to your prep</span><span class="s-prow"><span class="s-pd"></span>Morning dizziness</span><span class="s-prow"><span class="s-pd"></span>Knee pain</span></div>
+            </div>
+          </div>
+        
+          <div class="k-step" data-step="1" style="position:relative;min-height:clamp(260px,52vh,460px);display:flex;flex-direction:column;justify-content:center"><span aria-hidden="true" class="k-rail" style="position:absolute;left:-32px;top:6px;bottom:6px;width:6px;border-radius:3px;background:var(--cur1)"></span>
+            <span class="k-num" style="align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;background:var(--cur1);font:800 15px/1 var(--font-display);color:var(--curfg1)">02</span>
+            <h3 style="margin:14px 0 0;font:800 clamp(30px,3.4vw,44px)/1.05 var(--font-display);letter-spacing:-0.03em;color:#14325A">Capture it</h3>
+            <p style="margin:0;font:400 clamp(17px,1.4vw,19px)/1.6 var(--font-body);color:#3B4656;text-wrap:pretty;margin-top:14px;max-width:28rem">Record the appointment and add notes. Krue writes down what was said.</p>
+            <div class="k-inline-phone" style="margin-top:28px;justify-content:center">
+              <div style="position:relative;overflow:hidden;width:min(280px,100%);aspect-ratio:402/874;border-radius:40px;background:#F4F6FA;border:9px solid #14325A;box-shadow:0 4px 10px rgba(20,50,90,0.08), 0 28px 56px rgba(20,50,90,0.16);box-sizing:border-box"><div class="s-scr"><div class="s-top"><span class="s-btn">←</span><div class="s-ttl"><b>Neurology</b><span>Dr. Dougan · Today</span></div><span class="s-btn">···</span></div>
+<div class="s-body">
+  <span class="s-chip s-chip-ok">✓ Provider agreed to recording</span>
+  <div class="s-timer">12:48</div>
+  <div class="s-wave"><i style="height:10px"></i><i style="height:22px"></i><i style="height:14px"></i><i style="height:30px"></i><i style="height:18px"></i><i style="height:36px"></i><i style="height:24px"></i><i style="height:12px"></i><i style="height:28px"></i><i style="height:40px"></i><i style="height:20px"></i><i style="height:16px"></i><i style="height:32px"></i><i style="height:22px"></i><i style="height:12px"></i><i style="height:26px"></i><i style="height:34px"></i><i style="height:18px"></i><i style="height:10px"></i><i style="height:24px"></i></div>
+  <div class="s-sec">Live notes</div>
+  <div class="s-notes"><span>Dizziness worse in the mornings</span><span>Keep compression socks</span><span class="s-new">Recheck heart rate in 4 weeks</span></div>
+</div>
+<div class="s-stopbar"><span class="s-stop"></span><span>Recording</span></div></div></div>
+              <div class="s-pop" style="left:-120px;top:395px;--c:#E0EE40"><span class="s-peb">Note added · 12:48</span><b>Recheck heart rate in 4 weeks</b></div>
+            </div>
+          </div>
+        
+          <div class="k-step" data-step="2" style="position:relative;min-height:clamp(260px,52vh,460px);display:flex;flex-direction:column;justify-content:center"><span aria-hidden="true" class="k-rail" style="position:absolute;left:-32px;top:6px;bottom:6px;width:6px;border-radius:3px;background:var(--cur2)"></span>
+            <span class="k-num" style="align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;background:var(--cur2);font:800 15px/1 var(--font-display);color:var(--curfg2)">03</span>
+            <h3 style="margin:14px 0 0;font:800 clamp(30px,3.4vw,44px)/1.05 var(--font-display);letter-spacing:-0.03em;color:#14325A">One plan</h3>
+            <p style="margin:0;font:400 clamp(17px,1.4vw,19px)/1.6 var(--font-body);color:#3B4656;text-wrap:pretty;margin-top:14px;max-width:28rem">Next steps from every appointment go in one list. Tests, referrals, who to see next, and things to try.</p>
+            <div class="k-inline-phone" style="margin-top:28px;justify-content:center">
+              <div style="position:relative;overflow:hidden;width:min(280px,100%);aspect-ratio:402/874;border-radius:40px;background:#F4F6FA;border:9px solid #14325A;box-shadow:0 4px 10px rgba(20,50,90,0.08), 0 28px 56px rgba(20,50,90,0.16);box-sizing:border-box"><div class="s-scr"><div class="s-top"><span class="s-btn">←</span><div class="s-ttl"><b>Actions</b></div><span class="s-btn">···</span></div>
+<div class="s-body s-acts">
+  <div class="s-grp"><span class="s-dot" style="background:#7AD1EF"></span>Neurology</div>
+  <div class="s-act"><span class="s-box"></span><span class="s-at"><b>Book tilt table test</b><em>From Mar 12 visit</em></span><span class='s-tag s-od'>Overdue</span></div>
+  <div class="s-act"><span class="s-box"></span><span class="s-at"><b>Send symptom log</b><em>Before next visit</em></span></div>
+  <div class="s-grp"><span class="s-dot" style="background:#F290BA"></span>Primary care</div>
+  <div class="s-act"><span class="s-box"></span><span class="s-at"><b>Get labs drawn</b><em>Ferritin, vitamin D</em></span><span class='s-tag '>Sat</span></div>
+  <div class="s-grp"><span class="s-dot" style="background:#90C9B2"></span>Physical therapy</div>
+  <div class="s-act"><span class="s-box"></span><span class="s-at"><b>Knee routine, 3x a week</b><em>From Oct 14 visit</em></span><span class='s-tag s-td'>Today</span></div>
+</div></div></div>
+              <div class="s-pop s-popcheck" style="right:-130px;top:100px;--c:#F290BA"><span class="s-ck">✓</span><span><b>Book tilt table test</b><em>from Neurology</em></span></div>
+            </div>
+          </div>
+        
+          <div class="k-step" data-step="3" style="position:relative;min-height:clamp(260px,52vh,460px);display:flex;flex-direction:column;justify-content:center"><span aria-hidden="true" class="k-rail" style="position:absolute;left:-32px;top:6px;bottom:6px;width:6px;border-radius:3px;background:var(--cur3)"></span>
+            <span class="k-num" style="align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50%;background:var(--cur3);font:800 15px/1 var(--font-display);color:var(--curfg3)">04</span>
+            <h3 style="margin:14px 0 0;font:800 clamp(30px,3.4vw,44px)/1.05 var(--font-display);letter-spacing:-0.03em;color:#14325A">Find your next step</h3>
+            <p style="margin:0;font:400 clamp(17px,1.4vw,19px)/1.6 var(--font-body);color:#3B4656;text-wrap:pretty;margin-top:14px;max-width:28rem">Ask Krue about what was said. Get reminders for what&#x27;s left to do. Start your next appointment where the last one ended.</p>
+            <div class="k-inline-phone" style="margin-top:28px;justify-content:center">
+              <div style="position:relative;overflow:hidden;width:min(280px,100%);aspect-ratio:402/874;border-radius:40px;background:#F4F6FA;border:9px solid #14325A;box-shadow:0 4px 10px rgba(20,50,90,0.08), 0 28px 56px rgba(20,50,90,0.16);box-sizing:border-box"><div class="s-scr"><div class="s-top"><span class="s-btn">←</span><div class="s-ttl"><b>Ask Krue</b></div><span class="s-btn">···</span></div>
+<div class="s-body">
+  <div class="s-b s-me">What did PT say about my knee?</div>
+  <div class="s-ans"><span class="s-src">From Physical therapy · Oct 14</span><p>Start the knee strengthening routine, 3 times a week. Your PT wants to check in after 4 weeks.</p><span class="s-link">See full notes →</span></div>
+</div><div class="s-input"><span>Ask about any appointment</span><span class="s-mic">●</span></div></div></div>
+              <div class="s-pop s-popdark" style="left:-130px;top:330px"><span class="s-peb">Reminder</span><b>Send your BP log to Dr. Rao before Wed</b></div>
+            </div>
+          </div>
+        
+      </div>
+      <div class="k-pinned" style="flex:1 1 380px;min-width:0">
+        <div style="position:sticky;top:110px;height:min(78vh,700px);display:flex;align-items:center;justify-content:center">
+          <div style="position:relative"><div aria-hidden="true" style="position:absolute;left:-70px;top:12%;width:440px;height:76%;background:var(--activeTint);border-radius:58% 42% 52% 48% / 48% 58% 42% 52%;transition:background 400ms cubic-bezier(0.16,1,0.3,1);z-index:0"></div>
+            <div style="position:relative;z-index:1;width:300px;aspect-ratio:402/874;border-radius:46px;background:#F4F6FA;border:10px solid #14325A;box-shadow:0 4px 10px rgba(20,50,90,0.08), 0 28px 56px rgba(20,50,90,0.16);box-sizing:border-box;overflow:hidden">
+              <div class="s-scr" style="opacity:var(--so0)"><div class="s-top"><span class="s-btn">←</span><div class="s-ttl"><b>Prep for Dr. Rao</b><span>Rheumatology · Wed, Nov 4</span></div><span class="s-btn">···</span></div>
+<div class="s-body">
+  <div class="s-b s-krue">What's changed since your last appointment?</div>
+  <div class="s-b s-me">Dizzier in the mornings, and my knee is worse.</div>
+  <div class="s-b s-krue">Got it. I added both to your prep sheet so they don't get lost.</div>
+  <span class="s-chip s-chip-ok">✓ Prep sheet updated</span>
+</div><div class="s-input"><span>Tell Krue what's going on</span><span class="s-mic">●</span></div></div>
+              <div class="s-scr" style="opacity:var(--so1)"><div class="s-top"><span class="s-btn">←</span><div class="s-ttl"><b>Neurology</b><span>Dr. Dougan · Today</span></div><span class="s-btn">···</span></div>
+<div class="s-body">
+  <span class="s-chip s-chip-ok">✓ Provider agreed to recording</span>
+  <div class="s-timer">12:48</div>
+  <div class="s-wave"><i style="height:10px"></i><i style="height:22px"></i><i style="height:14px"></i><i style="height:30px"></i><i style="height:18px"></i><i style="height:36px"></i><i style="height:24px"></i><i style="height:12px"></i><i style="height:28px"></i><i style="height:40px"></i><i style="height:20px"></i><i style="height:16px"></i><i style="height:32px"></i><i style="height:22px"></i><i style="height:12px"></i><i style="height:26px"></i><i style="height:34px"></i><i style="height:18px"></i><i style="height:10px"></i><i style="height:24px"></i></div>
+  <div class="s-sec">Live notes</div>
+  <div class="s-notes"><span>Dizziness worse in the mornings</span><span>Keep compression socks</span><span class="s-new">Recheck heart rate in 4 weeks</span></div>
+</div>
+<div class="s-stopbar"><span class="s-stop"></span><span>Recording</span></div></div>
+              <div class="s-scr" style="opacity:var(--so2)"><div class="s-top"><span class="s-btn">←</span><div class="s-ttl"><b>Actions</b></div><span class="s-btn">···</span></div>
+<div class="s-body s-acts">
+  <div class="s-grp"><span class="s-dot" style="background:#7AD1EF"></span>Neurology</div>
+  <div class="s-act"><span class="s-box"></span><span class="s-at"><b>Book tilt table test</b><em>From Mar 12 visit</em></span><span class='s-tag s-od'>Overdue</span></div>
+  <div class="s-act"><span class="s-box"></span><span class="s-at"><b>Send symptom log</b><em>Before next visit</em></span></div>
+  <div class="s-grp"><span class="s-dot" style="background:#F290BA"></span>Primary care</div>
+  <div class="s-act"><span class="s-box"></span><span class="s-at"><b>Get labs drawn</b><em>Ferritin, vitamin D</em></span><span class='s-tag '>Sat</span></div>
+  <div class="s-grp"><span class="s-dot" style="background:#90C9B2"></span>Physical therapy</div>
+  <div class="s-act"><span class="s-box"></span><span class="s-at"><b>Knee routine, 3x a week</b><em>From Oct 14 visit</em></span><span class='s-tag s-td'>Today</span></div>
+</div></div>
+              <div class="s-scr" style="opacity:var(--so3)"><div class="s-top"><span class="s-btn">←</span><div class="s-ttl"><b>Ask Krue</b></div><span class="s-btn">···</span></div>
+<div class="s-body">
+  <div class="s-b s-me">What did PT say about my knee?</div>
+  <div class="s-ans"><span class="s-src">From Physical therapy · Oct 14</span><p>Start the knee strengthening routine, 3 times a week. Your PT wants to check in after 4 weeks.</p><span class="s-link">See full notes →</span></div>
+</div><div class="s-input"><span>Ask about any appointment</span><span class="s-mic">●</span></div></div>
+            </div>
+            <div class="s-pinpop" style="position:absolute;inset:0;z-index:2;opacity:var(--so0);translate:0 var(--sy0)"><div class="s-pop" style="right:-55px;top:75%;transform:translateY(-50%);--c:#7AD1EF"><span class="s-peb">Added to your prep</span><span class="s-prow"><span class="s-pd"></span>Morning dizziness</span><span class="s-prow"><span class="s-pd"></span>Knee pain</span></div></div>
+            <div class="s-pinpop" style="position:absolute;inset:0;z-index:2;opacity:var(--so1);translate:0 var(--sy1)"><div class="s-pop" style="right:-55px;top:75%;transform:translateY(-50%);--c:#E0EE40"><span class="s-peb">Note added · 12:48</span><b>Recheck heart rate in 4 weeks</b></div></div>
+            <div class="s-pinpop" style="position:absolute;inset:0;z-index:2;opacity:var(--so2);translate:0 var(--sy2)"><div class="s-pop s-popcheck" style="right:-55px;top:75%;transform:translateY(-50%);--c:#F290BA"><span class="s-ck">✓</span><span><b>Book tilt table test</b><em>from Neurology</em></span></div></div>
+            <div class="s-pinpop" style="position:absolute;inset:0;z-index:2;opacity:var(--so3);translate:0 var(--sy3)"><div class="s-pop s-popdark" style="right:-55px;top:75%;transform:translateY(-50%)"><span class="s-peb">Reminder</span><b>Send your BP log to Dr. Rao before Wed</b></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY IT MATTERS: one bold statement on a navy band -->
+  <section class="q-band" style="margin-top:clamp(80px,11vw,140px)">
+    <div class="q-band-in">
+      <p class="q-band-s"><span style="color:#E0EE40">2 in 3</span> people leave an appointment with questions they forgot to ask.</p>
+      <p class="q-band-src">Wolters Kluwer survey of 1,034 US adults, 2023</p>
+    </div>
+  </section>
+
+  <!-- PATIENT EXPERIENCES: pilot testimonials -->
+<section style="max-width:1180px;margin:0 auto;padding-left:clamp(16px,4vw,40px);padding-right:clamp(16px,4vw,40px);box-sizing:border-box;padding-top:clamp(72px,9vw,120px)">
+    <div class="i-head"><p class="i-eb">Patient experiences</p><h2 class="i-h2">A little more support can <span class="k-hl" style="--hl:#F9D3E4">make a difference.</span></h2><p class="q-sub">Here’s what people experienced during Krue’s early pilot.</p></div>
+    <div class="q-grid">
+      <figure class="q-card" style="--qc:#F290BA"><span class="q-mark" aria-hidden="true">“</span><h3 class="q-h">I remembered what mattered.</h3><blockquote class="q-b">“I was in such a brain fog. There were things in your notes I’d completely forgotten about. Then I saw them and thought, ‘Oh my God, yes, I need to ask about this.’”</blockquote><figcaption class="q-cap">Pilot participant<span class="q-cond">POTS, hEDS, histamine intolerance</span></figcaption></figure>
+      <figure class="q-card" style="--qc:#7AD1EF"><span class="q-mark" aria-hidden="true">“</span><h3 class="q-h">I didn’t have to figure it all out alone.</h3><blockquote class="q-b">“Having somewhere to put everything, all these thoughts and symptoms, was a big help. And having someone I could relate to made a difference.”</blockquote><figcaption class="q-cap">Pilot participant<span class="q-cond">hEDS, endometriosis, migraine, POTS, MCAS</span></figcaption></figure>
+      <figure class="q-card" style="--qc:#90C9B2"><span class="q-mark" aria-hidden="true">“</span><h3 class="q-h">I went into my appointment feeling prepared.</h3><blockquote class="q-b">“I reviewed it before my appointment, then again a few minutes beforehand. I went in with what I’d taken away from everything we’d talked through.”</blockquote><figcaption class="q-cap">Pilot participant<span class="q-cond">Dysautonomia, psoriatic arthritis</span></figcaption></figure>
+    </div>
+  </section>
+
+  <!-- PROGRAMS BANNER: logos of programs Krue is part of (placeholders until logo files are added) -->
+  <section style="margin-top:clamp(48px,6vw,72px);border-top:1px solid #ECE6DC;border-bottom:1px solid #ECE6DC;background:#FFFFFF">
+    <div style="max-width:1180px;margin:0 auto;padding:clamp(28px,4vw,40px) clamp(16px,4vw,40px);box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:20px">
+      <p style="margin:0;font:700 12px/1 var(--font-display);letter-spacing:.16em;text-transform:uppercase;color:#69727F;text-align:center">Supported by</p>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:clamp(16px,3vw,40px)">
+        <div class="k-logo"><img src="/assets/images/cic-logo.png" alt="CIC" style="height:56px;border-radius:10px"></div>
+        <div class="k-logo"><img src="/assets/images/nvidia-inception-badge.svg" alt="NVIDIA Inception Program" style="height:64px"></div>
+        <div class="k-logo"><img src="/assets/images/aws-startups.png" alt="AWS Startup Programs" style="height:48px"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDER: photo + quote, open -->
+  <section style="max-width:1180px;margin:0 auto;padding-left:clamp(16px,4vw,40px);padding-right:clamp(16px,4vw,40px);box-sizing:border-box;padding-top:clamp(80px,11vw,160px)">
+    <div style="display:flex;flex-wrap:wrap;gap:clamp(40px,6vw,96px);align-items:center">
+      <div style="flex:0 1 280px;min-width:0;display:flex;justify-content:center">
+        <div style="position:relative;width:min(100%,240px);aspect-ratio:4/5;margin:0 16px 16px 0"><div aria-hidden="true" style="position:absolute;inset:16px -16px -16px 16px;background:#F3B258;border-radius:24px"></div>
+        <img src="/assets/images/grace-founder.jpg" alt="Grace Landry in a hospital bed after getting sick with POTS, giving a thumbs up" style="position:relative;display:block;width:100%;height:100%;object-fit:cover;object-position:center;border-radius:24px;background:#ECE6DC"></div>
+      </div>
+      <div style="flex:1 1 420px;min-width:0">
+        <p style="margin:0 0 16px;font:700 13px/1 var(--font-display);letter-spacing:.16em;text-transform:uppercase;color:#69727F">Why I started Krue</p>
+        <h2 style="margin:0;font:800 clamp(34px,4.6vw,58px)/1.04 var(--font-display);letter-spacing:-0.035em;color:#14325A;text-wrap:balance">I started Krue because I've <span class="k-hl" style="--hl:#F9DCAE">lived this.</span></h2>
+        <p style="margin:24px 0 0;font:500 clamp(19px,1.7vw,23px)/1.55 var(--font-display);color:#14325A;text-wrap:pretty">“When I suddenly got sick with POTS, I was diagnosed and sent home with a pamphlet. I had to figure it out and piece everything together on my own. Krue is the partner I wish I'd had.”</p>
+        <p style="margin:20px 0 0;font:700 15px/1.4 var(--font-display);color:#14325A">Grace Landry, Founder</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST: privacy and security, three plain-language promises -->
+  <section id="trust" style="max-width:1180px;margin:0 auto;padding-left:clamp(16px,4vw,40px);padding-right:clamp(16px,4vw,40px);box-sizing:border-box;padding-top:clamp(80px,11vw,160px)">
+    <div style="max-width:44rem">
+      <p style="margin:0 0 16px;font:700 13px/1 var(--font-display);letter-spacing:.16em;text-transform:uppercase;color:#69727F">Privacy and security</p>
+      <h2 style="margin:0;font:800 clamp(34px,4.6vw,58px)/1.04 var(--font-display);letter-spacing:-0.035em;color:#14325A;text-wrap:balance">Your health information <span class="k-hl" style="--hl:#C4EBF9">stays yours.</span></h2>
+    </div>
+    <div class="t-grid">
+      <div class="t-card"><span class="t-ic" style="background:#E2F5FC;color:#1F7FA3"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><h3 class="t-h">Your information is protected.</h3><p class="t-p">Your information is encrypted when it’s sent and when it’s stored.</p></div>
+      <div class="t-card"><span class="t-ic" style="background:#E3F2EC;color:#3E7F66"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/></svg></span><h3 class="t-h">Your information stays private.</h3><p class="t-p">Your health information is yours. You decide what to share and with whom.</p></div>
+      <div class="t-card"><span class="t-ic" style="background:#FCE6F0;color:#A93E72"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></span><h3 class="t-h">You’re in control.</h3><p class="t-p">Access your information, download a copy, or delete it when you want.</p></div>
+    </div>
+  </section>
+
+  <!-- FAQ: hairlines only -->
+  <section id="faq" style="max-width:1180px;margin:0 auto;padding-left:clamp(16px,4vw,40px);padding-right:clamp(16px,4vw,40px);box-sizing:border-box;padding-top:clamp(80px,11vw,160px)">
+    <div style="display:flex;flex-wrap:wrap;gap:clamp(24px,5vw,72px)">
+      <div style="flex:1 1 260px"><h2 style="margin:0;font:800 clamp(34px,4.6vw,58px)/1.04 var(--font-display);letter-spacing:-0.035em;color:#14325A;text-wrap:balance">Questions</h2></div>
+      <div style="flex:2 1 480px;min-width:0;border-bottom:1px solid #ECE6DC">
+        <details style="border-top:1px solid #ECE6DC;padding:22px 0"><summary style="display:flex;justify-content:space-between;gap:16px;font:700 clamp(17px,1.5vw,20px)/1.35 var(--font-display);color:#14325A">Who is Krue for?<span class="plus" style="flex:none;font:500 26px/1 var(--font-display);color:#69727F;transition:transform .2s">+</span></summary><p style="margin:0;font:400 clamp(17px,1.4vw,19px)/1.6 var(--font-body);color:#3B4656;text-wrap:pretty;margin-top:12px;max-width:44rem">People living with complex or multiple chronic conditions who see multiple providers, like doctors, therapists, nurses, and advocates.</p></details><details style="border-top:1px solid #ECE6DC;padding:22px 0"><summary style="display:flex;justify-content:space-between;gap:16px;font:700 clamp(17px,1.5vw,20px)/1.35 var(--font-display);color:#14325A">How is Krue different from ChatGPT or a note-taking app?<span class="plus" style="flex:none;font:500 26px/1 var(--font-display);color:#69727F;transition:transform .2s">+</span></summary><p style="margin:0;font:400 clamp(17px,1.4vw,19px)/1.6 var(--font-body);color:#3B4656;text-wrap:pretty;margin-top:12px;max-width:44rem">A chatbot answers one question at a time. A note app saves one appointment. Krue stays with you. It helps you get ready, keeps your notes and to-dos in one place, and links what each provider said.</p></details><details style="border-top:1px solid #ECE6DC;padding:22px 0"><summary style="display:flex;justify-content:space-between;gap:16px;font:700 clamp(17px,1.5vw,20px)/1.35 var(--font-display);color:#14325A">Is it okay to record my appointment?<span class="plus" style="flex:none;font:500 26px/1 var(--font-display);color:#69727F;transition:transform .2s">+</span></summary><p style="margin:0;font:400 clamp(17px,1.4vw,19px)/1.6 var(--font-body);color:#3B4656;text-wrap:pretty;margin-top:12px;max-width:44rem">Before each recording, Krue asks you to confirm your provider has agreed.</p></details><details style="border-top:1px solid #ECE6DC;padding:22px 0"><summary style="display:flex;justify-content:space-between;gap:16px;font:700 clamp(17px,1.5vw,20px)/1.35 var(--font-display);color:#14325A">Does Krue replace my doctor?<span class="plus" style="flex:none;font:500 26px/1 var(--font-display);color:#69727F;transition:transform .2s">+</span></summary><p style="margin:0;font:400 clamp(17px,1.4vw,19px)/1.6 var(--font-body);color:#3B4656;text-wrap:pretty;margin-top:12px;max-width:44rem">No. Krue does not tell you what's wrong or what to take. It helps you get ready, remember, and follow up.</p></details><details style="border-top:1px solid #ECE6DC;padding:22px 0"><summary style="display:flex;justify-content:space-between;gap:16px;font:700 clamp(17px,1.5vw,20px)/1.35 var(--font-display);color:#14325A">Do I need to track symptoms or connect devices?<span class="plus" style="flex:none;font:500 26px/1 var(--font-display);color:#69727F;transition:transform .2s">+</span></summary><p style="margin:0;font:400 clamp(17px,1.4vw,19px)/1.6 var(--font-body);color:#3B4656;text-wrap:pretty;margin-top:12px;max-width:44rem">No daily logging or devices needed. If you notice a symptom, jot it down, and Krue will help you add it to your next appointment to bring up.</p></details><details style="border-top:1px solid #ECE6DC;padding:22px 0"><summary style="display:flex;justify-content:space-between;gap:16px;font:700 clamp(17px,1.5vw,20px)/1.35 var(--font-display);color:#14325A">Is Krue HIPAA compliant?<span class="plus" style="flex:none;font:500 26px/1 var(--font-display);color:#69727F;transition:transform .2s">+</span></summary><p style="margin:0;font:400 clamp(17px,1.4vw,19px)/1.6 var(--font-body);color:#3B4656;text-wrap:pretty;margin-top:12px;max-width:44rem">HIPAA covers doctors, hospitals, and health plans. Krue is a tool you use on your own, so HIPAA doesn’t apply in the same way. We still protect your health information with care, and you decide what to share.</p></details><details style="border-top:1px solid #ECE6DC;padding:22px 0"><summary style="display:flex;justify-content:space-between;gap:16px;font:700 clamp(17px,1.5vw,20px)/1.35 var(--font-display);color:#14325A">Does it work on my phone?<span class="plus" style="flex:none;font:500 26px/1 var(--font-display);color:#69727F;transition:transform .2s">+</span></summary><p style="margin:0;font:400 clamp(17px,1.4vw,19px)/1.6 var(--font-body);color:#3B4656;text-wrap:pretty;margin-top:12px;max-width:44rem">Yes. Krue runs in your phone's browser, so there's nothing to download.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <ClosingStart />
+  </main>
 </Base>
 
-<style>
-  .page { min-height: 100vh; background: var(--surface-cream); color: #3A4350; font-family: var(--font-body); }
-  h1, h2, h3 { font-family: var(--font-display); font-weight: 700; color: #242B35; margin: 0; text-wrap: balance; }
-  p { margin: 0; }
-  ul { list-style: none; margin: 0; padding: 0; }
-
-  .h-xl { font-size: clamp(36px, 6vw, 76px); line-height: 1.04; letter-spacing: -0.03em; }
-  .h-lg { font-size: clamp(38px, 6vw, 76px); line-height: 1.04; letter-spacing: -0.03em; max-width: 15ch; }
-  .h-xxl { font-size: clamp(44px, 8vw, 104px); line-height: 1; letter-spacing: -0.035em; max-width: 12ch; }
-
-  .eyebrow { font: 700 11px/1.2 var(--font-display); letter-spacing: 0.09em; color: #B34D2C; text-transform: none; }
-  .eyebrow--grey { color: #525C6B; margin-bottom: 6px; }
-  .eyebrow--plum { color: #6F3F74; }
-  .eyebrow--rose { color: #B2497B; }
-  .hand--rose { color: #B2497B; }
-  .hand--plum { color: #6F3F74; }
-  .hl { padding: 0 .06em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
-  .hl--pink { background: linear-gradient(transparent 58%, #FACEDF 58%, #FACEDF 92%, transparent 92%); }
-  .hl--dandelion { background: linear-gradient(transparent 58%, #FADFB5 58%, #FADFB5 92%, transparent 92%); }
-  .hand--26 { font-size: 26px; }
-
-  /* shared pieces */
-  .avatar { width: 28px; height: 28px; border-radius: 50%; background: #DAF1FD; color: #1D4878; font: 700 12px/1 var(--font-display); display: inline-grid; place-items: center; flex: none; }
-  .bubble { border-radius: 22px 22px 22px 6px; padding: 14px 18px 16px; font: 400 17px/1.45 var(--font-body); color: #242B35; }
-  .bubble p { margin: 8px 0 0; }
-  .bubble__head { display: flex; align-items: center; gap: 8px; font: 600 14px/1.2 var(--font-display); color: #242B35; }
-  .bubble--grace { background: #DAF1FD; }
-  .bubble--white { background: #FFFFFF; border-radius: 20px 20px 20px 6px; max-width: 92%; }
-  .bubble--user { background: #242B35; color: #FFFFFF; border-radius: 22px 22px 6px 22px; padding: 14px 18px; }
-  .bubble--sm { font-size: 16px; padding: 12px 16px; border-radius: 20px 20px 20px 6px; }
-  .bubble--sm.bubble--user { border-radius: 20px 20px 6px 20px; }
-
-  .plan-card { background: #FFFFFF; }
-  .checklist { display: flex; flex-direction: column; gap: 14px; margin-top: 14px; font: 400 17px/1.35 var(--font-body); color: #242B35; }
-  .checklist--tight { gap: 12px; }
-  .checklist li { display: flex; gap: 12px; align-items: center; }
-  .check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #C3CAD6; box-sizing: border-box; flex: none; display: grid; place-items: center; }
-  .is-done { color: #5F6B7D; }
-  .is-done .check { background: #63A895; border-color: #63A895; }
-  .is-done .check::after { content: ""; width: 5px; height: 9px; border: solid #FFFFFF; border-width: 0 2px 2px 0; transform: translateY(-1px) rotate(45deg); }
-  .is-done span:last-child { text-decoration: line-through; text-decoration-color: #C3CAD6; }
-  .ring { width: clamp(18px, 2.2vw, 28px); height: clamp(18px, 2.2vw, 28px); border-radius: 50%; border: 3px solid #C3CAD6; box-sizing: border-box; flex: none; }
-  .burdens li:nth-child(1) .ring { border-color: #4FB8DD; }
-  .burdens li:nth-child(2) .ring { border-color: #63A895; }
-  .burdens li:nth-child(3) .ring { border-color: #DE9736; }
-  .burdens li:nth-child(4) .ring { border-color: #E06B42; }
-  .burdens li:nth-child(5) .ring { border-color: #D8639A; }
-  .burdens li:nth-child(6) .ring { border-color: #AC72B0; }
-  .burdens li:nth-child(7) .ring { border-color: #235592; }
-
-  /* 1. Hero */
-  .hero { padding-top: clamp(48px, 9vw, 120px); padding-bottom: clamp(72px, 10vw, 140px); }
-  .hero h1 { font-size: clamp(44px, 8.4vw, 104px); line-height: 1; letter-spacing: -0.035em; max-width: 13ch; }
-  .hero__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: clamp(48px, 6vw, 96px); align-items: end; margin-top: clamp(36px, 5vw, 64px); }
-  .hero__copy { display: flex; flex-direction: column; gap: 28px; max-width: 34rem; }
-  .hero__lead { font-size: clamp(19px, 1.7vw, 22px); line-height: 1.5; color: #3A4350; text-wrap: pretty; }
-  .hero__note { font: italic 400 15px/1.5 var(--font-body); color: #5F6B7D; }
-  .hero__visual { position: relative; max-width: 460px; width: 100%; justify-self: end; }
-  .plan-card--hero { border-radius: 24px; padding: 28px 28px 32px; box-shadow: 0 1px 2px rgba(12,30,51,.04), 0 12px 32px rgba(12,30,51,.06); transform: rotate(-1.2deg); border-top: 8px solid #F3B258; }
-  .plan-card--hero .check { border: 2px solid #63A895; }
-  .plan-card--hero .is-done .check { border-color: #63A895; }
-  .plan-card__title { font: 700 24px/1.2 var(--font-display); color: #242B35; letter-spacing: -0.01em; margin-bottom: 20px; }
-  .bubble--hero { position: relative; margin: -22px -8px 0 auto; width: min(88%, 360px); border-radius: 22px 22px 6px 22px; padding: 16px 18px 18px; box-shadow: 0 10px 28px rgba(12,30,51,.08); }
-  .bubble--hero .bubble__head { gap: 10px; }
-  .bubble--hero p { margin-top: 10px; }
-
-  /* 2. Problem */
-  .problem { padding-top: clamp(56px, 9vw, 120px); padding-bottom: clamp(96px, 14vw, 180px); }
-  .problem .h-xl { max-width: 16ch; }
-  .burdens { margin-top: clamp(56px, 8vw, 104px); display: flex; flex-direction: column; gap: clamp(18px, 2.4vw, 28px); font: 600 clamp(24px, 3.6vw, 44px)/1.15 var(--font-display); letter-spacing: -0.015em; color: #525C6B; }
-  .burdens li { display: flex; gap: clamp(14px, 2vw, 24px); align-items: center; }
-  .problem__para { margin-top: clamp(40px, 6vw, 72px); max-width: 34ch; font-size: clamp(20px, 2.2vw, 26px); line-height: 1.45; color: #3A4350; text-wrap: pretty; }
-  .problem__left { margin-top: clamp(96px, 14vw, 180px); }
-  .problem__line { margin-top: clamp(24px, 3vw, 36px); font: 600 clamp(22px, 2.6vw, 32px)/1.25 var(--font-display); letter-spacing: -0.01em; color: #6F3F74; }
-
-  /* 3. How */
-  .how { background: #DAF1FD; scroll-margin-top: 60px; }
-  .how__inner { padding-block: clamp(80px, 11vw, 150px); }
-  .label-blue { font: 700 12px/1.2 var(--font-display); letter-spacing: 0.09em; color: #235592; }
-  .timeline { margin-top: clamp(40px, 6vw, 72px); display: flex; flex-direction: column; max-width: 900px; }
-  .step { display: grid; grid-template-columns: 28px minmax(0, 1fr); column-gap: clamp(20px, 3vw, 40px); }
-  .step__rail { display: flex; flex-direction: column; align-items: center; }
-  .marker { width: 22px; height: 22px; border-radius: 50%; background: #90C9B2; border: 3px solid #FFFFFF; box-sizing: border-box; margin-top: clamp(12px, 1.6vw, 20px); flex: none; }
-  .step:nth-child(2) .marker { background: #F3B258; }
-  .marker--final { width: 26px; height: 26px; border: 0; background: #F290BA; margin-top: clamp(10px, 1.6vw, 20px); box-shadow: 0 0 0 6px rgba(242,144,186,.3); }
-  .line { flex: 1; width: 3px; margin-top: 8px; }
-  .line--solid { background: linear-gradient(#90C9B2, #F3B258); }
-  .line--fade { background: linear-gradient(#F3B258, #F290BA); }
-  .line--dashed { background: repeating-linear-gradient(#F290BA 0 6px, transparent 6px 12px); margin-top: 10px; }
-  .step__body { padding-bottom: clamp(48px, 6vw, 80px); }
-  .step__body--last { padding-bottom: 0; }
-  .step h3 { font-size: clamp(34px, 5vw, 60px); line-height: 1.05; letter-spacing: -0.03em; }
-  .step p { margin-top: 18px; max-width: 40ch; font-size: clamp(18px, 1.6vw, 21px); line-height: 1.55; color: #3A4350; text-wrap: pretty; }
-  .step--last h3 { font-size: clamp(40px, 6.4vw, 80px); line-height: 1.02; letter-spacing: -0.035em; }
-  .step--last > .step__body > p { max-width: 42ch; font-size: clamp(19px, 1.8vw, 23px); line-height: 1.5; color: #242B35; }
-  .checkins { margin-top: clamp(32px, 4vw, 48px); display: flex; flex-direction: column; gap: 20px; max-width: 520px; }
-  .checkin { display: flex; flex-direction: column; gap: 8px; }
-  .checkin__day { font: 600 13px/1.2 var(--font-body); color: #525C6B; }
-  .step .bubble p { max-width: none; margin: 8px 0 0; font: 400 17px/1.45 var(--font-body); color: #242B35; }
-  .how__close { margin-top: clamp(96px, 12vw, 160px); }
-
-  /* 4. Experience */
-  .experience { padding-block: clamp(80px, 11vw, 150px); }
-  .exp__title { max-width: 14ch; }
-  .exp__sub { margin-top: 24px; max-width: 36ch; font-size: clamp(19px, 1.8vw, 22px); line-height: 1.5; color: #3A4350; text-wrap: pretty; }
-  .exp__grid { margin-top: clamp(56px, 8vw, 96px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: clamp(40px, 6vw, 96px); align-items: start; }
-  .thread { display: flex; flex-direction: column; gap: 10px; font: 600 15px/1.3 var(--font-display); color: #242B35; max-width: 300px; }
-  .thread > span { display: flex; align-items: center; gap: 10px; }
-  .thread > span::before { content: ""; width: 10px; height: 10px; border-radius: 50%; flex: none; }
-  .thread > span:nth-of-type(1)::before { background: #7AD1EF; }
-  .thread > span:nth-of-type(2)::before { background: #90C9B2; }
-  .thread > span:nth-of-type(3)::before { background: #F3B258; }
-  .thread > span:nth-of-type(4)::before { background: #F68B65; }
-  .thread > span:nth-of-type(5)::before { background: #AC72B0; }
-  .thread .eyebrow { margin-bottom: 6px; }
-  .thread__on { color: #242B35; }
-  .convo { display: flex; flex-direction: column; gap: 16px; max-width: 560px; width: 100%; grid-column: span 2 / auto; }
-  .plan-card--convo { margin: 14px 0; border-radius: 20px; padding: 20px 22px 22px; box-shadow: 0 1px 2px rgba(12,30,51,.04), 0 8px 24px rgba(12,30,51,.05); border-top: 8px solid #90C9B2; }
-  .plan-card--convo .check { border: 2px solid #AC72B0; }
-  .plan-card--convo .is-done .check { border-color: #63A895; }
-  .divider { display: flex; align-items: center; gap: 14px; font: 600 13px/1.2 var(--font-body); color: #5F6B7D; }
-  .divider span:first-child, .divider span:last-child { flex: 1; height: 1px; background: #E4DDD2; }
-  .examples { margin-top: clamp(88px, 12vw, 150px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: clamp(48px, 6vw, 80px); }
-  .example { border-top: 1px solid #E4DDD2; padding-top: 28px; display: flex; flex-direction: column; gap: 14px; }
-  .example--pink { border-top: 6px solid #F290BA; }
-  .example--pink .eyebrow { color: #B2497B; }
-  .example--pink .check { border: 2px solid #D8639A; }
-  .example--lav { border-top: 6px solid #AC72B0; }
-  .example--lav .eyebrow { color: #6F3F74; }
-  .example--lav .check { border: 2px solid #AC72B0; }
-  .example__row { display: flex; gap: 10px; align-items: center; font: 400 16px/1.35 var(--font-body); color: #242B35; margin-top: 6px; }
-  .example__row .check { width: 18px; height: 18px; }
-
-  /* 5. Founder */
-  .founder { background: #F2E9F3; scroll-margin-top: 60px; }
-  .founder__grid { padding-block: clamp(80px, 11vw, 150px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: clamp(36px, 5vw, 72px); align-items: start; }
-  .founder__photo-wrap { position: relative; width: min(100%, 240px); margin: 0 16px 16px 0; }
-  .founder__photo-wrap::before { content: ""; position: absolute; inset: 0; transform: translate(16px, 16px); background: #F3B258; border-radius: 20px; }
-  .founder__photo { position: relative; width: 100%; height: 300px; border-radius: 20px; object-fit: cover; display: block; }
-  .founder__text { grid-column: span 2 / auto; max-width: 640px; display: flex; flex-direction: column; }
-  .founder h2 { font-size: clamp(34px, 5vw, 60px); line-height: 1.06; letter-spacing: -0.03em; }
-  .founder blockquote { margin: 32px 0 0; display: flex; flex-direction: column; gap: 18px; font-size: clamp(18px, 1.6vw, 20px); line-height: 1.6; color: #3A4350; text-wrap: pretty; }
-  .founder .strong { color: #242B35; font-weight: 600; }
-  .founder__sig { margin-top: 24px; font: 600 16px/1.3 var(--font-display); color: #242B35; }
-  .founder__note { margin-top: 40px; padding-top: 20px; border-top: 1px solid #DFCCE2; font-size: 15px; line-height: 1.5; color: #3A4350; }
-
-  /* 6. Try */
-  .try { background: #FDF1DE; scroll-margin-top: 60px; }
-  .try__inner { padding-block: clamp(80px, 11vw, 150px); }
-  .try__body { margin-top: 32px; max-width: 40rem; display: flex; flex-direction: column; gap: 16px; font-size: clamp(18px, 1.7vw, 21px); line-height: 1.55; color: #3A4350; text-wrap: pretty; }
-  .try__intro { margin-top: 40px; display: flex; }
-  .card { margin-top: clamp(56px, 7vw, 88px); max-width: 720px; background: #FFFFFF; border-radius: 28px; padding: clamp(24px, 4vw, 48px); display: flex; flex-direction: column; gap: 28px; box-shadow: 0 12px 40px rgba(12,30,51,.06); scroll-margin-top: 90px; border-top: 10px solid #AC72B0; }
-  .card[hidden], .try__intro[hidden] { display: none; }
-  .card--thanks { display: block; box-shadow: none; border-top-color: #90C9B2; }
-  .card__q { font: 700 clamp(28px, 4vw, 44px)/1.1 var(--font-display); letter-spacing: -0.025em; color: #242B35; }
-  .card__q { margin: 0; }
-  .roles { margin: 0; padding: 0; border: 0; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
-  .roles legend { padding: 0; margin-bottom: 8px; font: 600 15px/1.3 var(--font-display); color: #242B35; }
-  .roles__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); gap: 4px 16px; }
-  .roles #role-other-wrap { margin-top: 8px; }
-  .options { display: flex; flex-direction: column; gap: 16px; padding-top: 24px; border-top: 1px solid #E4DDD2; }
-  .help { display: flex; flex-direction: column; gap: 10px; padding-left: 36px; }
-  .help label { font: 600 15px/1.3 var(--font-display); color: #242B35; }
-  .card [hidden] { display: none; }
-  .opt { position: relative; display: flex; align-items: flex-start; gap: 12px; min-height: 44px; padding-top: 2px; cursor: pointer; }
-  .opt input { position: absolute; opacity: 0; width: 22px; height: 22px; margin: 0; }
-  .opt__ctl { flex: none; position: relative; width: 22px; height: 22px; background: #FFFFFF; border: 1.5px solid #C3CAD6; transition: border-color var(--duration-fast) var(--ease-standard), background-color var(--duration-fast) var(--ease-standard); }
-  .opt__ctl--radio { border-radius: 50%; }
-  .opt__ctl--box { border-radius: 6px; }
-  .opt__ctl--radio::after { content: ""; position: absolute; inset: 0; margin: auto; width: 11px; height: 11px; border-radius: 50%; background: #235592; transform: scale(0); transition: transform 140ms var(--ease-soft-spring); }
-  .opt input:checked + .opt__ctl--radio { border-color: #235592; }
-  .opt input:checked + .opt__ctl--radio::after { transform: scale(1); }
-  .opt input:checked + .opt__ctl--box { background: #235592; border-color: #235592; }
-  .opt__ctl--box::after { content: ""; position: absolute; left: 5px; top: 5px; width: 10px; height: 5px; border-left: 2.5px solid #FFFFFF; border-bottom: 2.5px solid #FFFFFF; transform: rotate(-45deg) scale(0); transition: transform 140ms var(--ease-soft-spring); }
-  .opt input:checked + .opt__ctl--box::after { transform: rotate(-45deg) scale(1); }
-  .opt input:focus-visible + .opt__ctl { box-shadow: var(--shadow-focus); }
-  .opt__text { font: 400 16px/1.4 var(--font-body); color: #3A4350; padding-top: 1px; }
-  @media (prefers-reduced-motion: reduce) { .opt__ctl, .opt__ctl::after { transition: none; } }
-  .card .field { font: 400 16px var(--font-body); border: 1.5px solid #C3CAD6; border-radius: 14px; }
-  .card input.field { height: 44px; padding: 0 16px; }
-  .card textarea.field { padding: 12px 16px; }
-  .card .field.is-invalid { border-color: #E06B42; }
-  .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 20px; }
-  .fld { display: flex; flex-direction: column; gap: 8px; }
-  .fld label { font: 600 14px/1.3 var(--font-body); color: #242B35; }
-  .fld__hint { font-size: 13px; line-height: 1.4; color: #5F6B7D; }
-  .fld__error, .form-error { font-size: 13px; line-height: 1.4; color: #BC5230; }
-  .form-error { font-size: 15px; }
-  .consent { font-size: 14px; line-height: 1.5; color: #525C6B; }
-  .consent a { color: #525C6B; text-decoration: underline; }
-  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
-  .card--thanks h3 { font-size: clamp(28px, 4vw, 44px); line-height: 1.1; letter-spacing: -0.025em; outline: none; }
-  .thanks__lead { margin-top: 20px; font-size: 18px; line-height: 1.55; color: #3A4350; }
+<style is:global>
+  /* Home-only styles from the reference <head> (trust cards, quote band, testimonials). */
+    .t-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:clamp(32px,4vw,48px)}
+    .t-card{background:#FFFFFF;border:1px solid #ECE6DC;border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:10px;transition:transform 200ms cubic-bezier(0.16,1,0.3,1),box-shadow 200ms}
+    .t-card:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(20,50,90,.08)}
+    .t-ic{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:4px}
+    .t-h{margin:0;font:700 20px/1.25 var(--font-display);color:#14325A}
+    .t-p{margin:0;font:400 16px/1.55 var(--font-body);color:#3B4656;text-wrap:pretty}
+    .t-flag{align-self:flex-start;margin-top:4px;font:600 12px/1.3 var(--font-body);color:#6B5400;background:#FFF3B0;border-radius:6px;padding:3px 7px}
+    @media (max-width:760px){.t-grid{grid-template-columns:1fr}.t-card{padding:20px}}
+    .q-band{background:#14325A;padding:clamp(64px,9vw,120px) clamp(16px,4vw,40px)}
+    .q-band-in{max-width:980px;margin:0 auto;text-align:center}
+    .q-band-s{margin:0;font:800 clamp(34px,5vw,64px)/1.08 var(--font-display);letter-spacing:-.035em;color:#FFFFFF;text-wrap:balance}
+    .q-band-src{margin:18px 0 0;font:500 13px/1.4 var(--font-body);color:#A9BCD6}
+    .q-statband{position:relative;display:flex;justify-content:center}
+    .q-statband .i-thread{z-index:0}
+    .q-statband:hover .i-t1,.q-statband.k-awake .i-t1{stroke:#E2169E}
+    .q-statband:hover .i-t2,.q-statband.k-awake .i-t2{stroke:#3ABAE8;transition-delay:80ms}
+    .q-statband:hover .i-t3,.q-statband.k-awake .i-t3{stroke:#D6E626;transition-delay:160ms}
+    .q-stat{position:relative;z-index:1;text-align:center;background:#FBF8F4;padding:28px 40px;border-radius:28px;max-width:420px;box-sizing:border-box}
+    .q-stat b{display:block;white-space:nowrap;font:800 clamp(56px,7vw,96px)/1 var(--font-display);letter-spacing:-.045em;color:#14325A}
+    .q-stat span{display:block;margin-top:12px;font:500 clamp(17px,1.4vw,19px)/1.45 var(--font-body);color:#3B4656;text-wrap:balance}
+    .q-sub{margin:18px auto 0;max-width:36rem;font:400 clamp(17px,1.4vw,19px)/1.6 var(--font-body);color:#3B4656}
+    .q-grid{margin-top:clamp(36px,4.5vw,56px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2vw,24px)}
+    .q-card{margin:0;background:#FFFFFF;border-radius:24px;padding:clamp(22px,2.4vw,30px);display:flex;flex-direction:column;box-shadow:0 1px 3px rgba(20,50,90,.06),0 14px 32px rgba(20,50,90,.08);border-top:5px solid var(--qc)}
+    .q-mark{font:800 64px/.8 var(--font-display);color:var(--qc);height:34px}
+    .q-h{margin:14px 0 12px;font:800 clamp(21px,1.9vw,26px)/1.15 var(--font-display);letter-spacing:-.02em;color:#14325A;text-wrap:balance}
+    .q-b{margin:0 0 22px;font:400 clamp(16px,1.3vw,17px)/1.6 var(--font-body);color:#3B4656;text-wrap:pretty;flex:1}
+    .q-cap{padding-top:16px;border-top:1px solid #ECE6DC;font:700 12px/1.4 var(--font-display);letter-spacing:.12em;text-transform:uppercase;color:#69727F}
+    .q-cond{display:block;margin-top:6px;font:500 14px/1.45 var(--font-body);letter-spacing:0;text-transform:none;color:#69727F}
+    .q-cap .pv-c{background:#FFF3B0;color:#6B5400;border-radius:6px;padding:1px 6px;letter-spacing:.04em}
+    @media (max-width:860px){.q-grid{grid-template-columns:1fr;max-width:560px;margin-left:auto;margin-right:auto}}
+    @media (max-width:640px){.q-statband .i-thread{display:block;left:-16px;right:-16px;width:calc(100% + 32px)}.q-stat{padding:24px 20px}}
+  /* Initial "How it works" state; home.js updates these on scroll. */
+  :root{--cur0:#7AD1EF;--curfg0:#14325A;--so0:1;--sy0:0px;--cur1:#F4F8D2;--curfg1:#6E7A0C;--so1:0;--sy1:14px;--cur2:#FCE6F0;--curfg2:#A93E72;--so2:0;--sy2:14px;--cur3:#E4EDF8;--curfg3:#235592;--so3:0;--sy3:14px;--activeTint:#E2F5FC}
 </style>
 
 <script>
-  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  const form = document.getElementById("intake") as HTMLFormElement;
-  const intro = document.getElementById("try-intro") as HTMLElement;
-  const thanks = document.getElementById("thanks") as HTMLElement;
-  const thanksTitle = document.getElementById("thanks-title") as HTMLElement;
-  const helpEl = document.getElementById("help") as HTMLTextAreaElement;
-  const helpWrap = document.getElementById("help-wrap") as HTMLElement;
-  const nameEl = document.getElementById("name") as HTMLInputElement;
-  const emailEl = document.getElementById("email") as HTMLInputElement;
-  const nameErr = document.getElementById("name-error") as HTMLElement;
-  const emailErr = document.getElementById("email-error") as HTMLElement;
-  const roleErr = document.getElementById("role-error") as HTMLElement;
-  const roleEls = Array.from(form.querySelectorAll<HTMLInputElement>('input[name="role"]'));
-  const roleOtherWrap = document.getElementById("role-other-wrap") as HTMLElement;
-  const roleOtherEl = document.getElementById("role-other") as HTMLInputElement;
-  const betaWrap = document.getElementById("beta-wrap") as HTMLElement;
-  const betaEl = document.getElementById("beta") as HTMLInputElement;
-  const updatesEl = document.getElementById("updates") as HTMLInputElement;
-  const thanksText = document.getElementById("thanks-text") as HTMLElement;
-  const formErr = document.getElementById("form-error") as HTMLElement;
-  const submitBtn = document.getElementById("submit-btn") as HTMLButtonElement;
-
-  let submitted = false;
-
-  // Analytics events for Google Tag Manager. Names and button locations only;
-  // never include anything the visitor typed.
-  function track(event: string, params: Record<string, string> = {}) {
-    const w = window as unknown as { dataLayer?: unknown[] };
-    (w.dataLayer = w.dataLayer || []).push({ event, ...params });
-  }
-
-  function scrollToId(id: string) {
-    setTimeout(() => {
-      const el = document.getElementById(id);
-      if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 90, behavior: reduceMotion ? "auto" : "smooth" });
-    }, 40);
-  }
-
-  function openForm() {
-    if (submitted) return scrollToId("thanks");
-    intro.hidden = true;
-    form.hidden = false;
-    scrollToId("intake");
-  }
-
-  document.querySelectorAll<HTMLElement>("[data-try]").forEach((el) =>
-    el.addEventListener("click", (e) => {
-      e.preventDefault();
-      track("try_krue_click", { button_location: el.dataset.try || "unknown" });
-      history.replaceState(null, "", "/#try");
-      openForm();
-    })
-  );
-  if (location.hash === "#try" || location.hash === "#start") openForm();
-
-  // Rotating placeholder
-  const placeholders: string[] = JSON.parse(form.dataset.placeholders || "[]");
-  if (!reduceMotion && placeholders.length > 1) {
-    let i = 0;
-    setInterval(() => {
-      i = (i + 1) % placeholders.length;
-      helpEl.placeholder = placeholders[i];
-    }, 3200);
-  }
-
-  let started = false;
-  form.addEventListener("input", () => {
-    if (started) return;
-    started = true;
-    track("form_start");
-  });
-
-  // Role-dependent fields
-  const currentRole = () => roleEls.find((r) => r.checked)?.value || "";
-  function syncRole() {
-    const role = currentRole();
-    roleOtherWrap.hidden = role !== "Other";
-    if (role !== "Other") roleOtherEl.value = "";
-    betaWrap.hidden = role !== "Patient";
-    if (role !== "Patient") { betaEl.checked = false; }
-    syncBeta();
-    if (role) { roleErr.hidden = true; }
-  }
-  function syncBeta() {
-    helpWrap.hidden = !betaEl.checked;
-    if (!betaEl.checked) helpEl.value = "";
-  }
-  roleEls.forEach((r) => r.addEventListener("change", syncRole));
-  betaEl.addEventListener("change", syncBeta);
-
-  // Validation
-  function setInvalid(el: HTMLElement, err: HTMLElement, bad: boolean) {
-    el.classList.toggle("is-invalid", bad);
-    el.setAttribute("aria-invalid", String(bad));
-    err.hidden = !bad;
-    return !bad;
-  }
-  const validateName = () => setInvalid(nameEl, nameErr, !nameEl.value.trim());
-  const validateEmail = () => setInvalid(emailEl, emailErr, !EMAIL_RE.test(emailEl.value.trim()));
-  nameEl.addEventListener("blur", validateName);
-  nameEl.addEventListener("input", () => { if (!nameErr.hidden) validateName(); });
-  emailEl.addEventListener("blur", validateEmail);
-  emailEl.addEventListener("input", () => { if (!emailErr.hidden) validateEmail(); });
-
-  // Sends the sign-up to the Google Sheet script. Never log help.
-  async function sendWaitlist(payload: Record<string, string | boolean>): Promise<boolean> {
-    const url = import.meta.env.PUBLIC_INTAKE_URL;
-    if (!url) {
-      console.warn("PUBLIC_INTAKE_URL is not set; sign-up was not sent.");
-      return false;
-    }
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body: JSON.stringify(payload),
-    });
-    const json = await res.json();
-    return json?.ok === true;
-  }
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    formErr.hidden = true;
-    const nameOk = validateName();
-    const emailOk = validateEmail();
-    const role = currentRole();
-    roleErr.hidden = !!role;
-    if (!nameOk) { nameEl.focus(); return; }
-    if (!emailOk) { emailEl.focus(); return; }
-    if (!role) { roleEls[0].focus(); return; }
-    const data = new FormData(form);
-    const beta = role === "Patient" && betaEl.checked;
-    const payload = {
-      submittedAt: new Date().toISOString(),
-      form: "waitlist",
-      name: nameEl.value.trim(),
-      email: emailEl.value.trim(),
-      role,
-      roleOther: role === "Other" ? roleOtherEl.value.trim() : "",
-      beta,
-      help: beta ? helpEl.value : "",
-      updates: updatesEl.checked,
-      source: "homepage-waitlist",
-      website: String(data.get("website") || ""),
-    };
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Sending…";
-    let ok = false;
-    try { ok = await sendWaitlist(payload); } catch { ok = false; }
-    if (!ok) {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Join the waitlist →";
-      formErr.hidden = false;
-      track("form_submit_error");
-      return;
-    }
-    submitted = true;
-    track("form_submit_success");
-    thanksTitle.textContent = `Thanks, ${payload.name}. You’re on the waitlist.`;
-    thanksText.textContent = beta
-      ? "We’ll be in touch by email about the beta."
-      : "We’ll be in touch by email with product and company updates.";
-    form.hidden = true;
-    thanks.hidden = false;
-    scrollToId("thanks");
-    thanksTitle.focus({ preventScroll: true });
-  });
-
-  // Scroll reveal: hidden state is applied only from JS so no-JS/crawlers see everything.
-  if (!reduceMotion && "IntersectionObserver" in window) {
-    const io = new IntersectionObserver((entries) => entries.forEach((en) => {
-      if (!en.isIntersecting) return;
-      const t = en.target as HTMLElement;
-      t.style.opacity = "1";
-      t.style.transform = "none";
-      io.unobserve(t);
-    }), { rootMargin: "0px 0px -10% 0px" });
-    document.querySelectorAll<HTMLElement>("[data-reveal]").forEach((el) => {
-      if (el.getBoundingClientRect().top < innerHeight * 0.9) return;
-      el.style.opacity = "0";
-      el.style.transform = "translateY(16px)";
-      el.style.transition = "opacity 700ms cubic-bezier(.2,.7,.2,1), transform 700ms cubic-bezier(.2,.7,.2,1)";
-      io.observe(el);
-    });
-  }
+  import "../scripts/home.js";
 </script>

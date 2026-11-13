@@ -1,0 +1,9 @@
+---
+// Category-colored "thread" cover art used when a post has no cover image.
+interface Props {
+  line: string;
+}
+const { line } = Astro.props;
+---
+
+<svg viewBox="0 0 400 250" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><path d="M -10 170 C 80 120, 140 210, 220 150 S 340 90, 410 130" fill="none" stroke={line} stroke-width="7" stroke-linecap="round"/><path d="M -10 190 C 90 140, 150 225, 230 170 S 340 115, 410 150" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" opacity=".8"/><path d="M -10 210 C 100 165, 160 240, 240 190 S 345 140, 410 172" fill="none" stroke={line} stroke-width="7" stroke-linecap="round" opacity=".55"/></svg>

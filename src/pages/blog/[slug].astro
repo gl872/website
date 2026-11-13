@@ -1,110 +1,110 @@
 ---
-import { getCollection, render } from "astro:content";
+import { render } from "astro:content";
 import Base from "../../layouts/Base.astro";
-import Header from "../../components/Header.astro";
-import Footer from "../../components/Footer.astro";
-import ShareButtons from "../../components/ShareButtons.astro";
+import ClosingStart from "../../components/ClosingStart.astro";
+import PostCard from "../../components/blog/PostCard.astro";
+import ThreadArt from "../../components/blog/ThreadArt.astro";
 import author from "../../data/author.json";
-import ClosingBand from "../../components/ClosingBand.astro";
+import { CATEGORY, fmtDate, getPublishedPosts, readTime, splitHighlight, type Post } from "../../lib/blog";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
-  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+  const posts = await getPublishedPosts();
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post, more: posts.filter((p) => p.id !== post.id).slice(0, 3) },
+  }));
 }
 
-const { post } = Astro.props;
+interface Props {
+  post: Post;
+  more: Post[];
+}
+const { post, more } = Astro.props;
 const { Content } = await render(post);
+const d = post.data;
+const c = CATEGORY[d.type];
+const titleParts = splitHighlight(d.title, d.highlight);
+const minutes = readTime(post.body);
 
-const dateLabel = post.data.date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+// The author card and byline photo come from src/data/author.json (editable in Pages CMS)
+// when the post's author is that person. Other authors get a name-only byline.
+const isHouseAuthor = d.author === author.name;
 
-const siteUrl = Astro.site ?? new URL("https://krue.io");
-const postUrl = new URL(`/blog/${post.id}`, siteUrl).toString();
-const postImage = post.data.cover
-  ? new URL(post.data.cover, siteUrl).toString()
-  : new URL("/og-image.png", siteUrl).toString();
-
+const site = Astro.site ?? new URL("https://krue.io");
+const url = new URL(`/blog/${post.id}`, site).toString();
+const image = new URL(d.cover ?? "/og-image.png", site).toString();
 const articleJsonLd = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  headline: post.data.title,
-  description: post.data.excerpt,
-  datePublished: post.data.date.toISOString(),
-  dateModified: post.data.date.toISOString(),
-  articleSection: post.data.type,
+  headline: d.title,
+  description: d.excerpt,
+  datePublished: d.date.toISOString(),
+  dateModified: d.date.toISOString(),
+  articleSection: d.type,
   inLanguage: "en-US",
-  image: postImage,
-  url: postUrl,
-  mainEntityOfPage: postUrl,
-  author: { "@type": "Person", name: author.name, jobTitle: author.role },
+  image,
+  url,
+  mainEntityOfPage: url,
+  author: { "@type": "Person", name: d.author, ...(isHouseAuthor ? { jobTitle: author.role } : {}) },
   publisher: {
     "@type": "Organization",
     name: "Krue",
-    logo: { "@type": "ImageObject", url: new URL("/assets/logos/krue-wordmark-navy.png", siteUrl).toString() },
+    logo: { "@type": "ImageObject", url: new URL("/assets/logos/krue-wordmark-navy.png", site).toString() },
   },
 };
 ---
 
-<Base title={`${post.data.title} · Krue`} description={post.data.excerpt} path={`/blog/${post.id}`} ogType="article">
+<Base title={`${d.title} · Krue`} description={d.excerpt} path={`/blog/${post.id}`} ogType="article" ogImage={d.cover}>
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
 
-  <div class="page">
-    <Header />
-    <main>
-      <article class="post">
-        <a href="/blog" class="post__back">&larr; All posts</a>
-        <div class="post__head">
-          <span class="post__tag">{post.data.type}</span>
-          <h1>{post.data.title}</h1>
+  <main>
+    <section class="p-wrap" style="padding-top:clamp(40px,6vw,80px)">
+      <a class="p-back" href="/blog/">← All posts</a>
+      <p class="b-tag" style={`margin:28px 0 14px;color:${c.label}`}>{d.type}</p>
+      <h1 style="margin:0;font:800 clamp(38px,5.6vw,64px)/1.04 var(--font-display);letter-spacing:-0.04em;color:#14325A;text-wrap:balance">
+        {titleParts ? (
+          <Fragment>{titleParts[0]}<span class="k-hl" style={`--hl:${c.hl}`}>{titleParts[1]}</span>{titleParts[2]}</Fragment>
+        ) : d.title}
+      </h1>
+      <p style="margin:20px 0 0;font:400 clamp(19px,1.7vw,22px)/1.55 var(--font-body);color:#3B4656;text-wrap:pretty">{d.excerpt}</p>
+      <div style="margin-top:24px;display:flex;align-items:center;gap:12px;font:500 14px/1.3 var(--font-body);color:#69727F">
+        {isHouseAuthor && <img src={author.photo} alt="" width="40" height="40" style="width:40px;height:40px;border-radius:50%;object-fit:cover" />}
+        <span><b style="color:#14325A;font-weight:700">{d.author}</b><br /><time datetime={d.date.toISOString().slice(0, 10)}>{fmtDate(d.date)}</time> · {minutes} min read</span>
+      </div>
+    </section>
+
+    <section style="max-width:1000px;margin:clamp(32px,4vw,48px) auto 0;padding:0 clamp(16px,4vw,40px)">
+      <div style="border-radius:28px;overflow:hidden">
+        <div class="b-cover" style={`background:${c.tint};aspect-ratio:2/1`}>
+          {d.cover ? <img src={d.cover} alt={d.coverAlt ?? ""} /> : <ThreadArt line={c.line} />}
         </div>
-        <div class="post__byline">
-          <div class="post__author">
-            <img src={author.photo} alt={author.name} class="post__author-photo" />
-            <div class="post__author-info">
-              <span class="post__author-name">{author.name}</span>
-              <span class="post__author-role">{author.role}</span>
-              <span class="post__author-date">{dateLabel}</span>
-            </div>
-          </div>
-          <ShareButtons title={post.data.title} />
+      </div>
+    </section>
+
+    <article class="p-wrap p-body" style="padding-top:clamp(36px,4vw,56px)">
+      {d.in_short.length > 0 && (
+        <div class="p-short"><b>In short</b><ul>{d.in_short.map((s) => <li>{s}</li>)}</ul></div>
+      )}
+
+      <Content />
+
+      <p class="p-note">This post is for general information and isn't medical advice. Talk with your care team about your own health.</p>
+
+      {isHouseAuthor && (
+        <div class="p-author">
+          <img src={author.photo} alt={author.name} width="64" height="64" />
+          <div><b style="display:block;font:700 16px/1.3 var(--font-display);color:#14325A">{author.name}</b><span style="font:400 14.5px/1.5 var(--font-body);color:#3B4656">{author.bio || author.role}</span></div>
         </div>
-        <div class="post__body">
-          <Content />
-        </div>
-      </article>
-      <ClosingBand />
-    </main>
-    <Footer />
-  </div>
+      )}
+    </article>
+
+    {more.length > 0 && (
+      <section class="b-wrap" style="padding-top:clamp(64px,8vw,110px)">
+        <h2 style="margin:0 0 24px;font:800 clamp(28px,3vw,38px)/1.1 var(--font-display);letter-spacing:-0.03em;color:#14325A">More from the blog</h2>
+        <div class="b-grid">{more.map((p) => <PostCard post={p} />)}</div>
+      </section>
+    )}
+
+    <ClosingStart />
+  </main>
 </Base>
-
-<style>
-  .page { min-height: 100vh; background: var(--surface-cream); color: #3A4350; font-family: var(--font-body); display: flex; flex-direction: column; }
-  main { flex: 1; }
-
-  .post { max-width: 720px; margin: 0 auto; padding: clamp(40px, 5vw, 72px) clamp(20px, 4vw, 40px) clamp(72px, 9vw, 128px); display: flex; flex-direction: column; gap: 28px; }
-  .post__back { align-self: flex-start; min-height: 44px; display: inline-flex; align-items: center; color: #242B35; font: 600 15px var(--font-display); text-decoration: none; }
-  .post__back:hover { color: #B2497B; }
-
-  .post__head { display: flex; flex-direction: column; gap: 18px; }
-  .post__tag { align-self: flex-start; font: 600 14px/1.2 var(--font-body); color: #525C6B; }
-  .post__head h1 { margin: 0; font: 700 clamp(34px, 4.6vw, 52px)/1.08 var(--font-display); letter-spacing: -0.03em; color: #242B35; text-wrap: balance; }
-
-  .post__byline { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px; padding: 18px 0; border-top: 1px solid var(--border-warm); border-bottom: 1px solid var(--border-warm); }
-  .post__author { display: flex; align-items: center; gap: 14px; }
-  .post__author-photo { width: 56px; height: 56px; border-radius: 999px; object-fit: cover; flex: none; background: #DAF1FD; }
-  .post__author-info { display: flex; flex-direction: column; gap: 2px; }
-  .post__author-name { font: 600 16px var(--font-display); color: #242B35; }
-  .post__author-role { font-size: 15px; color: #525C6B; }
-  .post__author-date { font-size: 14px; font-weight: 600; color: #5F6B7D; }
-
-  .post__body { display: flex; flex-direction: column; gap: 22px; font-size: 18px; line-height: 1.7; color: #3A4350; }
-  .post__body :global(h2) { margin: 12px 0 0; font: 700 28px/1.2 var(--font-display); letter-spacing: -0.02em; color: #242B35; }
-  .post__body :global(h3) { margin: 8px 0 0; font: 700 22px/1.25 var(--font-display); color: #242B35; }
-  .post__body :global(p) { margin: 0; }
-  .post__body :global(ul), .post__body :global(ol) { margin: 0; padding-left: 22px; display: flex; flex-direction: column; gap: 8px; }
-  .post__body :global(figure) { margin: 8px 0; display: flex; flex-direction: column; gap: 10px; }
-  .post__body :global(figure img) { width: 100%; border-radius: 20px; display: block; }
-  .post__body :global(figcaption) { font-size: 15px; color: #525C6B; }
-  .post__body :global(a) { color: #242B35; font-weight: 600; }
-  .post__body :global(a:hover) { color: #B2497B; }
-</style>

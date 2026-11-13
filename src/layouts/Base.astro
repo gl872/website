@@ -1,19 +1,26 @@
 ---
-import "../styles/global.css";
+import "../styles/tokens.css";
+import "../styles/site.css";
 import Analytics from "../components/Analytics.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 
 interface Props {
   title: string;
   description: string;
   path?: string;
   ogType?: "website" | "article";
+  /** Absolute or root-relative image for social cards. Defaults to /og-image.png. */
+  ogImage?: string;
   noindex?: boolean;
 }
 
-const { title, description, path = "/", ogType = "website", noindex = false } = Astro.props;
-const canonical = new URL(path, Astro.site ?? "https://krue.io");
-const ogImage = new URL("/og-image.png", Astro.site ?? "https://krue.io");
-const siteUrl = new URL("/", Astro.site ?? "https://krue.io");
+const { title, description, path = "/", ogType = "website", ogImage = "/og-image.png", noindex = false } = Astro.props;
+const site = Astro.site ?? new URL("https://krue.io");
+const canonical = new URL(path, site);
+const ogImageUrl = new URL(ogImage, site);
+const isDefaultOg = ogImage === "/og-image.png";
+const siteUrl = new URL("/", site);
 
 const siteJsonLd = {
   "@context": "https://schema.org",
@@ -50,7 +57,10 @@ const siteJsonLd = {
     )}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700;800&family=Figtree:wght@400;500;600;700&display=swap"
+    />
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
@@ -61,14 +71,14 @@ const siteJsonLd = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Krue · Support for everything between appointments." />
+    <meta property="og:image" content={ogImageUrl} />
+    {isDefaultOg && <meta property="og:image:width" content="1200" />}
+    {isDefaultOg && <meta property="og:image:height" content="630" />}
+    {isDefaultOg && <meta property="og:image:alt" content="Krue · An advocate in your pocket." />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     <script type="application/ld+json" set:html={JSON.stringify(siteJsonLd)} />
     <Analytics placement="head" />
@@ -77,6 +87,13 @@ const siteJsonLd = {
   </head>
   <body>
     <Analytics placement="body" />
-    <slot />
+    <div style="background:#FBF8F4;min-height:100vh;font-family:var(--font-body);color:#14325A;overflow-x:clip">
+      <Header />
+      <slot />
+      <Footer />
+    </div>
+    <script>
+      import "../scripts/site.js";
+    </script>
   </body>
 </html>

@@ -1,154 +1,18 @@
 ---
-const isBlog = Astro.url.pathname.startsWith("/blog");
+// Reference header (Concept A2). On narrow screens the nav wraps and overflow
+// hides links, as in the reference; there is no hamburger menu in the design.
+const path = Astro.url.pathname;
+const isHome = path === "/";
+const isBlog = path.startsWith("/blog");
 ---
 
-<header class="site-header">
-  <div class="stripe stripe--6" aria-hidden="true"></div>
-  <div class="site-header__row container">
-    <a href="/" aria-label="Krue home" class="site-header__logo">
-      <img src="/assets/logos/krue-wordmark-navy.png" alt="Krue" height="24" />
-    </a>
-    <nav aria-label="Main" class="site-header__nav" id="site-nav">
-      <a href="/#how">How it works</a>
-      <a href="/#why">Why Krue</a>
-      <a href="/blog" aria-current={isBlog ? "page" : undefined}>Blog</a>
+<header style="position:sticky;top:0;z-index:20;background:rgba(251,248,244,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)">
+  <div style="max-width:1180px;margin:0 auto;padding-left:clamp(16px,4vw,40px);padding-right:clamp(16px,4vw,40px);box-sizing:border-box;display:flex;align-items:center;gap:16px;padding-top:14px;padding-bottom:14px">
+    <a href={isHome ? "#top" : "/"} aria-label="Krue home" style="display:flex;flex:none"><img src="/assets/logos/krue-wordmark-navy.png" alt="Krue" width="70" height="24" style="display:block;height:24px;width:auto" /></a>
+    <nav aria-label="Main" style="flex:1 1 0;min-width:0;display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;column-gap:28px;height:44px;overflow:hidden;font:600 15px/44px var(--font-display)">
+      <a href={isHome ? "#how" : "/#how"} style="text-decoration:none;white-space:nowrap">How it works</a>
+      <a href="/blog/" aria-current={isBlog ? "page" : undefined} class:list={{ "b-cur": isBlog }} style="text-decoration:none;white-space:nowrap">Blog</a>
     </nav>
-    <a href="/#try" class="btn btn-primary btn-sm" data-try="header">Join the waitlist</a>
-    <button type="button" class="menu-toggle" id="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <a href="#start" style="flex:none;text-decoration:none;background:#E0EE40;color:#14325A;font:700 14px/1 var(--font-display);padding:12px 18px;border-radius:999px;white-space:nowrap">Join the waitlist</a>
   </div>
 </header>
-
-<style>
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    background: rgba(251, 247, 241, 0.82);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-  .site-header__row {
-    padding-block: 12px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .site-header__logo {
-    display: flex;
-    flex: none;
-  }
-  .site-header__logo img {
-    height: 24px;
-    width: auto;
-    max-width: none;
-  }
-  .site-header__nav {
-    flex: 1 1 0;
-    min-width: 0;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    align-items: center;
-    column-gap: 24px;
-    row-gap: 40px;
-    height: 44px;
-    overflow: hidden;
-    font: 600 15px/44px var(--font-display);
-  }
-  .site-header__nav a {
-    color: #242B35;
-    text-decoration: none;
-    white-space: nowrap;
-  }
-  .site-header__nav a:hover {
-    color: #B2497B;
-  }
-  .site-header__nav a[aria-current="page"] {
-    text-decoration: underline;
-    text-decoration-color: #F68B65;
-    text-decoration-thickness: 2px;
-    text-underline-offset: 6px;
-  }
-  .site-header .btn {
-    flex: none;
-    color: #FFFFFF;
-  }
-
-  .menu-toggle { display: none; }
-
-  /* Narrow screens: nav links move into a menu opened by the hamburger button. */
-  @media (max-width: 539px) {
-    .menu-toggle {
-      flex: none;
-      width: 44px;
-      height: 44px;
-      margin-right: -10px;
-      padding: 0;
-      border: 0;
-      border-radius: 999px;
-      background: transparent;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-    }
-    .site-header .btn { margin-left: auto; }
-    .menu-toggle span {
-      width: 20px;
-      height: 2px;
-      border-radius: 2px;
-      background: #242B35;
-      transition: transform 140ms ease, opacity 140ms ease;
-    }
-    .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-    .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    .site-header__nav {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
-      height: auto;
-      overflow: visible;
-      flex-direction: column;
-      align-items: stretch;
-      flex-wrap: nowrap;
-      row-gap: 0;
-      padding: 4px clamp(20px, 4vw, 40px) 16px;
-      background: #FBF7F1;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-warm);
-      font-size: 18px;
-    }
-    .site-header__nav.is-open { display: flex; }
-    .site-header__nav a { display: block; padding: 4px 0; }
-  }
-</style>
-
-<script>
-  const toggle = document.getElementById("menu-toggle");
-  const nav = document.getElementById("site-nav");
-  if (toggle && nav) {
-    const setOpen = (open: boolean) => {
-      nav.classList.toggle("is-open", open);
-      toggle.setAttribute("aria-expanded", String(open));
-      toggle.setAttribute("aria-label", open ? "Close menu" : "Menu");
-    };
-    toggle.addEventListener("click", () => setOpen(!nav.classList.contains("is-open")));
-    nav.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && nav.classList.contains("is-open")) {
-        setOpen(false);
-        toggle.focus();
-      }
-    });
-    window.matchMedia("(min-width: 540px)").addEventListener("change", (m) => { if (m.matches) setOpen(false); });
-  }
-</script>
